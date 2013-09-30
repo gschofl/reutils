@@ -1,0 +1,70 @@
+\name{esummary}
+\alias{esummary}
+\title{esummary}
+\usage{
+  esummary(uid, db = NULL, retstart = 1, retmax = 10000,
+    querykey = NULL, webenv = NULL, version = "2.0")
+}
+\arguments{
+  \item{uid}{(Required) List of UIDs provided either as a
+  character vector, as an \code{esearch} or \code{elink}
+  object, or by reference to a Web Environment and a query
+  key obtained directly from objects returned by previous
+  calls to \code{\link{esearch}}, \code{\link{epost}} or
+  \code{\link{elink}}. If UIDs are provided as a plain
+  character vector, \code{db} must be specified explicitly,
+  and all of the UIDs must be from the database specified
+  by \code{db}.}
+
+  \item{db}{(Required only when \code{id} is a character
+  vector of UIDs) Database from which to retrieve DocSums.}
+
+  \item{retstart}{Numeric index of the first DocSum to be
+  retrieved (default: 1).}
+
+  \item{retmax}{Total number of DocSums from the input set
+  to be retrieved (maximum: 10,000).}
+
+  \item{querykey}{An integer specifying which of the UID
+  lists attached to a user's Web Environment will be used
+  as input to \code{efetch}. (Usually obtained drectely
+  from objects returned by previous \code{\link{esearch}},
+  \code{\link{epost}} or \code{\link{elink}} calls.)}
+
+  \item{webenv}{A character string specifying the Web
+  Environment that contains the UID list. (Usually obtained
+  directely from objects returned by previous
+  \code{\link{esearch}}, \code{\link{epost}} or
+  \code{\link{elink}} calls.)}
+
+  \item{version}{If "2.0" \code{esummary} will retrieve
+  version 2.0 ESummary XML output.}
+}
+\value{
+  An \code{\linkS4class{esummary}} object.
+}
+\description{
+  \code{esummary} performs calls to the NCBI ESummary
+  utility to retrieve document summaries (DocSums) for a
+  list of primary UIDs or for a set of UIDs stored in the
+  user's web environment (using the Entrez History server).
+}
+\details{
+  See the official online documentation for NCBI's
+  \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESummary}{EUtilities}
+  for additional information.
+}
+\examples{
+## Retrieve the Document Summary information for a set of
+## UIDs frome the Gene datanase.
+ds <- esummary(c("828392", "790", "470338"), "gene")
+
+## parse the XML into a data frame
+df <- content(ds, "parsed")
+df
+}
+\seealso{
+  \code{\link{content}}, \code{\link{getUrl}},
+  \code{\link{getError}}, \code{\link{database}.
+}
+

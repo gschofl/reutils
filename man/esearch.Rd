@@ -1,0 +1,108 @@
+\name{esearch}
+\alias{esearch}
+\title{esearch}
+\usage{
+  esearch(term, db = "nuccore", rettype = "uilist",
+    retstart = 0, retmax = 100, usehistory = FALSE,
+    webenv = NULL, querykey = NULL, field = NULL,
+    datetype = NULL, reldate = NULL, mindate = NULL,
+    maxdate = NULL)
+}
+\arguments{
+  \item{term}{A valid Entrez text query.}
+
+  \item{db}{Database to search (default: nuccore).}
+
+  \item{rettype}{Retrieval type. (default: 'uilist',
+  alternative: 'count'.)}
+
+  \item{retstart}{Numeric index of the first UID in the
+  retrieved set to be shown in the XML output (default:
+  0).}
+
+  \item{retmax}{Total number of UIDs to be retrieved
+  (default: 100).}
+
+  \item{usehistory}{If \code{TRUE}, search results are
+  posted directly to the Entrez History Server so that they
+  can be used in subsequent calls to
+  \code{\link{esummary}}, \code{\link{efetch}}, or
+  \code{\link{elink}}. Also, \code{usehistory} must be set
+  to \code{TRUE} for \code{esearch} to interpret query key
+  values included in \code{term} or to accept a
+  \code{webenv} as input.}
+
+  \item{webenv}{Web environment string returned by a
+  previous call to \code{\link{esearch}},
+  \code{\link{epost}} or \code{\link{elink}}. When
+  provided, \code{esearch} will append the results of the
+  search to the pre-existing Web environment. Providing
+  \code{webenv} also allows query keys to be used in
+  \code{term} so that previous search sets can be combined
+  or limited.}
+
+  \item{querykey}{query key returned by a previous call to
+  \code{\link{esearch}}, \code{\link{epost}} or
+  \code{\link{elink}}. When provided, \code{esearch} will
+  find the intersection of the set specified by
+  \code{querykey} and the set retrieved by the query in
+  \code{term} (i.e. joins the two with AND).}
+
+  \item{field}{Optional. Search field used to limit the
+  entire search term.}
+
+  \item{datetype}{Optional. Type of date to limit the
+  search. One of "mdat" (modification date), "pdat"
+  (publication date) or "edat" (Entrez date)}
+
+  \item{reldate}{Optional. Number of days back for which
+  search items are returned.}
+
+  \item{mindate}{Optional. Minimum date of search range.
+  Format YYYY/MM/DD, YYYY/MM, or YYYY.}
+
+  \item{maxdate}{Optional. Maximum date of search range.
+  Format YYYY/MM/DD, YYYY/MM, or YYYY.}
+}
+\value{
+  An \code{\linkS4class{esearch}} object.
+}
+\description{
+  \code{esearch} performs searches using the the NCBI
+  ESearch utility to retrieve primary UIDs matching a text
+  query. These UIDs can be used in subsequent calls to
+  \code{\link{esummary}}, \code{\link{efetch}}, or
+  \code{\link{elink}}.
+}
+\details{
+  See the official online documentation for NCBI's
+  \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESearch}{EUtilities}
+  for additional information.
+}
+\examples{
+## Search PubMed for articles with the term "Chlamydia psittaci" in the
+## title that were published in 2013.
+pmid <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed")
+pmid
+
+## Alternatively post the UIDs to the History Server.
+pmid <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed", usehistory=TRUE)
+pmid
+
+## Associate new search results with the existing search results.
+pmid2 <- esearch("Chlamydia psittaci[titl] and 2012[pdat]", "pubmed",
+                 usehistory=TRUE, webenv=webenv(pmid))
+pmid2
+}
+\seealso{
+  Combine calls to ESearch with other EUtils:
+  \code{\link{esummary}}, \code{\link{efetch}},
+  \code{\link{elink}}.
+
+  Accessor methods: \code{\link{content}},
+  \code{\link{getUrl}}, \code{\link{getError}},
+  \code{\link{database}, \code{\link{[-method}},
+  \code{\link{uid}}, \code{\link{webenv}},
+  \code{\link{querykey}}.
+}
+

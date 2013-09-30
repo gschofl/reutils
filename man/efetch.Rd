@@ -1,0 +1,129 @@
+\name{efetch}
+\alias{efetch}
+\title{efetch}
+\usage{
+  efetch(uid, db = NULL, rettype = NULL, retmode = NULL,
+    retstart = NULL, retmax = NULL, querykey = NULL,
+    webenv = NULL, strand = NULL, seqstart = NULL,
+    seqstop = NULL, complexity = NULL)
+}
+\arguments{
+  \item{uid}{(Required) A list of UIDs provided either as a
+  character vector, as an \code{esearch} object, or by
+  reference to a web environment and a query key obtained
+  directly from previous calls to \code{\link{esearch}} (if
+  \code{usehistory=TRUE}), \code{\link{epost}} or
+  \code{\link{elink}}. If UIDs are provided as a plain
+  character vector, \code{db} must be specified explicitly,
+  and all of the UIDs must be from the database specified
+  by \code{db}.}
+
+  \item{db}{(Required if \code{uid} is a character vector
+  of UIDs) Database from which to retrieve records. See
+  \href{http://www.ncbi.nlm.nih.gov/books/NBK25497/table/chapter2.chapter2_table1/?report=objectonly}{here}
+  for the supported databases.}
+
+  \item{rettype}{A character string specifying the
+  retrieval type, such as 'abstract' or 'medline' for
+  PubMed, 'gp' or 'fasta' for Protein, or 'gb', or 'fasta'
+  for Nuccore. See
+  \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.chapter4_table1/?report=objectonly}{here}
+  for the available values for each database.}
+
+  \item{retmode}{A character string specifying the data
+  mode of the records returned, such as 'text' or 'xml'.
+  See
+  \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.chapter4_table1/?report=objectonly}{here}
+  for the available values for each database.}
+
+  \item{retstart}{Numeric index of the first record to be
+  retrieved.}
+
+  \item{retmax}{Total number of records from the input set
+  to be retrieved.}
+
+  \item{querykey}{An integer specifying which of the UID
+  lists attached to a user's Web Environment will be used
+  as input to \code{efetch}. (Usually obtained drectely
+  from objects returned by a previous call to
+  \code{\link{esearch}}, \code{\link{epost}} or
+  \code{\link{elink}}.)}
+
+  \item{webenv}{A character string specifying the Web
+  Environment that contains the UID list. (Usually obtained
+  directely from objects returned by a previous call to
+  \code{\link{esearch}}, \code{\link{epost}} or
+  \code{\link{elink}}.)}
+
+  \item{strand}{Strand of DNA to retrieve. (1: plus strand,
+  2: minus strand)}
+
+  \item{seqstart}{First sequence base to retrieve.}
+
+  \item{seqstop}{Last sequence base to retrieve.}
+
+  \item{complexity}{Data content to return. (0: entire data
+  structure, 1: bioseq, 2: minimal bioseq-set, 3: minimal
+  nuc-prot, 4: minimal pub-set)}
+}
+\value{
+  An \code{\linkS4class{efetch}} object.
+}
+\description{
+  \code{efetch} performs calls to the NCBI EFetch utility
+  to retrieve data records in the requested format for an
+  NCBI Accession Number, one or more primary UIDs, or for a
+  set of UIDs stored in the user's web environment.
+}
+\details{
+  See the official online documentation for NCBI's
+  \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EFetch}{EUtilities}
+  for additional information.
+
+  See
+  \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.chapter4_table1/?report=objectonly}{here}
+  for the default values for \code{rettype} and
+  r\code{retmode}, as well as a list of the available
+  databases for the EFetch utility.
+}
+\examples{
+## From Protein, retrieve a raw GenPept record and write it to a file.
+p <- efetch("195055", "protein", "gp")
+
+\dontrun{
+write(content(p, "text"), file="~/AAD15290.gp")
+}
+
+## Get accessions for a list of GenBank IDs (GIs)
+acc <- efetch(c("1621261", "89318838", "68536103", "20807972", "730439"), "protein",
+              rettype="acc")
+acc
+acc <- strsplit(content(acc), "\\n")[[1]]
+acc
+
+## Get GIs from a list of accession numbers
+gi <- efetch(c("CAB02640.1", "EAS10332.1", "YP_250808.1", "NP_623143.1", "P41007.1"),
+              "protein", "uilist")
+gi
+
+## we can conveniently extract the UIDs using the eutil method #xmlValue(xpath)
+gi$xmlValue("/IdList/Id")
+
+## or we can extract the contents of the efetch query using the fuction content()
+## and use the XML package to retrieve the UIDs
+doc <- content(gi)
+XML::xpathSApply(doc, "/IdList/Id", XML::xmlValue)
+
+## Get the scientific name for an organism starting with the NCBI taxon id.
+tx <- efetch("527031", "taxonomy")
+tx
+
+## Use an XPath expession to extract the scientific name.
+tx$xmlValue("/TaxaSet/Taxon/ScientificName")
+}
+\seealso{
+  \code{\link{content}}, \code{\link{getUrl}},
+  \code{\link{getError}}, \code{\link{database},
+  \code{\link{retmode}}, \code{\link{rettype}}.
+}
+

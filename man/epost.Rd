@@ -1,0 +1,51 @@
+\name{epost}
+\alias{epost}
+\title{epost}
+\usage{
+  epost(uid, db = NULL, webenv = NULL)
+}
+\arguments{
+  \item{uid}{(Required) List of UIDs provided as a
+  character or as an \code{esearch} object.}
+
+  \item{db}{(Required if \code{uid} is a character vector)
+  Database containing the UIDs in the input list.}
+
+  \item{webenv}{(Optional) Web Environment. If provided,
+  this parameter specifies the Web Environment that will
+  receive the UIDs sent by \code{epost}. \code{epost} will
+  create a new query key associated with that Web
+  Environment. The \code{webenv} value is usually returned
+  by a previous call to \code{\link{esearch}},
+  \code{\link{epost}} or \code{\link{elink}}. If no
+  \code{webenv} parameter is provided, the EPost utility
+  will create a new Web Environment and post the UIDs to
+  query key 1.}
+}
+\value{
+  An \code{\linkS4class{epost}} object.
+}
+\description{
+  \code{epost} uses the Entrez EPost utility to upload
+  primary UIDs to the Entrez History server or append a
+  list of UIDs to an existing set of UIDs attached to a Web
+  Environment.
+}
+\details{
+  \code{epost} returns an integer label called a query key
+  and an encoded cookie string called a Web environment.
+  \code{epost} objects can then be used instead of a UID
+  list in subsequent calls to \code{\link{esummary}},
+  \code{\link{efetch}}, or \code{\link{elink}}.
+
+  See the official online documentation for NCBI's
+  \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EPost}{EUtilities}
+  for additional information.
+}
+\examples{
+## post a list of protein GIs to the Entrez History server
+gi <- c("194680922", "50978626", "28558982", "9507199", "6678417")
+p <- epost(gi, "protein")
+p
+}
+

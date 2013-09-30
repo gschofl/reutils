@@ -1,0 +1,22 @@
+\name{make_flattener}
+\alias{make_flattener}
+\title{Flatten nested lists}
+\usage{
+  make_flattener(flatten.at = 1)
+}
+\arguments{
+  \item{flatten.at}{An \code{integer} specifying the layer
+  after which to start the flattening. \code{1} means to
+  start at the very top.}
+}
+\value{
+  A function that can be used to flatten a nested list
+}
+\description{
+  Generate a function that accepts an arbitrarily deeply
+  nested \code{list}. Use \code{flatten.at} to set the
+  level of nestedness at which the flatterner will start to
+  flatten.
+}
+\keyword{internal}
+

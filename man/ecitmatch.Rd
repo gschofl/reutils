@@ -1,0 +1,35 @@
+\name{ecitmatch}
+\alias{ecitmatch}
+\title{ecitmatch}
+\usage{
+  ecitmatch(bdata, db = "pubmed", retmode = "xml")
+}
+\arguments{
+  \item{bdata}{Citation strings. Each input citation must
+  be represented by a citation string in the following
+  format:
+  \emph{journal_title|year|volume|first_page|author_name|your_key|}}
+
+  \item{db}{Database to search. The only supported value is
+  \sQuote{pubmed}.}
+
+  \item{retmode}{Retrieval mode The only supported value is
+  \sQuote{xml}.}
+}
+\value{
+  An \code{\linkS4class{ecitmatch}} object.
+}
+\description{
+  \code{ecitmatch} serves as an API to the PubMed
+  \href{http://www.ncbi.nlm.nih.gov/pubmed/batchcitmatch}{batch
+  citation matcher}. It retrieves PubMed IDs (PMIDs) that
+  correspond to a set of input citation strings.
+}
+\examples{
+citstrings <- c("proc natl acad sci u s a|1991|88|3248|mann bj|Art1|",
+                "science|1987|235|182|palmenber ac|Art2|")
+x <- ecitmatch(citstrings)
+x
+content(x)
+}
+

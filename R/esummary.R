@@ -1,0 +1,93 @@
+#' @include eutil.R
+#' @include parse-params.R
+NULL
+
+
+#' @export
+.esummary <- setRefClass(
+  Class="esummary",
+  contains="eutil",
+  methods=list(
+    initialize=function(method, ...) {
+      callSuper()
+      perform_query(method=method, ...)
+      if (no_errors()) {
+        errors$check_errors(.self)
+      }
+    },
+    show=function() {
+      cat("Object of class", sQuote(eutil()), "\n")
+      if (no_errors()) {
+        methods::show(get_content("xml"))
+        tail <- sprintf("ESummary query using the database %s.", sQuote(database()))
+        cat(tail, sep="\n")
+      } else {
+        methods::show(get_error())
+      }
+    } 
+  )
+)
+
+#' esummary
+#' 
+#' \code{esummary} performs calls to the NCBI ESummary utility to retrieve document
+#' summaries (DocSums) for a list of primary UIDs or for a set of UIDs stored in the
+#' user's web environment (using the Entrez History server).
+#' 
+#' @details
+#' See the official online documentation for NCBI's
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESummary}{EUtilities}
+#' for additional information.
+#'
+#' @param uid (Required)
+#' List of UIDs provided either as a character vector, as an
+#' \code{esearch} or \code{elink} object, or by reference to a Web
+#' Environment and a query key obtained directly from objects returned
+#' by previous calls to \code{\link{esearch}}, \code{\link{epost}} or
+#' \code{\link{elink}}.
+#' If UIDs are provided as a plain character vector, \code{db} must be
+#' specified explicitly, and all of the UIDs must be from the database
+#' specified by \code{db}.
+#' @param db (Required only when \code{id} is a character vector of UIDs)
+#' Database from which to retrieve DocSums.
+#' @param retstart Numeric index of the first DocSum to be retrieved
+#' (default: 1).
+#' @param retmax Total number of DocSums from the input set to be retrieved
+#' (maximum: 10,000).
+#' @param querykey An integer specifying which of the UID lists attached
+#' to a user's Web Environment will be used as input to \code{efetch}.
+#' (Usually obtained drectely from objects returned by previous
+#' \code{\link{esearch}}, \code{\link{epost}} or \code{\link{elink}} calls.)
+#' @param webenv A character string specifying the Web Environment that
+#' contains the UID list. (Usually obtained directely from objects returned
+#' by previous \code{\link{esearch}}, \code{\link{epost}} or
+#' \code{\link{elink}} calls.)
+#' @param version If "2.0" \code{esummary} will retrieve version 2.0
+#' ESummary XML output.
+#' @return An \code{\linkS4class{esummary}} object.
+#' @seealso
+#' \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}},
+#' \code{\link{database}.
+#' @export
+#' @examples
+#' ## Retrieve the Document Summary information for a set of
+#' ## UIDs frome the Gene datanase.
+#' ds <- esummary(c("828392", "790", "470338"), "gene")
+#' 
+#' ## parse the XML into a data frame
+#' df <- content(ds, "parsed")
+#' df
+esummary <- function(uid, db=NULL, retstart=1, retmax=10000,
+                      querykey=NULL, webenv=NULL, version="2.0") {
+  ## extract query parameters
+  params <- parse_params(uid, db, querykey, webenv)
+  if (retmax > 10000) {
+    stop("Number of DocSums to be downloaded should not exceed 10,000.", call.=FALSE)
+  }
+  .esummary(method=if (length(params$uid) < 100) "GET" else "POST",
+            db=params$db, id=.collapse(params$uid),
+            query_key=params$querykey, WebEnv=params$webenv, 
+            retstart=retstart, retmax=retmax,
+            version=if (version == "2.0") "2.0" else NULL)
+}
+
