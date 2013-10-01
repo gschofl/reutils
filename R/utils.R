@@ -45,6 +45,10 @@ compact <- function (x) {
   x[!vapply(x, is.null, logical(1), USE.NAMES=FALSE)]
 }
 
+compactNA <- function (x) {
+  x[!vapply(x, function(x) all(is.na(x)), logical(1), USE.NAMES=FALSE)]
+}
+
 trim <- function (x, trim = '\\s+') {
   assert_that(is.vector(x))
   gsub(paste0("^", trim, "|", trim, "$"), '', x)

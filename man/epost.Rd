@@ -1,6 +1,6 @@
 \name{epost}
 \alias{epost}
-\title{epost}
+\title{epost - uploading UIDs to Entrez}
 \usage{
   epost(uid, db = NULL, webenv = NULL)
 }

@@ -28,8 +28,7 @@ NULL
   )
 )
 
-#' esummary
-#' 
+
 #' \code{esummary} performs calls to the NCBI ESummary utility to retrieve document
 #' summaries (DocSums) for a list of primary UIDs or for a set of UIDs stored in the
 #' user's web environment (using the Entrez History server).
@@ -39,6 +38,7 @@ NULL
 #' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESummary}{EUtilities}
 #' for additional information.
 #'
+#' @title esummary - downloading Document Summaries
 #' @param uid (Required)
 #' List of UIDs provided either as a character vector, as an
 #' \code{esearch} or \code{elink} object, or by reference to a Web
@@ -67,7 +67,7 @@ NULL
 #' @return An \code{\linkS4class{esummary}} object.
 #' @seealso
 #' \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}},
-#' \code{\link{database}.
+#' \code{\link{database}}.
 #' @export
 #' @examples
 #' ## Retrieve the Document Summary information for a set of

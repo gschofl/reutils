@@ -46,8 +46,7 @@ parse_epost <- function(.obj) {
   }
 }
 
-#' epost
-#'
+
 #' \code{epost} uses the Entrez EPost utility to upload primary UIDs to the Entrez History server
 #' or append a list of UIDs to an existing set of UIDs attached to a Web Environment.
 #'
@@ -60,7 +59,8 @@ parse_epost <- function(.obj) {
 #' See the official online documentation for NCBI's
 #' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EPost}{EUtilities}
 #' for additional information.
-#'
+#' 
+#' @title epost - uploading UIDs to Entrez
 #' @param uid (Required) List of UIDs provided as a character or as an \code{esearch}
 #' object.
 #' @param db (Required if \code{uid} is a character vector) Database containing the

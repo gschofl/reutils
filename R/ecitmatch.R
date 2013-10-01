@@ -39,12 +39,11 @@ setMethod("content", "ecitmatch",
           })
 
 
-#' ecitmatch
-#' 
 #' \code{ecitmatch} serves as an API to the PubMed
 #' \href{http://www.ncbi.nlm.nih.gov/pubmed/batchcitmatch}{batch citation matcher}.
 #' It retrieves PubMed IDs (PMIDs) that correspond to a set of input citation strings.
 #' 
+#' @title ecitmatch - searching PubMed with citation data
 #' @param bdata Citation strings. Each input citation must be represented
 #' by a citation string in the following format:
 #' \emph{journal_title|year|volume|first_page|author_name|your_key|}

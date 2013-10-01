@@ -21,11 +21,11 @@ NULL
   )
 )
 
-#' espell
-#' 
+
 #' For a text query retrieve an XML containing the original query
 #' and spelling suggestions.
 #' 
+#' @title espell - retrieving spelling suggestions
 #' @param term An Entrez text query.
 #' @param db An Entrez database.
 #' @return An \code{\linkS4class{espell}} object.

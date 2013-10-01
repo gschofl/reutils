@@ -40,6 +40,7 @@ NULL
   )
 )
 
+
 parse_einfo <- function(.obj) {
   x <- .obj$get_content("xml")
   if (is.null(.obj$database())) {
@@ -57,6 +58,7 @@ parse_einfo <- function(.obj) {
     )
   }
 }
+
 
 extract_df <- function(x, path) {
   nm <- unique(xname(x, paste0(path, 'child::node()')))        
@@ -80,7 +82,7 @@ extract_df <- function(x, path) {
 #' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EInfo}{EUtilities}
 #' for additional information.
 #' 
-#' @title einfo
+#' @title einfo - getting database statistics and search fields
 #' @param db A valid NCBI database name. If \code{NULL}, a list of all current NCBI
 #' databases is returned.
 #' @return A \code{\linkS4class{einfo}} object.

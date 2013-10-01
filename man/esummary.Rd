@@ -1,6 +1,6 @@
 \name{esummary}
 \alias{esummary}
-\title{esummary}
+\title{esummary - downloading Document Summaries}
 \usage{
   esummary(uid, db = NULL, retstart = 1, retmax = 10000,
     querykey = NULL, webenv = NULL, version = "2.0")
@@ -65,6 +65,6 @@ df
 }
 \seealso{
   \code{\link{content}}, \code{\link{getUrl}},
-  \code{\link{getError}}, \code{\link{database}.
+  \code{\link{getError}}, \code{\link{database}}.
 }
 

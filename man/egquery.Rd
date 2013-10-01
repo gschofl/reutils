@@ -1,6 +1,6 @@
 \name{egquery}
 \alias{egquery}
-\title{egquery}
+\title{egquery - performing a global Entrez search}
 \usage{
   egquery(term)
 }
@@ -12,7 +12,7 @@
 }
 \description{
   \code{egquery} retrieves the number of records in all
-  Entrez databases for a single text query
+  Entrez databases for a single text query.
 }
 \details{
   See the official online documentation for NCBI's
@@ -20,6 +20,8 @@
   for additional information.
 }
 \examples{
-###
+## Determine the number of records for mouse in Entrez.
+e <- egquery("mouse[orgn]")
+e
 }
 

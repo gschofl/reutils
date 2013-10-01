@@ -42,7 +42,7 @@ parse_esearch <- function(.obj) {
       class=c("entrez_uid", "character")
     )
   } else {
-    structure(NA_character_, database=NA_character_, class=c("uid", "character"))
+    structure(NA_character_, database=NA_character_, class=c("entrez_uid", "character"))
   }
 }
 
@@ -92,8 +92,7 @@ print.entrez_uid <- function(x, ...) {
   out    
 }
 
-#' esearch
-#' 
+
 #' \code{esearch} performs searches using the the NCBI ESearch utility to retrieve
 #' primary UIDs matching a text query. These UIDs can be used in subsequent calls
 #' to \code{\link{esummary}}, \code{\link{efetch}}, or \code{\link{elink}}.
@@ -103,6 +102,7 @@ print.entrez_uid <- function(x, ...) {
 #' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESearch}{EUtilities}
 #' for additional information.
 #' 
+#' @title esearch - searching an Entrez database
 #' @param term A valid Entrez text query.
 #' @param db Database to search (default: nuccore).
 #' @param rettype Retrieval type. (default: 'uilist', alternative: 'count'.)
@@ -144,7 +144,7 @@ print.entrez_uid <- function(x, ...) {
 #' @seealso
 #' Accessor methods:
 #' \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}},
-#' \code{\link{database}, \code{\link{[-method}}, \code{\link{uid}},
+#' \code{\link{database}}, \code{\link{[-method}}, \code{\link{uid}},
 #' \code{\link{webenv}}, \code{\link{querykey}}.
 #' @examples
 #' ## Search PubMed for articles with the term "Chlamydia psittaci" in the

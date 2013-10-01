@@ -53,8 +53,6 @@ setMethod("content", "efetch",
           })
 
 
-#' efetch
-#' 
 #' \code{efetch} performs calls to the NCBI EFetch utility to retrieve data records
 #' in the requested format for an NCBI Accession Number, one or more primary UIDs,
 #' or for a set of UIDs stored in the user's web environment.
@@ -69,6 +67,7 @@ setMethod("content", "efetch",
 #' for the default values for \code{rettype} and r\code{retmode}, as well as a list of the available
 #' databases for the  EFetch utility.
 #' 
+#' @title efetch - downloading full records
 #' @param uid (Required) A list of UIDs provided either as a character vector, as an
 #' \code{esearch} object, or by reference to a web environment
 #' and a query key obtained directly from previous calls to \code{\link{esearch}}
@@ -107,7 +106,7 @@ setMethod("content", "efetch",
 #' @export
 #' @seealso
 #' \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}},
-#' \code{\link{database}, \code{\link{retmode}}, \code{\link{rettype}}.
+#' \code{\link{database}}, \code{\link{retmode}}, \code{\link{rettype}}.
 #' @examples
 #' ## From Protein, retrieve a raw GenPept record and write it to a file.
 #' p <- efetch("195055", "protein", "gp")

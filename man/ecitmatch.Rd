@@ -1,6 +1,6 @@
 \name{ecitmatch}
 \alias{ecitmatch}
-\title{ecitmatch}
+\title{ecitmatch - searching PubMed with citation data}
 \usage{
   ecitmatch(bdata, db = "pubmed", retmode = "xml")
 }

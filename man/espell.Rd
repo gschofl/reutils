@@ -1,6 +1,6 @@
 \name{espell}
 \alias{espell}
-\title{espell}
+\title{espell - retrieving spelling suggestions}
 \usage{
   espell(term, db = "nuccore")
 }

@@ -1,6 +1,7 @@
 \docType{methods}
 \name{uid}
 \alias{uid}
+\alias{uid,entrez_linkset,entrez_linkset-method}
 \alias{uid,entrez_uid,entrez_uid-method}
 \alias{uid,esearch,esearch-method}
 \title{uid}

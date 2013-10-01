@@ -1,6 +1,6 @@
 \name{esearch}
 \alias{esearch}
-\title{esearch}
+\title{esearch - searching an Entrez database}
 \usage{
   esearch(term, db = "nuccore", rettype = "uilist",
     retstart = 0, retmax = 100, usehistory = FALSE,
@@ -101,7 +101,7 @@ pmid2
 
   Accessor methods: \code{\link{content}},
   \code{\link{getUrl}}, \code{\link{getError}},
-  \code{\link{database}, \code{\link{[-method}},
+  \code{\link{database}}, \code{\link{[-method}},
   \code{\link{uid}}, \code{\link{webenv}},
   \code{\link{querykey}}.
 }

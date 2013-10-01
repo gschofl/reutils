@@ -237,6 +237,7 @@ parse_content <- function(.object) {
     esearch=parse_esearch(.object),
     epost=parse_epost(.object),
     esummary=parse_esummary(.object),
+    elink=parse_linkset(.object),
     "Not yet implemented"
   )
 }

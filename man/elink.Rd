@@ -1,6 +1,6 @@
 \name{elink}
 \alias{elink}
-\title{elink}
+\title{elink - finding related data through Entrez links}
 \usage{
   elink(uid, dbFrom = NULL, dbTo = NULL, linkname = NULL,
     usehistory = FALSE, cmd = "neighbor",
@@ -99,6 +99,8 @@
   lists the primary LinkOut provider for each input UID.} }
 }
 \examples{
-###
+## Find one set of Gene IDs linked to nuccore GIs 34577062 and 24475906
+e <- elink(c("34577062", "24475906"), dbFrom="nuccore", dbTo="gene")
+e
 }
 

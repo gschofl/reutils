@@ -1,6 +1,6 @@
 \name{einfo}
 \alias{einfo}
-\title{einfo}
+\title{einfo - getting database statistics and search fields}
 \usage{
   einfo(db = NULL)
 }

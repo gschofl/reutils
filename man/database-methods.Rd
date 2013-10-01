@@ -1,6 +1,7 @@
 \docType{methods}
 \name{database}
 \alias{database}
+\alias{database,entrez_linkset,entrez_linkset-method}
 \alias{database,entrez_uid,entrez_uid-method}
 \alias{database,eutil,eutil-method}
 \title{database}

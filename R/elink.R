@@ -17,10 +17,7 @@ NULL
     show=function() {
       cat("Object of class", sQuote(eutil()), "\n")
       if (no_errors()) {
-        methods::show(get_content("xml"))
-        tail <- sprintf("ELink query from database %s to destinaton DB %s.",
-                        sQuote(params$dbFrom), sQuote(database()))
-        cat(tail, sep="\n")
+        methods::show(get_content("parsed"))
       } else {
         methods::show(get_error())
       }
@@ -28,13 +25,63 @@ NULL
   )
 )
 
-#' elink
-#'
+#' @importFrom XML xmlDoc
+#' @importFrom XML free
+parse_linkset <- function(.obj) {
+  x <- .obj$get_content("xml")
+  DbFrom <- xvalue(x, "/eLinkResult/LinkSet/DbFrom")
+  IdList <- xvalue(x, "/eLinkResult/LinkSet/IdList/Id")
+  LinkSetDb <- xset(x, "/eLinkResult/LinkSet/LinkSetDb")
+  if (length(LinkSetDb) < 1L) {
+    return( structure(list(), database=DbFrom, uid=IdList, class=c("entrez_linkset", "list")) )
+  }
+  lset <- lapply(LinkSetDb, function(lsd) {
+    lsd <- xmlDoc(lsd)
+    dbTo <- xvalue(lsd, "/LinkSetDb/DbTo") %|char|% NA_character_
+    linkName <- xvalue(lsd, "/LinkSetDb/LinkName") %|char|% NA_character_
+    id <- xvalue(lsd, "/LinkSetDb/Link/Id")
+    score <- xvalue(lsd, "/LinkSetDb/Link/Score")
+    free(lsd)
+    list(dbTo=dbTo, linkName=linkName, id=id, score=score)
+  })
+  names(lset) <- vapply(lset, `[[`, "linkName", FUN.VALUE="")
+  structure(compactNA(lset), database=DbFrom, uid=IdList, class=c("entrez_linkset", "list"))
+}
+
+
+setOldClass("entrez_linkset")
+
+#' @rdname database-methods
+#' @aliases database,entrez_linkset,entrez_linkset-method
+setMethod("database", "entrez_linkset", function(x, ...) attr(x, "database"))
+
+
+#' @rdname uid-methods
+#' @aliases uid,entrez_linkset,entrez_linkset-method
+setMethod("uid", "entrez_linkset", function(x, ...) attr(x, "uid"))
+
+
+#' @S3method print entrez_linkset
+print.entrez_linkset <- function(x, ...) {
+  db <- database(x)
+  dbTo <- vapply(x, `[[`, 'dbTo', FUN.VALUE="")
+  cat(sprintf("ELink query from database %s to destination database %s.\n",
+              sQuote(db), sQuote(unique(dbTo))))
+  cat("Query UIDs:\n")
+  print(format(uid(x)))
+  cat("Summary of LinkSet:\n")
+  lnames <- vapply(x, `[[`, 'linkName', FUN.VALUE='')
+  llen <- vapply(x, function(elt) length(elt[['id']]), 1L)
+  print(format(data.frame(DbTo=dbTo, LinkName=lnames, LinkCount=llen)))
+}
+
+
 #' \code{elink} generates a list of UIDs in a specified Entrez database that
 #' are linked to a set of input UIDs in either the same or another
 #' database. For instance, the ELink utility can find Entrez gene records
 #' linked to records in Entrez Protein.
 #' 
+#' @title elink - finding related data through Entrez links
 #' @details
 #' See the official online documentation for NCBI's
 #' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ELink}{EUtilities}
@@ -91,7 +138,9 @@ NULL
 #' @return An \code{\linkS4class{elink}} object.
 #' @export
 #' @examples
-#' ###
+#' ## Find one set of Gene IDs linked to nuccore GIs 34577062 and 24475906
+#' e <- elink(c("34577062", "24475906"), dbFrom="nuccore", dbTo="gene")
+#' e
 elink <- function(uid, dbFrom=NULL, dbTo=NULL, linkname=NULL,
                   usehistory=FALSE, cmd="neighbor",
                   correspondence=FALSE, querykey=NULL, webenv=NULL,

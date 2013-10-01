@@ -1,6 +1,6 @@
 \name{efetch}
 \alias{efetch}
-\title{efetch}
+\title{efetch - downloading full records}
 \usage{
   efetch(uid, db = NULL, rettype = NULL, retmode = NULL,
     retstart = NULL, retmax = NULL, querykey = NULL,
@@ -123,7 +123,7 @@ tx$xmlValue("/TaxaSet/Taxon/ScientificName")
 }
 \seealso{
   \code{\link{content}}, \code{\link{getUrl}},
-  \code{\link{getError}}, \code{\link{database},
+  \code{\link{getError}}, \code{\link{database}},
   \code{\link{retmode}}, \code{\link{rettype}}.
 }
 
