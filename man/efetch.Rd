@@ -118,6 +118,10 @@ XML::xpathSApply(doc, "/IdList/Id", XML::xmlValue)
 tx <- efetch("527031", "taxonomy")
 tx
 
+## Convenience accessor for XML nodes of interest using XPath
+## Extract the TaxIds of the Lineage
+tx["//LineageEx/Taxon/TaxId"]
+
 ## Use an XPath expession to extract the scientific name.
 tx$xmlValue("/TaxaSet/Taxon/ScientificName")
 }

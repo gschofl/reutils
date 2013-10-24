@@ -33,7 +33,6 @@ content(x, "parsed")
 }
 \seealso{
   \code{\link{content}}, \code{\link{getUrl}},
-  \code{\link{getError}}, \code{\link{[-method}},
-  \code{\link{[[-method}}.
+  \code{\link{getError}}.
 }
 

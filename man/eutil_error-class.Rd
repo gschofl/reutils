@@ -21,4 +21,5 @@
   \code{\link{eutil_error}}, \code{\linkS4class{eutil}}.
 }
 \keyword{classes}
+\keyword{internal}
 

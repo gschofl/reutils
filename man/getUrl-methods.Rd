@@ -1,8 +1,11 @@
-\docType{methods}
 \name{getUrl}
 \alias{getUrl}
-\alias{getUrl,eutil,eutil-method}
+\alias{getUrl,eutil-method}
+\alias{getUrl-methods}
 \title{getUrl}
+\usage{
+  \S4method{getUrl}{eutil}(x, ...)
+}
 \arguments{
   \item{x}{An \code{\linkS4class{eutil}} object.}
 

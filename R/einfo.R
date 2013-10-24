@@ -87,8 +87,7 @@ extract_df <- function(x, path) {
 #' databases is returned.
 #' @return A \code{\linkS4class{einfo}} object.
 #' @seealso
-#' \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}},
-#' \code{\link{[-method}}, \code{\link{[[-method}}.
+#' \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}}.
 #' @export
 #' @examples
 #' ## Return a list of all current Entrez database names
@@ -104,47 +103,39 @@ einfo <- function(db=NULL) {
   .einfo(method="GET", db=db)
 }
 
-
+#' EInfo accessors
+#' 
 #' Extract parts of a parsed \code{\linkS4class{einfo}} object.
 #' 
-#' @title EInfo accessors
-#' @name [-method 
+#' @usage x[i]
+#' @param x An \code{\linkS4class{einfo}} object.
+#' @param i Indices specifying elements to extract.
+#' @return A list.
+#' 
+#' @seealso  \code{\link[base]{Extract}}
+#' 
+#' @export
 #' @docType methods
-#' @aliases [,einfo,numeric,missing,ANY,einfo-method
+#' @name [.einfo
 #' @rdname einfo-methods
 #' @examples
 #' e <- einfo("pubmed")
 #' e[1:5]
 #' e["Description"]
-setMethod("[", c("einfo", "numeric", "missing", "ANY"), 
-          function(x, i, j, ..., drop=TRUE) {
-            content(x, "parsed")[i]
-          })
-
-#' @name [-method 
-#' @aliases [,einfo,numeric,missing,ANY,einfo-method
-#' @rdname einfo-methods
-setMethod("[", c("einfo", "character", "missing", "ANY"), 
-          function(x, i, j, ..., drop=TRUE) {
-            content(x, "parsed")[i]
-          })
+#' @aliases [,einfo,ANY-method
+setMethod("[", "einfo", function(x, i) {
+  content(x, "parsed")[i]
+})
 
 
-#' @name [[-method
+#' @usage x[[i]]
+#' @export
 #' @docType methods
-#' @aliases [[,einfo,numeric,missing,einfo-method
+#' @name [[.einfo
 #' @rdname einfo-methods
 #' @examples
 #' e[["Links"]]
-setMethod("[[", c("einfo", "numeric", "missing"), 
-          function(x, i, j) {
-            content(x, "parsed")[[i]]
-          })
-
-#' @name [[-method
-#' @aliases [[,einfo,character,missing,einfo-method
-#' @rdname einfo-methods
-setMethod("[[", c("einfo", "character", "missing"),
-          function(x, i, j) {
-            content(x, "parsed")[[i]]
-          })
+#' @aliases [[,einfo,ANY-method
+setMethod("[[", "einfo", function(x, i) {
+  content(x, "parsed")[[i]]
+})

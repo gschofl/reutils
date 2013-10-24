@@ -41,4 +41,5 @@ showClass("eutil")
   \code{\link{espell}}, \code{\link{ecitmatch}}.
 }
 \keyword{classes}
+\keyword{internal}
 

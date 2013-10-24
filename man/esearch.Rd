@@ -101,8 +101,7 @@ pmid2
 
   Accessor methods: \code{\link{content}},
   \code{\link{getUrl}}, \code{\link{getError}},
-  \code{\link{database}}, \code{\link{[-method}},
-  \code{\link{uid}}, \code{\link{webenv}},
-  \code{\link{querykey}}.
+  \code{\link{database}}, \code{\link{uid}},
+  \code{\link{webenv}}, \code{\link{querykey}}.
 }
 

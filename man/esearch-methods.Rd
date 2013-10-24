@@ -1,8 +1,18 @@
-\docType{methods}
-\name{[-method}
-\alias{[,esearch,numeric,missing,ANY,esearch-method}
-\alias{[-method}
-\title{Esearch Accessors}
+\name{[.esearch}
+\alias{[,esearch,numeric-method}
+\alias{[.esearch}
+\title{ESearch Accessors}
+\usage{
+  x[i]
+}
+\arguments{
+  \item{x}{An \code{\linkS4class{einfo}} object.}
+
+  \item{i}{Integer indices.}
+}
+\value{
+  A \code{entrez_uid} object.
+}
 \description{
   Extract UIDs from an \code{\link{esearch}} object.
 }

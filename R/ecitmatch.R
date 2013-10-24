@@ -31,12 +31,11 @@ NULL
 
 
 #' @rdname content-methods
-#' @aliases content,ecitmatch,ecitmatch-method
-setMethod("content", "ecitmatch",
-          function(x, as="text") {
-            as <- match.arg(as, "text")
-            callNextMethod(x=x, as=as)
-          })
+#' @aliases content,ecitmatch-method
+setMethod("content", "ecitmatch", function(x, as="text", ...) {
+  as <- match.arg(as, "text")
+  callNextMethod(x=x, as=as)
+})
 
 
 #' \code{ecitmatch} serves as an API to the PubMed

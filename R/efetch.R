@@ -35,22 +35,21 @@ NULL
 )
 
 #' @rdname content-methods
-#' @aliases content,efetch,efetch-method
-setMethod("content", "efetch",
-          function(x, as=NULL) {
-            as <- as %||% retmode(x)
-            if (as == "asn.1") {
-              as <- "text"
-            }
-            if (as == "parsed") {
-              as <- retmode(x)
-            }
-            if (as == "xml" && retmode(x) != "xml") {
-              stop("This document does not contain XML data", call.=FALSE)
-            }
-            as <- match.arg(as, c("text", "xml"))
-            callNextMethod(x=x, as=as)
-          })
+#' @aliases content,efetch-method
+setMethod("content", "efetch", function(x, as=NULL, ...) {
+  as <- as %||% retmode(x)
+  if (as == "asn.1") {
+    as <- "text"
+  }
+  if (as == "parsed") {
+    as <- retmode(x)
+  }
+  if (as == "xml" && retmode(x) != "xml") {
+    stop("This document does not contain XML data", call.=FALSE)
+  }
+  as <- match.arg(as, c("text", "xml"))
+  callNextMethod(x=x, as=as)
+})
 
 
 #' \code{efetch} performs calls to the NCBI EFetch utility to retrieve data records
@@ -138,6 +137,10 @@ setMethod("content", "efetch",
 #' ## Get the scientific name for an organism starting with the NCBI taxon id.
 #' tx <- efetch("527031", "taxonomy")
 #' tx
+#'  
+#' ## Convenience accessor for XML nodes of interest using XPath
+#' ## Extract the TaxIds of the Lineage
+#' tx["//LineageEx/Taxon/TaxId"]
 #' 
 #' ## Use an XPath expession to extract the scientific name.
 #' tx$xmlValue("/TaxaSet/Taxon/ScientificName")
@@ -176,4 +179,42 @@ efetch <- function(uid, db=NULL, rettype=NULL, retmode=NULL,
 }
 
 
+#' EFetch accessors
+#' 
+#' Extract XML nodes from an \code{\linkS4class{efetch}} object.
+#' 
+#' @usage x[...]
+#' @param x An \code{\linkS4class{efetch}} object containing XML data.
+#' @param ... An XPath expression
+#' @return An XML node set.
+#' 
+#' @export
+#' @docType methods
+#' @name [.efetch
+#' @rdname efetch-methods
+#' @examples
+#' p <- efetch("195055", "protein", "gp", "xml")
+#' p['//GBFeature[GBFeature_key="mat_peptide"]//GBQualifier_value']
+#' @aliases [,efetch,character-method
+setMethod("[", c("efetch", "character"), function(x, i) {
+  if (retmode(x) != "xml") {
+    stop("This document does not contain XML data", call.=FALSE)
+  }
+  x$xmlSet(i)  
+})
+
+
+#' @usage x[[...]]
+#' @export
+#' @docType methods
+#' @name [[.efetch
+#' @rdname efetch-methods
+#' @aliases [[,efetch,character-method
+setMethod("[[", c("efetch", "character"), function(x, i) {
+  ans <- x[i]
+  if (length(ans) > 1) {
+    warning(length(ans), " elements in node set. Returning just the first!")
+  }
+  ans[[1]]
+})
 

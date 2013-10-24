@@ -1,4 +1,5 @@
 #' @include utils.R
+#' @importFrom methods show
 NULL
 
 
@@ -11,7 +12,7 @@ NULL
 #'    \item{\code{#check_errors(.Object, verbose = TRUE)}:}{check a \code{linkS4class{eutil}} object
 #'    for errors}
 #' }
-#' @keywords classes
+#' @keywords classes internal
 #' @export
 eutil_error <- setRefClass(
   Class="eutil_error",
@@ -71,7 +72,7 @@ eutil_error <- setRefClass(
 #' @section Extends: All reference classes extend and inherit methods from
 #'     \code{"\linkS4class{envRefClass}"}.
 #' @seealso \code{\link{eutil_error}}, \code{\linkS4class{eutil}}.
-#' @keywords classes
+#' @keywords classes internal
 #' @examples
 #' ###
 NULL

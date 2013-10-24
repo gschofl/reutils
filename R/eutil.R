@@ -19,7 +19,6 @@ NULL
 #' \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}}, \code{\link{egquery}},
 #' \code{\link{espell}}, and \code{\link{ecitmatch}}.
 #' 
-#' @aliases eutil, einfo, esearch, esummary, efetch, elink, epost, egquery, espell, ecitmatch
 #' @section Public methods:
 #' \describe{
 #'   \item{\code{#xmlValue(xpath, as="character", default=NA_character_)}:}{
@@ -209,7 +208,7 @@ eutil <- setRefClass(
 #' \code{\link{esummary}}, \code{\link{efetch}}, \code{\link{elink}},
 #' \code{\link{epost}}, \code{\link{egquery}}, \code{\link{espell}},
 #' \code{\link{ecitmatch}}.
-#' @keywords classes
+#' @keywords classes internal
 #' @examples
 #' showClass("eutil")
 NULL
@@ -242,7 +241,6 @@ parse_content <- function(.object) {
   )
 }
 
-
 #' Extract the data content from an Entrez request
 #' 
 #' There are three ways to access data returned by an Entrez request: as a character string
@@ -250,18 +248,20 @@ parse_content <- function(.object) {
 #' parsed into some native R object, e.g. a \code{list} or a \code{data.frame}
 #' \code{(as = "parsed")}.
 #' 
-#' @title Extract the data content from an Entrez request
-#' @usage content(x, as = "xml")
 #' @param x An \code{\linkS4class{eutil}} object.
-#' @param as Type of output: \code{\dQuote{xml}}, \code{\dQuote{text}}, or
-#' \code{\dQuote{parsed}}.
+#' @param as Type of output: \code{"xml"}, \code{"text"}, or
+#' \code{"parsed"}.
+#' @param ... Further arguments passed on to methods.
+#' 
 #' @seealso
 #' \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
 #' \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
 #' \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
+#' 
 #' @export
-#' @docType methods
 #' @rdname content-methods
+#' @docType methods
+#'
 #' @examples
 #' e <- einfo()
 #' 
@@ -273,68 +273,79 @@ parse_content <- function(.object) {
 #' 
 #' ## return DbNames parsed into a character vector.
 #' content(e, "parsed")
-setGeneric("content", function(x, ...) standardGeneric("content"))
-
+setGeneric("content", function(x, as = "xml", ...) standardGeneric("content"))
 #' @rdname content-methods
-#' @aliases content,eutil,eutil-method
-setMethod("content", "eutil", function(x, as="xml") {
+#' @aliases content,eutil-method
+setMethod("content", "eutil", function(x, as="xml", ...) {
   x$get_content(as)
 })
 
 
+#' getError
+#' 
 #' Retrieve a http or XML parsing error from an \code{\linkS4class{eutil}} object.
 #' 
-#' @title getError
-#' @usage getError(x, ...)
 #' @param x An \code{\linkS4class{eutil}} object.
 #' @param ... Further arguments passed on to methods.
+#' 
 #' @seealso
 #' \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
 #' \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
 #' \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
+#' 
 #' @export
-#' @docType methods
 #' @rdname getError-methods
+#' @docType methods
+#' 
 #' @examples
 #' e <- efetch("Nonsensical_accession_nr", "protein", rettype="fasta")
 #' getError(e)
 setGeneric("getError", function(x, ...) standardGeneric("getError"))
-
 #' @rdname getError-methods
-#' @aliases getError,eutil,eutil-method
-setMethod("getError", "eutil", function(x) {
+#' @aliases getError,eutil-method
+setMethod("getError", "eutil", function(x, ...) {
   x$get_error()
 })
 
-
+#' getUrl
+#' 
 #' Retrieve the URL used to perform an Entrez E-Utilities query.
 #' 
-#' @title getUrl
-#' @usage getUrl(x, ...)
 #' @param x An \code{\linkS4class{eutil}} object.
 #' @param ... Further arguments passed on to methods.
+#' 
 #' @seealso
 #' \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
 #' \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
 #' \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
+#' 
 #' @export
-#' @docType methods
 #' @rdname getUrl-methods
+#' @docType methods
 #' @examples
 #' e <- efetch("AV333213.1", "protein", rettype="fasta")
 #' getUrl(e)
 setGeneric("getUrl", function(x, ...) standardGeneric("getUrl"))
-
 #' @rdname getUrl-methods
-#' @aliases getUrl,eutil,eutil-method
-setMethod("getUrl", "eutil", function(x) {
+#' @aliases getUrl,eutil-method
+setMethod("getUrl", "eutil", function(x, ...) {
   x$get_url()
 })
 
 
-#' @keywords internal
+#' performQuery
+#' 
+#' @param x An \code{\linkS4class{eutil}} object.
+#' @param method One of \dQuote{GET} or \dQuote{POST}.
+#' @param ... Further arguments passed on to methods.
+#' 
 #' @export
+#' @rdname performQuery-methods
+#' @docType methods
+#' @keywords internal
 setGeneric("performQuery", function(x, method="GET", ...) standardGeneric("performQuery"))
+#' @rdname performQuery-methods
+#' @aliases performQuery,eutil-method
 setMethod("performQuery", "eutil", function(x, method="GET", ...) {
   method <- match.arg(method, c("GET", "POST"))
   x$perform_query(method=method, ...)
@@ -346,24 +357,25 @@ setMethod("performQuery", "eutil", function(x, method="GET", ...) {
 #' 
 #' Target database of an \code{eutil} object.
 #' 
-#' @usage database(x, ...)
 #' @param x An \code{\linkS4class{eutil}} object.
 #' @param ... Further arguments passed on to methods.
+#' 
 #' @seealso
 #' \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
 #' \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
 #' \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
+#' 
 #' @export
-#' @docType methods
 #' @rdname database-methods
+#' @docType methods
+#'
 #' @examples
 #' e <- esearch("Mus musculus", "taxonomy")
 #' database(e)
 setGeneric("database", function(x, ...) standardGeneric("database"))
-
 #' @rdname database-methods
-#' @aliases database,eutil,eutil-method
-setMethod("database", "eutil", function(x) x$database())
+#' @aliases database,eutil-method
+setMethod("database", "eutil", function(x, ...) x$database())
 
 
 #' retmode
@@ -371,24 +383,25 @@ setMethod("database", "eutil", function(x) x$database())
 #' Retrieval mode of an \code{eutil} object. One of \code{xml} \code{text},
 #' \code{asn.1} or \code{NULL} if not supported by an E-Utility.
 #' 
-#' @usage retmode(x, ...)
 #' @param x An \code{\linkS4class{eutil}} object.
 #' @param ... Further arguments passed on to methods.
+#' 
 #' @seealso
 #' \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
 #' \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
 #' \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
+#' 
 #' @export
+#'@rdname retmode-methods
 #' @docType methods
-#' @rdname retmode-methods
+#' 
 #' @examples
 #' e <- efetch("10090", "taxonomy")
 #' retmode(e)
 setGeneric("retmode", function(x, ...) standardGeneric("retmode"))
-
 #' @rdname retmode-methods
-#' @aliases retmode,eutil,eutil-method
-setMethod("retmode", "eutil", function(x) x$retmode())
+#' @aliases retmode,eutil-method
+setMethod("retmode", "eutil", function(x, ...) x$retmode())
 
 #' rettype
 #' 
@@ -396,77 +409,84 @@ setMethod("retmode", "eutil", function(x) x$retmode())
 #' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.chapter4_table1/?report=objectonly}{here}
 #' for the available retrieval types for different NCBI databases.
 #' 
-#' @usage rettype(x, ...)
 #' @param x An \code{\linkS4class{eutil}} object.
 #' @param ... Further arguments passed on to methods.
+#' 
 #' @seealso
 #' \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
 #' \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
 #' \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
+#' 
 #' @export
-#' @docType methods
 #' @rdname rettype-methods
+#' @docType methods
+#' 
 #' @examples
 #' e <- esearch("Mus musculus", "taxonomy")
 #' rettype(e)
 setGeneric("rettype", function(x, ...) standardGeneric("rettype"))
-
 #' @rdname rettype-methods
-#' @aliases rettype,eutil,eutil-method
-setMethod("rettype", "eutil", function(x) x$rettype())
+#' @aliases rettype,eutil-method
+setMethod("rettype", "eutil", function(x, ...) x$rettype())
 
-
+#' uid
+#' 
 #' Retrieve the list of UIDs returned by a call to ESearch or ELink.
 #' 
-#' @title uid
-#' @usage uid(x, ...)
 #' @param x An \code{\linkS4class{eutil}} object.
 #' @param ... Further arguments passed on to methods.
+#' 
 #' @seealso
 #' \code{\link{esearch}}, \code{\link{elink}}.
+#' 
 #' @export
-#' @docType methods
 #' @rdname uid-methods
+#' @docType methods
+#' 
 #' @examples
 #' e <- esearch("Mus musculus", "taxonomy")
 #' uid(e)
 setGeneric("uid", function(x, ...) standardGeneric("uid"))
 
-
+#' webenv
+#' 
 #' The Web environment string returned from an ESearch, EPost or ELink call.
 #' \code{NA} if the History server was not used.
 #' 
-#' @title webenv
-#' @usage webenv(x, ...)
 #' @param x An \code{\linkS4class{eutil}} object.
 #' @param ... Further arguments passed on to methods.
+#' 
 #' @seealso
 #' \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
 #' \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
 #' \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
+#' 
 #' @export
-#' @docType methods
 #' @rdname webenv-methods
+#' @docType methods
+#' 
 #' @examples
 #' e <- esearch("Mus musculus", "taxonomy", usehistory=TRUE)
 #' webenv(e)
 setGeneric("webenv", function(x, ...) standardGeneric("webenv"))
 
-
+#' querykey
+#' 
 #' An integer query key returned by an ESearch, EPost or ELink call if
 #' the History server was used. Otherwise \code{NA}.
 #' 
-#' @title querykey
-#' @usage querykey(x, ...)
 #' @param x An \code{\linkS4class{eutil}} object.
 #' @param ... Further arguments passed on to methods.
+#' 
 #' @seealso
 #' \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
 #' \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
 #' \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
+#' 
 #' @export
-#' @docType methods
 #' @rdname querykey-methods
+#' @docType methods
+#' 
 #' @examples
 #' e <- esearch("Mus musculus", "taxonomy", usehistory=TRUE)
 #' querykey(e)

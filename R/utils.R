@@ -54,6 +54,14 @@ trim <- function (x, trim = '\\s+') {
   gsub(paste0("^", trim, "|", trim, "$"), '', x)
 }
 
+#' Extract the content of XML leaf nodes
+#' 
+#' @param doc An object of class \code{XMLInternalDocument}.
+#' @param path An XPath expression.
+#' @param as Mode of return value.
+#' @param default Default return value.
+#' @param ... Arguments passed to \code{\link[XML]{xpathApply}}.
+#' 
 #' @keywords internal
 #' @export
 xvalue <- function(doc, path, as = 'character', default = NA_character_, ...) {
@@ -61,6 +69,10 @@ xvalue <- function(doc, path, as = 'character', default = NA_character_, ...) {
   set_mode(v, as)
 }
 
+
+#' Extract the tag name of XML nodes
+#' 
+#' @inheritParams xvalue
 #' @keywords internal
 #' @export
 xname <- function(doc, path, as = 'character', default = NA_character_, ...) {
@@ -68,6 +80,10 @@ xname <- function(doc, path, as = 'character', default = NA_character_, ...) {
   set_mode(n, as)
 }
 
+#' Extract the attributes of XML nodes
+#' 
+#' @inheritParams xvalue
+#' @param name Name of the attribute to be extracted.
 #' @keywords internal
 #' @export
 xattr <- function(doc, path, name, as = 'character', default = NA_character_, ...) {
@@ -75,6 +91,12 @@ xattr <- function(doc, path, name, as = 'character', default = NA_character_, ..
   set_mode(a, as)
 }
 
+#' Extract a node set from an XML document
+#' 
+#' @param doc An object of class \code{XMLInternalDocument}.
+#' @param path An XPath expression.
+#' @param ... Arguments passed to \code{\link[XML]{xpathApply}}.
+#' 
 #' @keywords internal
 #' @export
 xset <- function(doc, path, ...) {
@@ -157,7 +179,11 @@ make_flattener <- function(flatten.at = 1) {
 
 flatten2 <- make_flattener(flatten.at=2)
 
-
+#' Set the NCBI rettype
+#' 
+#' @param db A valid NCBI database
+#' @param rettype Optional.
+#' @param retmode Optional.
 #' @keywords internal
 #' @export
 ncbi_retrieval_type <- function(db, rettype=NULL, retmode=NULL) {

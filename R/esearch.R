@@ -50,22 +50,22 @@ parse_esearch <- function(.obj) {
 setOldClass("entrez_uid")
 
 #' @rdname database-methods
-#' @aliases database,entrez_uid,entrez_uid-method
+#' @aliases database,entrez_uid-method
 setMethod("database", "entrez_uid", function(x, ...) attr(x, "database"))
 
 #' @rdname uid-methods
-#' @aliases uid,entrez_uid,entrez_uid-method
+#' @aliases uid,entrez_uid-method
 setMethod("uid", "entrez_uid", function(x, ...) {
   attributes(x) <- NULL
   x
 })
 
 #' @rdname webenv-methods
-#' @aliases webenv,entrez_uid,entrez_uid-method
+#' @aliases webenv,entrez_uid-method
 setMethod("webenv", "entrez_uid", function(x, ...) attr(x, "webenv"))
 
 #' @rdname querykey-methods
-#' @aliases querykey,entrez_uid,entrez_uid-method
+#' @aliases querykey,entrez_uid-method
 setMethod("querykey", "entrez_uid", function(x, ...) attr(x, "querykey"))
 
 
@@ -144,7 +144,7 @@ print.entrez_uid <- function(x, ...) {
 #' @seealso
 #' Accessor methods:
 #' \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}},
-#' \code{\link{database}}, \code{\link{[-method}}, \code{\link{uid}},
+#' \code{\link{database}}, \code{\link{uid}},
 #' \code{\link{webenv}}, \code{\link{querykey}}.
 #' @examples
 #' ## Search PubMed for articles with the term "Chlamydia psittaci" in the
@@ -183,36 +183,44 @@ esearch <- function(term, db="nuccore", rettype="uilist",
            mindate=mindate, maxdate=maxdate)
 }
 
-#' Esearch Accessors
+#' ESearch Accessors
 #' 
 #' Extract UIDs from an \code{\link{esearch}} object.
 #'
-#' @name [-method
+#' @usage x[i]
+#' @param x An \code{\linkS4class{einfo}} object.
+#' @param i Integer indices.
+#' @return A \code{entrez_uid} object.
+#' 
+#' @export
 #' @docType methods
-#' @aliases [,esearch,numeric,missing,ANY,esearch-method
+#' @name [.esearch
 #' @rdname esearch-methods
 #' @examples
 #' e <- esearch("Mus musculus", "protein", retmax=20)
 #' e[1:5]
 #' ## pass the subset directly on to esummary or efetch
 #' content(esummary(e[1:5]), "parsed")
-setMethod("[", c("esearch", "numeric", "missing", "ANY"), 
-          function(x, i, j, ..., drop=TRUE) {
-            res <- content(x, "parsed")
-            out <- res[i]
-            attributes(out) <- attributes(res)  
-            out    
-          })
+#' @aliases [,esearch,numeric-method
+setMethod("[", c("esearch", "numeric"), function(x, i) {
+  res <- content(x, "parsed")
+  out <- res[i]
+  attributes(out) <- attributes(res)  
+  out    
+})
+
 
 #' @rdname uid-methods
-#' @aliases uid,esearch,esearch-method
+#' @aliases uid,esearch-method
 setMethod("uid", "esearch", function(x, ...) uid(x$get_content("parsed")))
 
+
 #' @rdname webenv-methods
-#' @aliases webenv,esearch,esearch-method
+#' @aliases webenv,esearch-method
 setMethod("webenv", "esearch", function(x, ...) webenv(x$get_content("parsed")))
 
+
 #' @rdname querykey-methods
-#' @aliases querykey,esearch,esearch-method
+#' @aliases querykey,esearch-method
 setMethod("querykey", "esearch", function(x, ...) querykey(x$get_content("parsed")))
 

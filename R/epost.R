@@ -42,7 +42,7 @@ parse_epost <- function(.obj) {
       class=c("entrez_uid", "character")
     )
   } else {
-    structure(NA_character_, database=NA_character_, class=c("uid", "character"))
+    structure(NA_character_, database=NA_character_, class=c("entrez_uid", "character"))
   }
 }
 
@@ -86,10 +86,10 @@ epost <- function(uid, db=NULL, webenv=NULL) {
 }
 
 #' @rdname webenv-methods
-#' @aliases webenv,epost,epost-method
+#' @aliases webenv,epost-method
 setMethod("webenv", "epost", function(x, ...) webenv(x$get_content("parsed")))
 
 #' @rdname querykey-methods
-#' @aliases querykey,epost,epost-method
+#' @aliases querykey,epost-method
 setMethod("querykey", "epost", function(x, ...) querykey(x$get_content("parsed")))
 

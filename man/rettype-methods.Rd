@@ -1,8 +1,11 @@
-\docType{methods}
 \name{rettype}
 \alias{rettype}
-\alias{rettype,eutil,eutil-method}
+\alias{rettype,eutil-method}
+\alias{rettype-methods}
 \title{rettype}
+\usage{
+  \S4method{rettype}{eutil}(x, ...)
+}
 \arguments{
   \item{x}{An \code{\linkS4class{eutil}} object.}
 

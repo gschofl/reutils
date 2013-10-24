@@ -1,10 +1,17 @@
-\docType{methods}
 \name{database}
 \alias{database}
-\alias{database,entrez_linkset,entrez_linkset-method}
-\alias{database,entrez_uid,entrez_uid-method}
-\alias{database,eutil,eutil-method}
+\alias{database,entrez_linkset-method}
+\alias{database,entrez_uid-method}
+\alias{database,eutil-method}
+\alias{database-methods}
 \title{database}
+\usage{
+  \S4method{database}{eutil}(x, ...)
+
+  \S4method{database}{entrez_uid}(x, ...)
+
+  \S4method{database}{entrez_linkset}(x, ...)
+}
 \arguments{
   \item{x}{An \code{\linkS4class{eutil}} object.}
 

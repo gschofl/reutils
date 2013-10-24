@@ -1,15 +1,5 @@
 \name{eutil}
-\alias{ecitmatch}
-\alias{efetch,}
-\alias{egquery,}
-\alias{einfo,}
-\alias{elink,}
-\alias{epost,}
-\alias{esearch,}
-\alias{espell,}
-\alias{esummary,}
 \alias{eutil}
-\alias{eutil,}
 \title{Generator object for the \code{\linkS4class{eutil}} classes}
 \usage{
   eutil(...)

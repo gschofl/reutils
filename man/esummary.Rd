@@ -62,6 +62,9 @@ ds <- esummary(c("828392", "790", "470338"), "gene")
 ## parse the XML into a data frame
 df <- content(ds, "parsed")
 df
+
+## use XPath expressions to extract nodes of interest
+ds['//TaxID']
 }
 \seealso{
   \code{\link{content}}, \code{\link{getUrl}},

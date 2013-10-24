@@ -84,19 +84,7 @@
   \item{"\strong{neighbor_history}" }{ELink posts the
   output UIDs to the Entrez History server and returns a
   query_key and WebEnv parameter.  Alternatively this is
-  achieved by setting \code{usehistory=TRUE}}
-  \item{"\strong{acheck}" }{ELink lists all links available
-  for a set of UIDs.} \item{"\strong{ncheck}" }{ELink
-  checks for the existence of links \emph{within the same
-  database} for a set of UIDs.} \item{"\strong{lcheck}"
-  }{Elink checks for the existence of external links
-  (LinkOuts) for a set of UIDs.} \item{"\strong{llinks}"
-  }{For each input UID, ELink lists the URLs and attributes
-  for the LinkOut providers that are not libraries.}
-  \item{"\strong{llinkslib}" }{For each input UID, ELink
-  lists the URLs and attributes for all LinkOut providers
-  including libraries.} \item{"\strong{prlinks}" }{ELink
-  lists the primary LinkOut provider for each input UID.} }
+  achieved by setting \code{usehistory=TRUE}} }
 }
 \examples{
 ## Find one set of Gene IDs linked to nuccore GIs 34577062 and 24475906

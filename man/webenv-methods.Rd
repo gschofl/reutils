@@ -1,10 +1,17 @@
-\docType{methods}
 \name{webenv}
 \alias{webenv}
-\alias{webenv,entrez_uid,entrez_uid-method}
-\alias{webenv,epost,epost-method}
-\alias{webenv,esearch,esearch-method}
+\alias{webenv,entrez_uid-method}
+\alias{webenv,epost-method}
+\alias{webenv,esearch-method}
+\alias{webenv-methods}
 \title{webenv}
+\usage{
+  \S4method{webenv}{entrez_uid}(x, ...)
+
+  \S4method{webenv}{esearch}(x, ...)
+
+  \S4method{webenv}{epost}(x, ...)
+}
 \arguments{
   \item{x}{An \code{\linkS4class{eutil}} object.}
 

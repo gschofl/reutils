@@ -1,10 +1,17 @@
-\docType{methods}
 \name{querykey}
 \alias{querykey}
-\alias{querykey,entrez_uid,entrez_uid-method}
-\alias{querykey,epost,epost-method}
-\alias{querykey,esearch,esearch-method}
+\alias{querykey,entrez_uid-method}
+\alias{querykey,epost-method}
+\alias{querykey,esearch-method}
+\alias{querykey-methods}
 \title{querykey}
+\usage{
+  \S4method{querykey}{entrez_uid}(x, ...)
+
+  \S4method{querykey}{esearch}(x, ...)
+
+  \S4method{querykey}{epost}(x, ...)
+}
 \arguments{
   \item{x}{An \code{\linkS4class{eutil}} object.}
 

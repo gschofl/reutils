@@ -52,12 +52,12 @@ parse_linkset <- function(.obj) {
 setOldClass("entrez_linkset")
 
 #' @rdname database-methods
-#' @aliases database,entrez_linkset,entrez_linkset-method
+#' @aliases database,entrez_linkset-method
 setMethod("database", "entrez_linkset", function(x, ...) attr(x, "database"))
 
 
 #' @rdname uid-methods
-#' @aliases uid,entrez_linkset,entrez_linkset-method
+#' @aliases uid,entrez_linkset-method
 setMethod("uid", "entrez_linkset", function(x, ...) attr(x, "uid"))
 
 
@@ -100,17 +100,17 @@ print.entrez_linkset <- function(x, ...) {
 #'   \item{"\strong{neighbor_history}" }{ELink posts the output UIDs to the
 #'   Entrez History server and returns a query_key and WebEnv parameter.
 #'   Alternatively this is achieved by setting \code{usehistory=TRUE}}
-#'   \item{"\strong{acheck}" }{ELink lists all links available for a set of UIDs.}
-#'   \item{"\strong{ncheck}" }{ELink checks for the existence of links
-#'   \emph{within the same database} for a set of UIDs.}
-#'   \item{"\strong{lcheck}" }{Elink checks for the existence of external links
-#'   (LinkOuts) for a set of UIDs.}
-#'   \item{"\strong{llinks}" }{For each input UID, ELink lists the URLs and
-#'   attributes for the LinkOut providers that are not libraries.}
-#'   \item{"\strong{llinkslib}" }{For each input UID, ELink lists the URLs and
-#'   attributes for all LinkOut providers including libraries.}
-#'   \item{"\strong{prlinks}" }{ELink lists the primary LinkOut provider for
-#'   each input UID.}
+# '   \item{"\strong{acheck}" }{ELink lists all links available for a set of UIDs.}
+# '   \item{"\strong{ncheck}" }{ELink checks for the existence of links
+# '   \emph{within the same database} for a set of UIDs.}
+# '   \item{"\strong{lcheck}" }{Elink checks for the existence of external links
+# '   (LinkOuts) for a set of UIDs.}
+# '   \item{"\strong{llinks}" }{For each input UID, ELink lists the URLs and
+# '   attributes for the LinkOut providers that are not libraries.}
+# '   \item{"\strong{llinkslib}" }{For each input UID, ELink lists the URLs and
+# '   attributes for all LinkOut providers including libraries.}
+# '   \item{"\strong{prlinks}" }{ELink lists the primary LinkOut provider for
+# '   each input UID.}
 #' }
 #' 
 #' @param uid (Required) A character vector of UIDs.

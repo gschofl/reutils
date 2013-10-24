@@ -15,4 +15,5 @@
   object for errors} }
 }
 \keyword{classes}
+\keyword{internal}
 
