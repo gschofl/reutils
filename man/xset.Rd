@@ -1,0 +1,20 @@
+\name{xset}
+\alias{xset}
+\title{Extract a node set from an XML document}
+\usage{
+  xset(doc, path, ...)
+}
+\arguments{
+  \item{doc}{An object of class
+  \code{XMLInternalDocument}.}
+
+  \item{path}{An XPath expression.}
+
+  \item{...}{Arguments passed to
+  \code{\link[XML]{xpathApply}}.}
+}
+\description{
+  Extract a node set from an XML document
+}
+\keyword{internal}
+
