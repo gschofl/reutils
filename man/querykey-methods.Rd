@@ -10,6 +10,9 @@
 
   \item{...}{Further arguments passed on to methods.}
 }
+\value{
+  An integer or \code{NA}.
+}
 \description{
   An integer query key returned by an ESearch, EPost or
   ELink call if the History server was used. Otherwise

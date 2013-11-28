@@ -33,24 +33,82 @@ parse_linkset <- function(.obj) {
   IdList <- xvalue(x, "/eLinkResult/LinkSet/IdList/Id")
   LinkSetDb <- xset(x, "/eLinkResult/LinkSet/LinkSetDb")
   if (length(LinkSetDb) < 1L) {
-    return( structure(list(), database=DbFrom, uid=IdList, class=c("entrez_linkset", "list")) )
+    lset <- list(
+      structure(NA_character_, score=NA_integer_, database=NA_character_,
+                linkName=NA_character_, class=c("entrez_link", "character"))
+      )
+  } else {
+    lset <- lapply(LinkSetDb, function(lsd) {
+      lsd <- xmlDoc(lsd)
+      uid <- xvalue(lsd, "/LinkSetDb/Link/Id")
+      score <- xvalue(lsd, "/LinkSetDb/Link/Score", as="integer")
+      dbTo <- xvalue(lsd, "/LinkSetDb/DbTo") %|char|% NA_character_
+      linkName <- xvalue(lsd, "/LinkSetDb/LinkName") %|char|% NA_character_
+      free(lsd)
+      structure(uid, score=score, database=dbTo, linkName=linkName,
+                class=c("entrez_link", "character"))
+    })
+    lset <- compactNA(lset)
   }
-  lset <- lapply(LinkSetDb, function(lsd) {
-    lsd <- xmlDoc(lsd)
-    dbTo <- xvalue(lsd, "/LinkSetDb/DbTo") %|char|% NA_character_
-    linkName <- xvalue(lsd, "/LinkSetDb/LinkName") %|char|% NA_character_
-    id <- xvalue(lsd, "/LinkSetDb/Link/Id")
-    score <- xvalue(lsd, "/LinkSetDb/Link/Score")
-    free(lsd)
-    list(dbTo=dbTo, linkName=linkName, id=id, score=score)
-  })
-  names(lset) <- vapply(lset, `[[`, "linkName", FUN.VALUE="")
-  structure(compactNA(lset), database=DbFrom, uid=IdList, class=c("entrez_linkset", "list"))
+
+  lnm <- vapply(lset, attr, "linkName", FUN.VALUE="")
+  structure(
+    lset,
+    names=lnm,
+    database=DbFrom,
+    uid=IdList,
+    class=c("entrez_linkset", "list")
+  )
 }
 
 
+#' Class \code{"entrez_linkset"}
+#'
+#' A list containing a set of links as returned by a call to \code{\link{elink}}.
+#' Each element of the list is a character vector of UIDs of class 
+#' \code{"entrez_link"} with three attributes:
+#' \describe{
+#'    \item{\code{score}:}{Similarity scores between query UIDs and the linked UIDs}
+#'    \item{\code{database}:}{The destination database of the ELink query.}
+#'    \item{\code{linkName}:}{Name of the retrieved Entrez link of the form
+#'    \emph{dbFrom_dbTo_subset}}
+#' }
+#' 
+#' An \code{"entrez_linkset"} has two global attributes:
+#' \describe{
+#'    \item{\code{uid}:}{The input UIDs.}
+#'    \item{\code{database}:}{The database containing the input UIDs.}
+#' }
+#' 
+#' @keywords classes internal
+#' @name entrez_linkset-class
+#' @examples
+#' ###
 setOldClass("entrez_linkset")
 
+
+#' @S3method print entrez_link
+print.entrez_link <- function(x, ...) {
+  db <- strsplit(attr(x, "linkName"), "_")[[1]]
+  dbFrom <- db[1]
+  dbTo <- paste0(db[-1], collapse="_")
+  cat(sprintf("List of linked UIDs from database %s to %s.\n", sQuote(dbFrom), sQuote(dbTo)))
+  print(format(x))
+  invisible()
+}
+
+
+#' @S3method [ entrez_link
+"[.entrez_link" <- function(x, i, j, ..., drop=TRUE) {
+  out <- NextMethod(...)
+  attr(out, "score") <- attr(x, "score")[i]
+  attr(out, "database") <- attr(x, "database")
+  attr(out, "linkName") <- attr(x, "linkName")
+  class(out) <- c("entrez_link", "character")
+  out
+}
+
+       
 #' @rdname database-methods
 #' @aliases database,entrez_linkset-method
 setMethod("database", "entrez_linkset", function(x, ...) attr(x, "database"))
@@ -61,17 +119,56 @@ setMethod("database", "entrez_linkset", function(x, ...) attr(x, "database"))
 setMethod("uid", "entrez_linkset", function(x, ...) attr(x, "uid"))
 
 
+#' linkset
+#' 
+#' Retrieve a linkset from an \code{\linkS4class{elink}} object.
+#' 
+#' @param x An \code{\linkS4class{elink}} object.
+#' @param linkname (optional) Name of the Entrez link to retrieve. Every link in
+#' Entrez is given a name of the form \emph{dbFrom_dbTo_subset}. If \code{NULL},
+#' all available links are retrieved from the object.
+#' @param ... Further arguments passed on to methods.
+#' @return A list.
+#' @export
+#' @rdname linkset-methods
+#' @docType methods
+#' @examples
+#' ## Find related articles to PMID 20210808 and xtract linked UIDs from the
+#' ## "pubmed" to "pubmed_reviews" link
+#' x <- elink("20210808", dbFrom="pubmed", dbTo="pubmed", cmd="neighbor_score")
+#' linkset(x, "pubmed_pubmed_reviews")
+setGeneric("linkset", function(x, linkname = NULL, ...) standardGeneric("linkset"))
+#' @rdname linkset-methods
+#' @aliases linkset,entrez_linkset-method
+setMethod("linkset", "entrez_linkset", function(x, linkname = NULL, ...) {
+  if (!is.null(linkname)) {
+    ans <- x[linkname]
+    if (is.null(ans)) {
+      return(NULL)
+    }
+    if (length(ans) == 1) {
+      ans  <- ans[[1]]
+    }
+    ans
+  } else {
+    attr(x, "database") <- NULL
+    attr(x, "uid") <- NULL
+    unclass(x)
+  }
+})
+
+
 #' @S3method print entrez_linkset
 print.entrez_linkset <- function(x, ...) {
   db <- database(x)
-  dbTo <- vapply(x, `[[`, 'dbTo', FUN.VALUE="")
+  dbTo <- vapply(x, attr, 'database', FUN.VALUE="")
   cat(sprintf("ELink query from database %s to destination database %s.\n",
               sQuote(db), sQuote(unique(dbTo))))
   cat("Query UIDs:\n")
   print(format(uid(x)))
   cat("Summary of LinkSet:\n")
-  lnames <- vapply(x, `[[`, 'linkName', FUN.VALUE='')
-  llen <- vapply(x, function(elt) length(elt[['id']]), 1L)
+  lnames <- vapply(x, attr, 'linkName', FUN.VALUE='')
+  llen <- vapply(x, length, 0)
   print(format(data.frame(DbTo=dbTo, LinkName=lnames, LinkCount=llen)))
 }
 
@@ -84,7 +181,7 @@ print.entrez_linkset <- function(x, ...) {
 #' @title elink - finding related data through Entrez links
 #' @details
 #' See the official online documentation for NCBI's
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ELink}{EUtilities}
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.ELink}{EUtilities}
 #' for additional information.
 #' 
 #' If \code{dbTo} and \code{dbFrom} are set to the same database, ELink will
@@ -118,7 +215,7 @@ print.entrez_linkset <- function(x, ...) {
 #' @param dbTo Destination database from which to retrieve linked UIDs. If
 #' not provided links will be sought in the database containing the input UIDs.
 #' @param linkname Name of the Entrez link to retrieve. Every link in
-#' Entrez is given a name of the form 'dbFrom_dbTo_subset'.
+#' Entrez is given a name of the form \emph{dbFrom_dbTo_subset}.
 #' @param usehistory If \code{TRUE} search results are stored directly in
 #' the user's Web environment so that they can be used in subsequents 
 #' calls to \code{\link{esummary}} or \code{\link{efetch}}.
@@ -137,10 +234,30 @@ print.entrez_linkset <- function(x, ...) {
 #' @param maxdate Maximum date of search range. Format YYYY/MM/DD.
 #' @return An \code{\linkS4class{elink}} object.
 #' @export
+#' @seealso
+#' Combine calls to ELink with other EUtils:
+#' \code{\link{esummary}}, \code{\link{efetch}}.
+#' @seealso
+#' Accessor methods:
+#' \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}},
+#' \code{\link{database}}, \code{\link{uid}}, \code{\link{linkset}}, 
 #' @examples
 #' ## Find one set of Gene IDs linked to nuccore GIs 34577062 and 24475906
 #' e <- elink(c("34577062", "24475906"), dbFrom="nuccore", dbTo="gene")
 #' e
+#' 
+#' ## Find related articles to PMID 20210808
+#' p <- elink("20210808", dbFrom="pubmed", dbTo="pubmed")
+#' p
+#' 
+#' ## Extract linked UIDs from the "pubmed" to "pubmed_reviews" link
+#' linkset(p, "pubmed_pubmed_reviews")
+#' 
+#' ## or
+#' p["pubmed_pubmed_reviews"]
+#' 
+#' ## retrive the abstracts for the first five linked reviews
+#' abstracts <- efetch(p["pubmed_pubmed_reviews"][1:5], rettype="abstract")
 elink <- function(uid, dbFrom=NULL, dbTo=NULL, linkname=NULL,
                   usehistory=FALSE, cmd="neighbor",
                   correspondence=FALSE, querykey=NULL, webenv=NULL,
@@ -166,4 +283,46 @@ elink <- function(uid, dbFrom=NULL, dbTo=NULL, linkname=NULL,
          WebEnv=params$webenv, linkname=linkname, term=term, holding=holding,
          datetype=datetype, reldate=reldate, mindate=mindate, maxdate=maxdate)
 }
+
+
+#' ELink Accessors
+#' 
+#' Extract UIDs from an \code{\link{elink}} object.
+#'
+#' @usage x[i]
+#' @param x An \code{\linkS4class{elink}} object.
+#' @param i Integer or character indices.
+#' @return A \code{\linkS4class{entrez_linkset}} object.
+#' 
+#' @export
+#' @docType methods
+#' @name [.elink
+#' @rdname elink-methods
+#' @examples
+#' e <- elink(c("34577062", "24475906"), dbFrom="nuccore")
+#' e[1]
+#' @aliases [,elink,numeric-method
+setMethod("[", c("elink", "numeric"), function(x, i) {
+  linkset(x, i)
+})
+
+#' @rdname elink-methods
+#' @aliases [,elink,character-method
+setMethod("[", c("elink", "character"), function(x, i) {
+  linkset(x, i)
+})
+
+
+#' @rdname linkset-methods
+#' @aliases linkset,elink-method
+setMethod("linkset", "elink", function(x, linkname = NULL, ...) {
+  linkset(x$get_content("parsed"), linkname=linkname, ...)
+})
+
+
+#' @rdname uid-methods
+#' @aliases uid,elink-method
+setMethod("uid", "elink", function(x, ...) {
+  uid(x$get_content("parsed"))
+})
 

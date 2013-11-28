@@ -36,6 +36,14 @@ merge_list <- function (x, y) {
   x
 }
 
+merge_linkset <- function(x) {
+  uid <- unique(unlist(x, use.names=FALSE))
+  db <- unique(vapply(x, attr, "database", FUN.VALUE="", USE.NAMES=FALSE))
+  stopifnot(length(db) == 1)
+  attr(uid, "database") <- db
+  uid
+}
+
 compact <- function (x) {
   x[!vapply(x, is.null, FALSE, USE.NAMES=FALSE)]
 }
@@ -188,7 +196,7 @@ ncbi_retrieval_type <- function(db, rettype=NULL, retmode=NULL) {
   list(rettype = rt %||% "", retmode = rm)
 }
 
-set_rettype <- function (db, rt = NULL) {
+set_rettype <- function(db, rt = NULL) {
   db <- switch(db, nucleotide = 'nuccore', db)
   rt  <- rt %|char|% NULL
   switch(db,

@@ -215,11 +215,10 @@ eutil <- setRefClass(
 NULL
 
 
-#' @importFrom XML xmlTreeParse
+#' @importFrom XML xmlParse
 #' @importFrom XML xmlParseString
 savely_parse_xml <- function(x, ...) {
-  tryCatch(xmlTreeParse(x, asText=TRUE, useInternalNodes=TRUE,
-                        error=NULL, ...),
+  tryCatch(xmlParse(x, asText=TRUE, error=NULL, ...),
            "XMLError"=function(e) {
              errmsg <- paste("XML parse error:", e$message)
              xmlParseString(paste0("<ERROR>", errmsg, "</ERROR>"))
@@ -286,6 +285,7 @@ setMethod("content", "eutil", function(x, as = "xml", ...) {
 #' 
 #' @param x An \code{\linkS4class{eutil}} object.
 #' @param ... Further arguments passed on to methods.
+#' @return An \code{\linkS4class{eutil_error}} object.
 #' @seealso
 #'    \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
 #'    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
@@ -309,6 +309,7 @@ setMethod("getError", "eutil", function(x, ...) {
 #' 
 #' @param x An \code{\linkS4class{eutil}} object.
 #' @param ... Further arguments passed on to methods.
+#' @return A character string.
 #' @seealso
 #'    \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
 #'    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
@@ -352,6 +353,7 @@ setMethod("performQuery", "eutil", function(x, method="GET", ...) {
 #' 
 #' @param x An \code{\linkS4class{eutil}} object.
 #' @param ... Further arguments passed on to methods.
+#' @return A character string.
 #' @seealso
 #'    \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
 #'    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
@@ -377,6 +379,7 @@ setMethod("database", "eutil", function(x, ...) x$database())
 #' 
 #' @param x An \code{\linkS4class{eutil}} object.
 #' @param ... Further arguments passed on to methods.
+#' @return A character string or \code{NULL}. 
 #' @seealso
 #'    \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
 #'    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
@@ -394,12 +397,13 @@ setMethod("retmode", "eutil", function(x, ...) x$retmode())
 
 #' rettype
 #' 
-#' Get the \dQuote{retrieval type} of an \\code{\linkS4class{eutil}} object. See 
+#' Get the \dQuote{retrieval type} of an \code{\linkS4class{eutil}} object. See 
 #' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.chapter4_table1/?report=objectonly}{here}
 #' for the available retrieval types for different NCBI databases.
 #' 
 #' @param x An \code{\linkS4class{eutil}} object.
 #' @param ... Further arguments passed on to methods.
+#' @return A character string.
 #' @seealso
 #'    \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
 #'    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
@@ -421,6 +425,7 @@ setMethod("rettype", "eutil", function(x, ...) x$rettype())
 #' 
 #' @param x An \code{\linkS4class{eutil}} object.
 #' @param ... Further arguments passed on to methods.
+#' @return A character vector.
 #' @seealso
 #'    \code{\link{esearch}}, \code{\link{elink}}.
 #' @export
@@ -438,6 +443,7 @@ setGeneric("uid", function(x, ...) standardGeneric("uid"))
 #' 
 #' @param x An \code{\linkS4class{eutil}} object.
 #' @param ... Further arguments passed on to methods.
+#' @return A character string or \code{NA}.
 #' @seealso
 #'    \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
 #'    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
@@ -457,6 +463,7 @@ setGeneric("webenv", function(x, ...) standardGeneric("webenv"))
 #' 
 #' @param x An \code{\linkS4class{eutil}} object.
 #' @param ... Further arguments passed on to methods.
+#' @return An integer or \code{NA}.
 #' @seealso
 #'    \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
 #'    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},

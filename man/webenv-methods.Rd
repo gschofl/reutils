@@ -10,6 +10,9 @@
 
   \item{...}{Further arguments passed on to methods.}
 }
+\value{
+  A character string or \code{NA}.
+}
 \description{
   Retrieve the Web environment string returned from an
   ESearch, EPost or ELink call. \code{NA} if the History

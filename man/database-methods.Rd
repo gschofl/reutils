@@ -10,6 +10,9 @@
 
   \item{...}{Further arguments passed on to methods.}
 }
+\value{
+  A character string.
+}
 \description{
   Retrieve the target database name from an
   \code{\linkS4class{eutil}} object.

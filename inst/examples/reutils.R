@@ -30,8 +30,8 @@ uid <- c("194680922", "50978626", "28558982", "9507199", "6678417")
 p <- epost(uid, "protein")
 
 # retrieve docsums with esummary
-dsum <- content(esummary(p, version="1.0"), "parsed")
-dsum
+docsum <- content(esummary(p, version="1.0"), "parsed")
+docsum
 
 # download FASTAs as 'text' with efetch
 prot <- efetch(p, retmode="text", rettype="fasta")

@@ -39,7 +39,7 @@
   \code{\link{efetch}}, or \code{\link{elink}}.
 
   See the official online documentation for NCBI's
-  \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EPost}{EUtilities}
+  \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.EPost}{EUtilities}
   for additional information.
 }
 \examples{

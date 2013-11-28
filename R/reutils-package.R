@@ -1,12 +1,12 @@
-#' An interface to the NCBI EUtils.
+#' An interface to the NCBI Entrez programming Utilities.
 #' 
 #' @description
-#' \code{reutils} provides support for interaction with NCBI databases such as PubMed,
+#' \code{reutils} provides support for interacting with NCBI databases such as PubMed,
 #' Genbank, or GEO via the Entrez Programming Utilities
 #' (\href{http://www.ncbi.nlm.nih.gov/books/NBK25501/}{EUtils}).
 #' 
 #' Please check the relevant
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25497/#chapter2.Usage_Guidelines_and_Requiremen}{usage guidelines}
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25497/\#chapter2.Usage_Guidelines_and_Requiremen}{usage guidelines}
 #' when using these services. Note that Entrez server requests are subject to
 #' frequency limits.
 #' 
@@ -21,7 +21,7 @@
 #' this output you have several options:
 #' 
 #' \enumerate{
-#'  \item Use the \code{content(as = "xml")} method to extract the output as a
+#'  \item Use the \code{content(as = "xml")} method to extract the output as an
 #'    \code{XMLInternalDocument} object and process it further using the
 #'    facilities provided by the \code{XML} package.
 #' 
@@ -30,15 +30,17 @@
 #'    \emph{docsum}s returned by \code{\link{esummary}}, \emph{uilist}s returned
 #'    by \code{\link{esearch}}, and the output returned by \code{\link{einfo}}.
 #' 
-#' \item Access specific nodes in the XML, using the reference class methods
-#'    \code{#xmlValue}, \code{#xmlAttr}, or \code{#xmlName} built into
-#'    \code{\link{eutil}} objects.
+#' \item Access specific nodes in the XML tree using XPath expressions with the
+#'    reference class methods \code{#xmlValue}, \code{#xmlAttr}, or \code{#xmlName}
+#'    built into \code{\link{eutil}} objects.
 #' }
 #' 
 #' The Entrez Programming Utilities can also generate output in other formats,
-#' such as the Fasta or GenBank file formats for sequence databases,
-#' or the MedLine format for the literature database.
-#'    
+#' such as plain-text Fasta or GenBank files for sequence databases,
+#' or the MedLine format for the literature database. The type of output is
+#' generally controlled by setting the \code{retmode} and \code{rettype} arguments
+#' when calling a EUtil.
+#' 
 #' @section Main functions:
 #' \itemize{
 #'    \item \code{\link{esearch}}: Search and retrieve primary UIDs for use

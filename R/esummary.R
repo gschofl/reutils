@@ -35,7 +35,7 @@ NULL
 #' 
 #' @details
 #' See the official online documentation for NCBI's
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESummary}{EUtilities}
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.ESummary}{EUtilities}
 #' for additional information.
 #'
 #' @title esummary - downloading Document Summaries

@@ -1,8 +1,8 @@
 Package: reutils
 Type: Package
 Title: Talk to the NCBI EUtils
-Version: 0.0.1
-Date: 2013-09-02
+Version: 0.1.0
+Date: 2013-11-28
 Authors@R: person("Gerhard", "Schoefl", role=c("aut","cre"),
     email="gschofl@yahoo.de")
 Author: Gerhard Schoefl
@@ -15,7 +15,6 @@ Depends:
     R (>= 3.0.0),
     methods
 Imports:
-    assertthat,
     RCurl,
     XML
 Suggests:
@@ -25,7 +24,6 @@ URL: https://github.com/gschofl/reutils/
 Collate:
     'utils.R'
     'eutil-error.R'
-    'reutils.R'
     'eutil.R'
     'einfo.R'
     'esearch.R'
@@ -38,4 +36,5 @@ Collate:
     'espell.R'
     'egquery.R'
     'parse-docsum.R'
+    'reutils-package.R'
     'zzz.R'

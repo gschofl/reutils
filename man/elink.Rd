@@ -20,7 +20,7 @@
 
   \item{linkname}{Name of the Entrez link to retrieve.
   Every link in Entrez is given a name of the form
-  'dbFrom_dbTo_subset'.}
+  \emph{dbFrom_dbTo_subset}.}
 
   \item{usehistory}{If \code{TRUE} search results are
   stored directly in the user's Web environment so that
@@ -67,7 +67,7 @@
 }
 \details{
   See the official online documentation for NCBI's
-  \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ELink}{EUtilities}
+  \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.ELink}{EUtilities}
   for additional information.
 
   If \code{dbTo} and \code{dbFrom} are set to the same
@@ -90,5 +90,27 @@
 ## Find one set of Gene IDs linked to nuccore GIs 34577062 and 24475906
 e <- elink(c("34577062", "24475906"), dbFrom="nuccore", dbTo="gene")
 e
+
+## Find related articles to PMID 20210808
+p <- elink("20210808", dbFrom="pubmed", dbTo="pubmed")
+p
+
+## Extract linked UIDs from the "pubmed" to "pubmed_reviews" link
+linkset(p, "pubmed_pubmed_reviews")
+
+## or
+p["pubmed_pubmed_reviews"]
+
+## retrive the abstracts for the first five linked reviews
+abstracts <- efetch(p["pubmed_pubmed_reviews"][1:5], rettype="abstract")
+}
+\seealso{
+  Combine calls to ELink with other EUtils:
+  \code{\link{esummary}}, \code{\link{efetch}}.
+
+  Accessor methods: \code{\link{content}},
+  \code{\link{getUrl}}, \code{\link{getError}},
+  \code{\link{database}}, \code{\link{uid}},
+  \code{\link{linkset}},
 }
 

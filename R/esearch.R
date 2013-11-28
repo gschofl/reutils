@@ -47,11 +47,33 @@ parse_esearch <- function(.obj) {
 }
 
 
+#' Class \code{"entrez_uid"}
+#'
+#' A container for UIDs returned by a call to \code{\link{esearch}}.
+#' It is essentially a character vector of UIDs supplemented with a number
+#' of attributes:
+#' \describe{
+#'    \item{\code{retmax}:}{Total number of hits retrieved from the Entrez server.}
+#'    \item{\code{retstart}:}{Index of the first hit retrieved from the Entrez server.}
+#'    \item{\code{count}:}{Total number of hits for a search query.}
+#'    \item{\code{query_translation}:}{Details of how Entrez translated the query.}
+#'    \item{\code{querykey}:}{If \code{usehistory = TRUE}, the query key,
+#'    otherwise \code{NA}.}
+#'    \item{\code{webenv}:}{If \code{usehistory = TRUE}, the Web envronment string,
+#'    otherwise \code{NA}.}
+#'    \item{\code{database}:}{Name of the queried database.}
+#' }
+#' @keywords classes internal
+#' @name entrez_uid-class
+#' @examples
+#' ###
 setOldClass("entrez_uid")
+
 
 #' @rdname database-methods
 #' @aliases database,entrez_uid-method
 setMethod("database", "entrez_uid", function(x, ...) attr(x, "database"))
+
 
 #' @rdname uid-methods
 #' @aliases uid,entrez_uid-method
@@ -60,9 +82,11 @@ setMethod("uid", "entrez_uid", function(x, ...) {
   x
 })
 
+
 #' @rdname webenv-methods
 #' @aliases webenv,entrez_uid-method
 setMethod("webenv", "entrez_uid", function(x, ...) attr(x, "webenv"))
+
 
 #' @rdname querykey-methods
 #' @aliases querykey,entrez_uid-method
@@ -99,8 +123,8 @@ print.entrez_uid <- function(x, ...) {
 #' 
 #' @details
 #' See the official online documentation for NCBI's
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESearch}{EUtilities}
-#' for additional information.
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.ESearch}{EUtilities}
+#' for additional information on this EUtility.
 #' 
 #' @title esearch - searching an Entrez database
 #' @param term A valid Entrez text query.
@@ -151,6 +175,11 @@ print.entrez_uid <- function(x, ...) {
 #' ## title that were published in 2013.
 #' pmid <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed")
 #' pmid
+#'
+#' ## Extract the query results either as an XML tree or parsed into
+#' ## a character vector
+#' xml <- content(pmid, "xml")
+#' uids <- uid(pmid)
 #' 
 #' ## Alternatively post the UIDs to the History Server.
 #' pmid <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed", usehistory=TRUE)
@@ -188,9 +217,9 @@ esearch <- function(term, db="nuccore", rettype="uilist",
 #' Extract UIDs from an \code{\link{esearch}} object.
 #'
 #' @usage x[i]
-#' @param x An \code{\linkS4class{einfo}} object.
+#' @param x An \code{\linkS4class{esearch}} object.
 #' @param i Integer indices.
-#' @return A \code{entrez_uid} object.
+#' @return A \code{\linkS4class{entrez_uid}} object.
 #' 
 #' @export
 #' @docType methods

@@ -76,14 +76,19 @@
 }
 \details{
   See the official online documentation for NCBI's
-  \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESearch}{EUtilities}
-  for additional information.
+  \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.ESearch}{EUtilities}
+  for additional information on this EUtility.
 }
 \examples{
 ## Search PubMed for articles with the term "Chlamydia psittaci" in the
 ## title that were published in 2013.
 pmid <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed")
 pmid
+
+## Extract the query results either as an XML tree or parsed into
+## a character vector
+xml <- content(pmid, "xml")
+uids <- uid(pmid)
 
 ## Alternatively post the UIDs to the History Server.
 pmid <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed", usehistory=TRUE)

@@ -8,6 +8,9 @@
 
   \item{...}{Further arguments passed on to methods.}
 }
+\value{
+  A character string.
+}
 \description{
   Retrieve the URL used to perform an Entrez E-Utilities
   query.

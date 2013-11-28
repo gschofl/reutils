@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE eSearchResult PUBLIC "-//NLM//DTD eSearchResult, 11 May 2002//EN" "http://www.ncbi.nlm.nih.gov/entrez/query/DTD/eSearch_020511.dtd">
+<eSearchResult>
+  <Count>2328</Count>
+  <RetMax>2</RetMax>
+  <RetStart>6</RetStart>
+  <IdList>
+    <Id>23927984</Id>
+    <Id>23903989</Id>
+  </IdList>
+  <TranslationSet>
+    <Translation>
+      <From>Chlamydia psittaci</From>
+      <To>"chlamydophila psittaci"[MeSH Terms] OR ("chlamydophila"[All Fields] AND "psittaci"[All Fields]) OR "chlamydophila psittaci"[All Fields] OR ("chlamydia"[All Fields] AND "psittaci"[All Fields]) OR "chlamydia psittaci"[All Fields]</To>
+    </Translation>
+  </TranslationSet>
+  <TranslationStack>
+    <TermSet>
+      <Term>"chlamydophila psittaci"[MeSH Terms]</Term>
+      <Field>MeSH Terms</Field>
+      <Count>1631</Count>
+      <Explode>Y</Explode>
+    </TermSet>
+    <TermSet>
+      <Term>"chlamydophila"[All Fields]</Term>
+      <Field>All Fields</Field>
+      <Count>5541</Count>
+      <Explode>N</Explode>
+    </TermSet>
+    <TermSet>
+      <Term>"psittaci"[All Fields]</Term>
+      <Field>All Fields</Field>
+      <Count>2351</Count>
+      <Explode>N</Explode>
+    </TermSet>
+    <OP>AND</OP>
+    <OP>GROUP</OP>
+    <OP>OR</OP>
+    <TermSet>
+      <Term>"chlamydophila psittaci"[All Fields]</Term>
+      <Field>All Fields</Field>
+      <Count>1721</Count>
+      <Explode>N</Explode>
+    </TermSet>
+    <OP>OR</OP>
+    <TermSet>
+      <Term>"chlamydia"[All Fields]</Term>
+      <Field>All Fields</Field>
+      <Count>23607</Count>
+      <Explode>N</Explode>
+    </TermSet>
+    <TermSet>
+      <Term>"psittaci"[All Fields]</Term>
+      <Field>All Fields</Field>
+      <Count>2351</Count>
+      <Explode>N</Explode>
+    </TermSet>
+    <OP>AND</OP>
+    <OP>GROUP</OP>
+    <OP>OR</OP>
+    <TermSet>
+      <Term>"chlamydia psittaci"[All Fields]</Term>
+      <Field>All Fields</Field>
+      <Count>1300</Count>
+      <Explode>N</Explode>
+    </TermSet>
+    <OP>OR</OP>
+    <OP>GROUP</OP>
+  </TranslationStack>
+  <QueryTranslation>"chlamydophila psittaci"[MeSH Terms] OR ("chlamydophila"[All Fields] AND "psittaci"[All Fields]) OR "chlamydophila psittaci"[All Fields] OR ("chlamydia"[All Fields] AND "psittaci"[All Fields]) OR "chlamydia psittaci"[All Fields]</QueryTranslation>
+</eSearchResult>

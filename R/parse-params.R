@@ -5,6 +5,9 @@ NULL
   if (class(uid)[1] %in% c("epost", "esearch", "elink")) {
     uid <- uid$get_content("parsed")
   }
+  if (is(uid, "entrez_linkset") || is(uid, "list")) {
+    uid <- merge_linkset(uid)
+  }
   params <- list()
   params$uid <- as.character(uid) %|na|% NULL
   params$db <- attr(uid, "database")

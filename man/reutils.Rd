@@ -2,15 +2,15 @@
 \name{reutils}
 \alias{reutils}
 \alias{reutils-package}
-\title{An interface to the NCBI EUtils.}
+\title{An interface to the NCBI Entrez programming Utilities.}
 \description{
-  \code{reutils} provides support for interaction with NCBI
+  \code{reutils} provides support for interacting with NCBI
   databases such as PubMed, Genbank, or GEO via the Entrez
   Programming Utilities
   (\href{http://www.ncbi.nlm.nih.gov/books/NBK25501/}{EUtils}).
 
   Please check the relevant
-  \href{http://www.ncbi.nlm.nih.gov/books/NBK25497/#chapter2.Usage_Guidelines_and_Requiremen}{usage
+  \href{http://www.ncbi.nlm.nih.gov/books/NBK25497/\#chapter2.Usage_Guidelines_and_Requiremen}{usage
   guidelines} when using these services. Note that Entrez
   server requests are subject to frequency limits.
 }
@@ -27,7 +27,7 @@
   options:
 
   \enumerate{ \item Use the \code{content(as = "xml")}
-  method to extract the output as a
+  method to extract the output as an
   \code{XMLInternalDocument} object and process it further
   using the facilities provided by the \code{XML} package.
 
@@ -38,16 +38,37 @@
   returned by \code{\link{esearch}}, and the output
   returned by \code{\link{einfo}}.
 
-  \item Access specific nodes in the XML, using the
-  reference class methods \code{#xmlValue},
-  \code{#xmlAttr}, or \code{#xmlName} built into
-  \code{\link{eutil}} objects. }
+  \item Access specific nodes in the XML tree using XPath
+  expressions with the reference class methods
+  \code{#xmlValue}, \code{#xmlAttr}, or \code{#xmlName}
+  built into \code{\link{eutil}} objects. }
 
   The Entrez Programming Utilities can also generate output
-  in other formats, such as the Fasta or GenBank file
-  formats for sequence databases, or the MedLine format for
-  the literature database.
+  in other formats, such as plain-text Fasta or GenBank
+  files for sequence databases, or the MedLine format for
+  the literature database. The type of output is generally
+  controlled by setting the \code{retmode} and
+  \code{rettype} arguments when calling a EUtil.
 }
+\section{Package options}{
+  \emph{reutils} uses two \code{\link{options}} to
+  configure behaviour:
+
+  \itemize{ \item \code{reutils.email}: NCBI requires that
+  a user of their API provides an email address with a call
+  to Entrez. If you are going to perform a lot of queries
+  you should set \code{reutils.email} to your email address
+  in your .Rprofile file. \emph{reutils} will annoy you
+  with warnings until you comply.
+
+  \item \code{reutils.verbose.queries}: If you perform many
+  queries interactively you might want to get messages
+  announcing the queris you run. You can do so by setting
+  the option \code{reutils.verbose.queries} to \code{TRUE}.
+
+  }
+}
+
 \section{Main functions}{
   \itemize{ \item \code{\link{esearch}}: Search and
   retrieve primary UIDs for use with \code{esummary},
@@ -93,26 +114,6 @@
   request from the \code{\link{eutil}} object returned by
   any of the above functions. }
 }
-
-\section{Package options}{
-  \emph{reutils} uses two \code{\link{options}} to
-  configure behaviour:
-
-  \itemize{ \item \code{reutils.mail}: NCBI requires that a
-  user of their API provides an email address with a call
-  to Entrez. If you are going to perform a lot of queries
-  you should set \code{reutils.mail} to your email address
-  in your .Rprofile file. \emph{reutils} will annoy you
-  with warnings until you comply.
-
-  \item \code{reutils.verbose.queries}: If you perform many
-  queries non-interactively you might want to switch off
-  the messages announcing each query. You can do so by
-  setting the option \code{reutils.verbose.queries} to
-  \code{FALSE}.
-
-  }
-}
 \examples{
 ############################################################################
 #
@@ -146,8 +147,8 @@ uid <- c("194680922", "50978626", "28558982", "9507199", "6678417")
 p <- epost(uid, "protein")
 
 # retrieve docsums with esummary
-dsum <- content(esummary(p, version="1.0"), "parsed")
-dsum
+docsum <- content(esummary(p, version="1.0"), "parsed")
+docsum
 
 # download FASTAs as 'text' with efetch
 prot <- efetch(p, retmode="text", rettype="fasta")

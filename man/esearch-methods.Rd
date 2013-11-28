@@ -4,12 +4,12 @@
 \alias{[.esearch}
 \title{ESearch Accessors}
 \arguments{
-  \item{x}{An \code{\linkS4class{einfo}} object.}
+  \item{x}{An \code{\linkS4class{esearch}} object.}
 
   \item{i}{Integer indices.}
 }
 \value{
-  A \code{entrez_uid} object.
+  A \code{\linkS4class{entrez_uid}} object.
 }
 \description{
   Extract UIDs from an \code{\link{esearch}} object.

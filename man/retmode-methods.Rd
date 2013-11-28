@@ -8,6 +8,9 @@
 
   \item{...}{Further arguments passed on to methods.}
 }
+\value{
+  A character string or \code{NULL}.
+}
 \description{
   Get the \dQuote{retrieval mode} of an
   \code{\linkS4class{eutil}} object It is usually one of

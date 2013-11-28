@@ -3,15 +3,15 @@
 #' \emph{reutils} uses two \code{\link{options}} to configure behaviour:
 #'
 #' \itemize{
-#'   \item \code{reutils.mail}: NCBI requires that a user of their API provides an
+#'   \item \code{reutils.email}: NCBI requires that a user of their API provides an
 #'      email address with a call to Entrez. If you are going to perform a lot
-#'      of queries you should set \code{reutils.mail} to your email address in
+#'      of queries you should set \code{reutils.email} to your email address in
 #'      your .Rprofile file. \emph{reutils} will annoy you with warnings until
 #'      you comply.
 #'
-#'   \item \code{reutils.verbose.queries}: If you perform many queries non-interactively
-#'      you might want to switch off the messages announcing each query. You can do so by setting
-#'      the option \code{reutils.verbose.queries} to \code{FALSE}.
+#'   \item \code{reutils.verbose.queries}: If you perform many queries interactively
+#'      you might want to get messages announcing  the queris you run. You can do so by setting
+#'      the option \code{reutils.verbose.queries} to \code{TRUE}.
 #'
 #' }
 #' 
@@ -22,8 +22,8 @@ NULL
 .onLoad <- function(libname, pkgname) {
   op <- options()
   op.reutils <- list(
-    reutils.mail = "Your.Name.Here@example.org",
-    reutils.verbose.queries = TRUE
+    reutils.email = "Your.Name.Here@example.org",
+    reutils.verbose.queries = FALSE
   )
   toset <- !(names(op.reutils) %in% names(op))
   if (any(toset)) {

@@ -8,6 +8,9 @@
 
   \item{...}{Further arguments passed on to methods.}
 }
+\value{
+  An \code{\linkS4class{eutil_error}} object.
+}
 \description{
   Retrieve a http or XML parsing error from an
   \code{\linkS4class{eutil}} object.

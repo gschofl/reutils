@@ -80,8 +80,8 @@ pmid
 
  ##  Object of class 'esearch' 
  ##  List of UIDs from the 'pubmed' database.
- ##  [1] "23699067" "23691148" "23654298" "23532978" "23405306" "23391180"
- ##  [7] "23265868" "23227890" "23098816"
+ ##   [1] "24273177" "24163776" "23699067" "23691148" "23654298" "23532978"
+ ##   [7] "23405306" "23391180" "23265868" "23227890" "23098816"
 ```
 
 
@@ -96,9 +96,9 @@ pmid2
 
  ##  Object of class 'esearch' 
  ##  Web Environment for the 'pubmed' database.
- ##  Number of UIDs stored on the History server: 9
+ ##  Number of UIDs stored on the History server: 11
  ##  Query Key: 1
- ##  WebEnv: NCID_1_122533193_130.14.22.215_9001_1380555216_1795268571
+ ##  WebEnv: NCID_1_13545980_165.112.9.28_9001_1385649115_1250182273
 ```
 
 
@@ -114,8 +114,8 @@ cpaf
 
  ##  Object of class 'esearch' 
  ##  List of UIDs from the 'nucleotide' database.
- ##  [1] "544687983" "532821218" "520923452" "519865230" "519794601" "392376213"
- ##  [7] "410857988" "410810883" "313847556"
+ ##  [1] "544687983" "532821218" "519865230" "519794601" "392376213" "410857988"
+ ##  [7] "410810883" "313847556"
 ```
 
 
@@ -161,8 +161,8 @@ Extract a vector of GIs:
 ```r
 uid(cpaf)
 
- ##  [1] "544687983" "532821218" "520923452" "519865230" "519794601" "392376213"
- ##  [7] "410857988" "410810883" "313847556"
+ ##  [1] "544687983" "532821218" "519865230" "519794601" "392376213" "410857988"
+ ##  [7] "410810883" "313847556"
 ```
 
 
@@ -185,7 +185,7 @@ querykey(pmid2)
 ```r
 webenv(pmid2)
 
- ##  [1] "NCID_1_122533193_130.14.22.215_9001_1380555216_1795268571"
+ ##  [1] "NCID_1_13545980_165.112.9.28_9001_1385649115_1250182273"
 ```
 
 
@@ -200,15 +200,15 @@ content(cpaf, "xml")
  ##  <?xml version="1.0"?>
  ##  <!DOCTYPE eSearchResult PUBLIC "-//NLM//DTD eSearchResult, 11 May 2002//EN" "http://www.ncbi.nlm.nih.gov/entrez/query/DTD/eSearch_020511.dtd">
  ##  <eSearchResult>
- ##    <Count>9</Count>
- ##    <RetMax>9</RetMax>
+ ##    <Count>8</Count>
+ ##    <RetMax>8</RetMax>
  ##    <RetStart>0</RetStart>
  ##    <IdList>
  ##      <Id>544687983</Id>
  ##      <Id>532821218</Id>
- ##      <Id>520923452</Id>
  ##      <Id>519865230</Id>
  ##      <Id>519794601</Id>
+ ##      <Id>392376213</Id>
 ....
 ```
 
@@ -222,8 +222,8 @@ an XPath expression:
 ```r
 cpaf$xmlValue("//Id")
 
- ##  [1] "544687983" "532821218" "520923452" "519865230" "519794601" "392376213"
- ##  [7] "410857988" "410810883" "313847556"
+ ##  [1] "544687983" "532821218" "519865230" "519794601" "392376213" "410857988"
+ ##  [7] "410810883" "313847556"
 ```
 
 
@@ -246,7 +246,7 @@ esum
  ##    <DocumentSummarySet status="OK">
  ##      <DocumentSummary uid="544687983">
  ##        <Caption>NZ_APJW01000002</Caption>
- ##        <Title>Chlamydiaceae bacterium 10-1398/6 ibis.contig.1, whole genome shotgun sequence</Title>
+ ##        <Title>Chlamydia ibidis 10-1398/6 ibis.contig.1, whole genome shotgun sequence</Title>
  ##        <Extra>gi|544687983|ref|NZ_APJW01000002.1||gnl|WGS:NZ_APJW01|ibis.contig.1</Extra>
  ##        <Gi>544687983</Gi>
  ##        <CreateDate>2013/09/20</CreateDate>
@@ -271,15 +271,15 @@ content(esum, "parsed")
  ##           Id         Caption
  ##  1 544687983 NZ_APJW01000002
  ##  2 532821218    APJW01000002
- ##  3 520923452     NZ_KE360863
- ##  4 519865230        KE360863
+ ##  3 519865230        KE360863
+ ##  4 519794601    ATMY01000224
  ##                                                                                                    Title
- ##  1                        Chlamydiaceae bacterium 10-1398/6 ibis.contig.1, whole genome shotgun sequence
- ##  2                        Chlamydiaceae bacterium 10-1398/6 ibis.contig.1, whole genome shotgun sequence
+ ##  1                               Chlamydia ibidis 10-1398/6 ibis.contig.1, whole genome shotgun sequence
+ ##  2                               Chlamydia ibidis 10-1398/6 ibis.contig.1, whole genome shotgun sequence
  ##  3 Chlamydia psittaci 84-8471/1 genomic scaffold CP_84_8471_1.contig.1261, whole genome shotgun sequence
- ##  4 Chlamydia psittaci 84-8471/1 genomic scaffold CP_84_8471_1.contig.1261, whole genome shotgun sequence
- ##                                                                         Extra
- ##  1        gi|544687983|ref|NZ_APJW01000002.1||gnl|WGS:NZ_APJW01|ibis.contig.1
+ ##  4                Chlamydia psittaci 84-8471/1 CP_84_8471_1.contig.1261_1, whole genome shotgun sequence
+ ##                                                                        Extra
+ ##  1       gi|544687983|ref|NZ_APJW01000002.1||gnl|WGS:NZ_APJW01|ibis.contig.1
 ....
 ```
 
@@ -435,9 +435,9 @@ einfo("taxonomy")
  ##    dbName: taxonomy
  ##    MenuName: Taxonomy
  ##    Description: Taxonomy db
- ##    DbBuild: Build130918-1325.1
- ##    Count: 1159149
- ##    LastUpdate: 2013-09-18 16:03:00
+ ##    DbBuild: Build131128-0720.1
+ ##    Count: 1185006
+ ##    LastUpdate: 2013-11-28 09:00:00
  ##    Fields: Name; FullName; Description; TermCount; IsDate; IsNumerical; S...
  ##    Links: Name; Menu; Description; DbTo
 ....

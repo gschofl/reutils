@@ -8,9 +8,12 @@
 
   \item{...}{Further arguments passed on to methods.}
 }
+\value{
+  A character string.
+}
 \description{
   Get the \dQuote{retrieval type} of an
-  \\code{\linkS4class{eutil}} object. See
+  \code{\linkS4class{eutil}} object. See
   \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.chapter4_table1/?report=objectonly}{here}
   for the available retrieval types for different NCBI
   databases.
