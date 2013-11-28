@@ -1,5 +1,4 @@
 #' @include eutil.R
-#' @importFrom assertthat is.string
 NULL
 
 
@@ -98,7 +97,7 @@ extract_df <- function(x, path) {
 #' content(x, "parsed")
 einfo <- function(db=NULL) {
   if (!is.null(db)) {
-    assert_that(is.string(db))
+    stopifnot(is.string(db))
   }
   .einfo(method="GET", db=db)
 }
@@ -111,9 +110,8 @@ einfo <- function(db=NULL) {
 #' @param x An \code{\linkS4class{einfo}} object.
 #' @param i Indices specifying elements to extract.
 #' @return A list.
-#' 
-#' @seealso  \code{\link[base]{Extract}}
-#' 
+#' @seealso 
+#'    \code{\link[base]{Extract}}
 #' @export
 #' @docType methods
 #' @name [.einfo

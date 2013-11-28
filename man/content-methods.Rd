@@ -1,17 +1,10 @@
+\docType{methods}
 \name{content}
 \alias{content}
 \alias{content,ecitmatch-method}
 \alias{content,efetch-method}
 \alias{content,eutil-method}
-\alias{content-methods}
 \title{Extract the data content from an Entrez request}
-\usage{
-  \S4method{content}{eutil}(x, as = "xml", ...)
-
-  \S4method{content}{efetch}(x, as = NULL, ...)
-
-  \S4method{content}{ecitmatch}(x, as = "text", ...)
-}
 \arguments{
   \item{x}{An \code{\linkS4class{eutil}} object.}
 
@@ -24,7 +17,7 @@
   There are three ways to access data returned by an Entrez
   request: as a character string \code{(as = "text")}, as a
   parsed XML tree \code{(as = "xml")}, or, if supported,
-  parsed into some native R object, e.g. a \code{list} or a
+  parsed into a native R object, e.g. a \code{list} or a
   \code{data.frame} \code{(as = "parsed")}.
 }
 \examples{

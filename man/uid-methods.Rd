@@ -1,17 +1,10 @@
+\docType{methods}
 \name{uid}
 \alias{uid}
 \alias{uid,entrez_linkset-method}
 \alias{uid,entrez_uid-method}
 \alias{uid,esearch-method}
-\alias{uid-methods}
 \title{uid}
-\usage{
-  \S4method{uid}{entrez_uid}(x, ...)
-
-  \S4method{uid}{esearch}(x, ...)
-
-  \S4method{uid}{entrez_linkset}(x, ...)
-}
 \arguments{
   \item{x}{An \code{\linkS4class{eutil}} object.}
 

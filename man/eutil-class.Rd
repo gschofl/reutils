@@ -18,8 +18,8 @@
   \describe{ \item{\code{params}:}{A named \code{list} of
   query parameters.} \item{\code{errors}:}{A
   \code{\linkS4class{eutil_error}} object.}
-  \item{\code{content}:}{Results of an Entrez request as a
-  character vector.} }
+  \item{\code{content}:}{Result of an Entrez request stored
+  as a character vector.} }
 }
 
 \section{Extends}{

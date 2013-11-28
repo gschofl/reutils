@@ -1,14 +1,10 @@
+\docType{methods}
 \name{[.esummary}
 \alias{[,esummary,character-method}
 \alias{[.esummary}
 \alias{[[,esummary,character-method}
 \alias{[[.esummary}
 \title{ESummary accessors}
-\usage{
-  x[...]
-
-  x[[...]]
-}
 \arguments{
   \item{x}{An \code{\linkS4class{esummary}} object.}
 

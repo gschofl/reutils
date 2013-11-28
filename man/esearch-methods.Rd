@@ -1,10 +1,8 @@
+\docType{methods}
 \name{[.esearch}
 \alias{[,esearch,numeric-method}
 \alias{[.esearch}
 \title{ESearch Accessors}
-\usage{
-  x[i]
-}
 \arguments{
   \item{x}{An \code{\linkS4class{einfo}} object.}
 

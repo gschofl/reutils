@@ -1,14 +1,10 @@
+\docType{methods}
 \name{[.einfo}
 \alias{[,einfo,ANY-method}
 \alias{[.einfo}
 \alias{[[,einfo,ANY-method}
 \alias{[[.einfo}
 \title{EInfo accessors}
-\usage{
-  x[i]
-
-  x[[i]]
-}
 \arguments{
   \item{x}{An \code{\linkS4class{einfo}} object.}
 

@@ -27,7 +27,7 @@ eutil_error <- setRefClass(
       is.null(error) && is.null(errmsg) && is.null(wrnmsg)
     },
     check_errors=function(.Object, verbose=TRUE) {
-      assert_that(is(.Object, "eutil"))
+      stopifnot(is(.Object, "eutil"))
       x <- .Object$get_content("xml")
       .self$error <- xvalue(x, '//ERROR', default=NULL)
       if (verbose && !is.null(error)) {
@@ -65,9 +65,11 @@ eutil_error <- setRefClass(
 #' @name eutil_error-class
 #' @section Fields:
 #' \describe{
-#'    \item{\code{error}:}{}
-#'    \item{\code{errmsg}:}{}
-#'    \item{\code{wrnmsg}:}{}
+#'    \item{\code{error}:}{Error messages returned by the Entrez server when
+#'    no search could be performed like, e.g., "Invalid db name specified".}
+#'    \item{\code{errmsg}:}{Error messages pertaining to the search like
+#'    e.g., "PhraseNotFound".}
+#'    \item{\code{wrnmsg}:}{Warnings like, e.g., "No items found."}
 #' }
 #' @section Extends: All reference classes extend and inherit methods from
 #'     \code{"\linkS4class{envRefClass}"}.

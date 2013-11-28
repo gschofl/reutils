@@ -11,7 +11,8 @@
 
   \item{path}{An XPath expression.}
 
-  \item{as}{Mode of return value.}
+  \item{as}{Mode of return value (\code{character},
+  \code{integer}, \code{numeric}).}
 
   \item{default}{Default return value.}
 

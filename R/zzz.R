@@ -5,8 +5,9 @@
 #' \itemize{
 #'   \item \code{reutils.mail}: NCBI requires that a user of their API provides an
 #'      email address with a call to Entrez. If you are going to perform a lot
-#'      of queries you should set \code{reutils.mail} to your email address. \emph{reutils}
-#'      will annoy you with warnings untill you comply.
+#'      of queries you should set \code{reutils.mail} to your email address in
+#'      your .Rprofile file. \emph{reutils} will annoy you with warnings until
+#'      you comply.
 #'
 #'   \item \code{reutils.verbose.queries}: If you perform many queries non-interactively
 #'      you might want to switch off the messages announcing each query. You can do so by setting
@@ -21,8 +22,7 @@ NULL
 .onLoad <- function(libname, pkgname) {
   op <- options()
   op.reutils <- list(
-    reutils.mail = "gschofl@yahoo.de",
-#     reutils.mail = "Your.Name.Here@example.org",
+    reutils.mail = "Your.Name.Here@example.org",
     reutils.verbose.queries = TRUE
   )
   toset <- !(names(op.reutils) %in% names(op))

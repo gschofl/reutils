@@ -1,10 +1,5 @@
-#' @importFrom assertthat assert_that
-#' @importFrom XML xpathApply
-#' @importFrom XML xmlValue
-#' @importFrom XML xmlName
-#' @importFrom XML xmlGetAttr
+#' @importFrom XML xpathApply xmlValue xmlName xmlGetAttr
 NULL
-
 
 "%&&%" <- function (a, b) {
   if (is.null(a)) a else force(b)
@@ -36,39 +31,42 @@ merge_list <- function (x, y) {
   if (length(y) == 0) return(x) 
   i <- is.na(match(names(y), names(x)))
   if (any(i)) {
-    x[names(y)[which(i)]] = y[which(i)]
+    x[names(y)[which(i)]] <- y[which(i)]
   }
   x
 }
 
 compact <- function (x) {
-  x[!vapply(x, is.null, logical(1), USE.NAMES=FALSE)]
+  x[!vapply(x, is.null, FALSE, USE.NAMES=FALSE)]
 }
 
 compactNA <- function (x) {
-  x[!vapply(x, function(x) all(is.na(x)), logical(1), USE.NAMES=FALSE)]
+  x[!vapply(x, function(x) all(is.na(x)), FALSE, USE.NAMES=FALSE)]
 }
 
 trim <- function (x, trim = '\\s+') {
-  assert_that(is.vector(x))
+  stopifnot(is.vector(x))
   gsub(paste0("^", trim, "|", trim, "$"), '', x)
+}
+
+is.string <- function(x) {
+  is.character(x) && length(x) == 1
 }
 
 #' Extract the content of XML leaf nodes
 #' 
 #' @param doc An object of class \code{XMLInternalDocument}.
 #' @param path An XPath expression.
-#' @param as Mode of return value.
+#' @param as Mode of return value (\code{character}, \code{integer}, \code{numeric}).
 #' @param default Default return value.
 #' @param ... Arguments passed to \code{\link[XML]{xpathApply}}.
-#' 
 #' @keywords internal
 #' @export
 xvalue <- function(doc, path, as = 'character', default = NA_character_, ...) {
-  v <- unlist(xpathApply(doc, path, "xmlValue", ...)) %||% default
-  set_mode(v, as)
+  AS <- match.fun(paste0('as.', as))
+  res <- unlist(xpathApply(doc, path, "xmlValue", ...)) %||% default
+  res %&&% AS(res)
 }
-
 
 #' Extract the tag name of XML nodes
 #' 
@@ -76,8 +74,9 @@ xvalue <- function(doc, path, as = 'character', default = NA_character_, ...) {
 #' @keywords internal
 #' @export
 xname <- function(doc, path, as = 'character', default = NA_character_, ...) {
-  n <- unlist(xpathApply(doc, path, "xmlName", ...)) %||% default
-  set_mode(n, as)
+  AS <- match.fun(paste0('as.', as))
+  res <- unlist(xpathApply(doc, path, "xmlName", ...)) %||% default
+  res %&&% AS(res)
 }
 
 #' Extract the attributes of XML nodes
@@ -87,8 +86,9 @@ xname <- function(doc, path, as = 'character', default = NA_character_, ...) {
 #' @keywords internal
 #' @export
 xattr <- function(doc, path, name, as = 'character', default = NA_character_, ...) {
-  a <- unlist(xpathApply(doc, path, "xmlGetAttr", name = name, ...)) %||% default
-  set_mode(a, as)
+  AS <- match.fun(paste0('as.', as))
+  res <- unlist(xpathApply(doc, path, "xmlGetAttr", name = name, ...)) %||% default
+  res %&&% AS(res)
 }
 
 #' Extract a node set from an XML document
@@ -103,18 +103,12 @@ xset <- function(doc, path, ...) {
   xpathApply(doc, path, fun = NULL, ...)
 }
 
-set_mode <- function(x, as) {
-  f <- match.fun(paste0('as.', as))
-  if (!is.null(x)) f(x) else x
-}
-
 has_attr <- function(x, which) {
   a <- attr(x, which, exact = TRUE)
   !is.null(a) && !is.na(a) 
 }
 
-ellipsize <- function(obj, offset = 0, width = getOption("width"), 
-                      ellipsis = "...") {
+ellipsize <- function(obj, offset = 0, width = getOption("width"), ellipsis = "...") {
   str <- encodeString(obj)
   ifelse(nchar(str) > width - nchar(ellipsis) - offset,
          paste0(substring(str, 1, width - nchar(ellipsis) - offset), ellipsis),
@@ -176,12 +170,11 @@ make_flattener <- function(flatten.at = 1) {
   }
 }
 
-
 flatten2 <- make_flattener(flatten.at=2)
 
 #' Set the NCBI rettype
 #' 
-#' @param db A valid NCBI database
+#' @param db A valid NCBI database.
 #' @param rettype Optional.
 #' @param retmode Optional.
 #' @keywords internal

@@ -5,7 +5,7 @@
   ncbi_retrieval_type(db, rettype = NULL, retmode = NULL)
 }
 \arguments{
-  \item{db}{A valid NCBI database}
+  \item{db}{A valid NCBI database.}
 
   \item{rettype}{Optional.}
 

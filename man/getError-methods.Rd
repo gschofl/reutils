@@ -1,11 +1,8 @@
+\docType{methods}
 \name{getError}
 \alias{getError}
 \alias{getError,eutil-method}
-\alias{getError-methods}
 \title{getError}
-\usage{
-  \S4method{getError}{eutil}(x, ...)
-}
 \arguments{
   \item{x}{An \code{\linkS4class{eutil}} object.}
 

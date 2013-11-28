@@ -13,7 +13,7 @@
   \code{\linkS4class{espell}}, and
   \code{\linkS4class{ecitmatch}} reference classes. This
   object implements the low level request generator for
-  interaction with the NCBI services. it should not be used
+  interaction with the NCBI services. It should not be used
   direcly, but initialized through the respective
   constructor functions \code{\link{einfo}},
   \code{\link{esearch}}, \code{\link{esummary}},

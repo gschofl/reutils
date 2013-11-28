@@ -1,14 +1,10 @@
+\docType{methods}
 \name{[.efetch}
 \alias{[,efetch,character-method}
 \alias{[.efetch}
 \alias{[[,efetch,character-method}
 \alias{[[.efetch}
 \title{EFetch accessors}
-\usage{
-  x[...]
-
-  x[[...]]
-}
 \arguments{
   \item{x}{An \code{\linkS4class{efetch}} object containing
   XML data.}

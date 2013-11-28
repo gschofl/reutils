@@ -6,8 +6,13 @@
   files returned by Entrez.
 }
 \section{Fields}{
-  \describe{ \item{\code{error}:}{} \item{\code{errmsg}:}{}
-  \item{\code{wrnmsg}:}{} }
+  \describe{ \item{\code{error}:}{Error messages returned
+  by the Entrez server when no search could be performed
+  like, e.g., "Invalid db name specified".}
+  \item{\code{errmsg}:}{Error messages pertaining to the
+  search like e.g., "PhraseNotFound".}
+  \item{\code{wrnmsg}:}{Warnings like, e.g., "No items
+  found."} }
 }
 
 \section{Extends}{

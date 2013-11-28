@@ -1,11 +1,8 @@
+\docType{methods}
 \name{performQuery}
 \alias{performQuery}
 \alias{performQuery,eutil-method}
-\alias{performQuery-methods}
 \title{performQuery}
-\usage{
-  \S4method{performQuery}{eutil}(x, method = "GET", ...)
-}
 \arguments{
   \item{x}{An \code{\linkS4class{eutil}} object.}
 
