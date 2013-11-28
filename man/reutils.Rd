@@ -50,25 +50,6 @@
   controlled by setting the \code{retmode} and
   \code{rettype} arguments when calling a EUtil.
 }
-\section{Package options}{
-  \emph{reutils} uses two \code{\link{options}} to
-  configure behaviour:
-
-  \itemize{ \item \code{reutils.email}: NCBI requires that
-  a user of their API provides an email address with a call
-  to Entrez. If you are going to perform a lot of queries
-  you should set \code{reutils.email} to your email address
-  in your .Rprofile file. \emph{reutils} will annoy you
-  with warnings until you comply.
-
-  \item \code{reutils.verbose.queries}: If you perform many
-  queries interactively you might want to get messages
-  announcing the queris you run. You can do so by setting
-  the option \code{reutils.verbose.queries} to \code{TRUE}.
-
-  }
-}
-
 \section{Main functions}{
   \itemize{ \item \code{\link{esearch}}: Search and
   retrieve primary UIDs for use with \code{esummary},
@@ -113,6 +94,25 @@
   \item \code{\link{content}}: Extract the content of a
   request from the \code{\link{eutil}} object returned by
   any of the above functions. }
+}
+
+\section{Package options}{
+  \emph{reutils} uses two \code{\link{options}} to
+  configure behaviour:
+
+  \itemize{ \item \code{reutils.email}: NCBI requires that
+  a user of their API provides an email address with a call
+  to Entrez. If you are going to perform a lot of queries
+  you should set \code{reutils.email} to your email address
+  in your .Rprofile file. \emph{reutils} will annoy you
+  with warnings until you comply.
+
+  \item \code{reutils.verbose.queries}: If you perform many
+  queries interactively you might want to get messages
+  announcing the queris you run. You can do so by setting
+  the option \code{reutils.verbose.queries} to \code{TRUE}.
+
+  }
 }
 \examples{
 ############################################################################
