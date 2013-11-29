@@ -80,7 +80,7 @@
 #' }
 #'   
 #' @example inst/examples/reutils.R
-#' @author Gerhard Schoefl \email{gschofl@@yahoo.de}
+#' @author Gerhard Schöfl \email{gschofl@@yahoo.de}
 #' @docType package
 #' @name reutils
 #' @aliases reutils reutils-package

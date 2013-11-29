@@ -3,30 +3,40 @@
 
 # reutils #
 
-`reutils` provides support for interacting with NCBI databases such as PubMed,
+`reutils` is an R package for interfacing with NCBI databases such as PubMed,
 Genbank, or GEO via the Entrez Programming Utilities
-([EUtils](http://www.ncbi.nlm.nih.gov/books/NBK25501/)).
+([EUtils](http://www.ncbi.nlm.nih.gov/books/NBK25501/)). It provides access to the
+nine basic *eutils*: `einfo`, `esearch`, `esummary`, `epost`, `efetch`, `elink`,
+`egquery`, `espell`, and `ecitmatch`.
 
 Please check the relevant
 [usage guidelines](http://www.ncbi.nlm.nih.gov/books/NBK25497/#chapter2.Usage_Guidelines_and_Requiremen)
 when using these services. Note that Entrez server requests are subject to frequency limits.
 
-## Getting Started ##
-
-
-### Install ###
-
-reutils is still under development. You can install it from `github` using the `devtools` package.
+Install the latest stable release of the reutils package from CRAN:
 
 
 
 ```r
+install.packages("reutils")
+```
+
+
+
+
+Install the development version from `github` using the `devtools` package.
+
+
+
+```r
+require("devtools")
 install_github("reutils", "gschofl")
 ```
 
 
 
 
+Please post feature or support requests and bugs at the [issues tracker for the reutils package](https://github.com/gschofl/reutils/issues) on GitHub. 
 
 ### Important functions ###
 
@@ -43,27 +53,28 @@ can be passed on directly to `epost`, `esummary`, `elink`, or `efetch`.
 
 #### `efetch` ####
 
-`efetch` retrieves data records from NCBI in a specified retrieval type
+`efetch`: retrieve data records from NCBI in a specified retrieval type
 and retrieval mode as given in this
 [table](http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.chapter4_table1). Data are returned as XML or text documents.
 
 #### `esummary` ####
 
-`esummary` returns Entrez database summaries (DocSums) from a list of primary UIDs (Provided as a character vector or as an `esearch` object)
+`esummary`: retrieve Entrez database summaries (DocSums) from a list of primary UIDs (Provided as a character vector or as an `esearch` object)
 
 #### `elink` ####
 
-`elink` returns a list of UIDs (and relevancy scores) from a target database
-that are related to a set of UIDs provided by the user.
+`elink`: retrieve a list of UIDs (and relevancy scores) from a target database
+that are related to a set of UIDs provided by the user. The objects returned by
+`elink` can be passed on directly to `epost`, `esummary`, or `efetch`.
 
 #### `einfo` ####
 
-`einfo` provides field names, term counts, last update, and available updates
+`einfo`: provide field names, term counts, last update, and available updates
 for each database.
 
 #### `epost` ####
 
-`epost` uploads primary UIDs to the users's Web Environment on the Entrez
+`epost`: upload primary UIDs to the users's Web Environment on the Entrez
 history server for subsequent use with `esummary`, `elink`, or `efetch`.
 
 
@@ -231,7 +242,7 @@ cpaf$xmlValue("//Id")
 
 ### `esummary`: Retrieving summaries from primary IDs ###
 
-`esummary` retrieves document summaries (_docsum_s) from a list of primary IDs.
+`esummary` retrieves document summaries (*docsum*s) from a list of primary IDs.
 Let's find out what the first entry for PMP is about:
 
 
@@ -261,7 +272,7 @@ esum
 
 
 
-We can also parse _docsum_s into a `data.frame`
+We can also parse *docsum*s into a `data.frame`
 
 
 ```r
@@ -343,7 +354,7 @@ write(content(cpaff), file = "~/cpaf.fna")
 
 
 
-Alternatively we can fetch the FASTA records as _TSeqSet_ XML records
+Alternatively we can fetch the FASTA records as *TSeqSet* XML records
 and extract the sequence from the XML file.
 
 
@@ -435,9 +446,9 @@ einfo("taxonomy")
  ##    dbName: taxonomy
  ##    MenuName: Taxonomy
  ##    Description: Taxonomy db
- ##    DbBuild: Build131128-0720.1
- ##    Count: 1185006
- ##    LastUpdate: 2013-11-28 09:00:00
+ ##    DbBuild: Build131129-0120.1
+ ##    Count: 1185009
+ ##    LastUpdate: 2013-11-29 03:49:00
  ##    Fields: Name; FullName; Description; TermCount; IsDate; IsNumerical; S...
  ##    Links: Name; Menu; Description; DbTo
 ....

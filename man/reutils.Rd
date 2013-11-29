@@ -158,7 +158,7 @@ prot
 fasta <- content(prot)
 }
 \author{
-  Gerhard Schoefl \email{gschofl@yahoo.de}
+  Gerhard Schöfl \email{gschofl@yahoo.de}
 }
 \keyword{package}
 

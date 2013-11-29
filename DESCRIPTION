@@ -1,13 +1,14 @@
 Package: reutils
 Type: Package
 Title: Talk to the NCBI EUtils
-Version: 0.1.0
-Date: 2013-11-28
-Authors@R: person("Gerhard", "Schoefl", role=c("aut","cre"),
-    email="gschofl@yahoo.de")
-Author: Gerhard Schoefl
-Maintainer: Gerhard Schoefl <gschofl@yahoo.de>
-Description: reutils provides support for interacting with NCBI databases such
+Version: 0.1.1
+Date: 2013-11-29
+Authors@R: c(person("Gerhard", "Schöfl",
+    role = c("aut", "cre"),
+    email = "gschofl@yahoo.de"))
+Author: Gerhard Schöfl
+Maintainer: Gerhard Schöfl <gschofl@yahoo.de>
+Description: This is an R package for interfacing with NCBI databases such
     as PubMed, Genbank, or GEO via the Entrez Programming Utilities (EUtils).
     The nine EUtils provide a programmatical interface to the NCBI Entrez query
     and database system for searching and retrieving biological data.
@@ -18,23 +19,25 @@ Imports:
     RCurl,
     XML
 Suggests:
-    testthat
-License: MIT
-URL: https://github.com/gschofl/reutils/
+    testthat (>= 0.7.1)
+License: MIT + file LICENSE
+Encoding: UTF-8
+URL: https://github.com/gschofl/reutils
+BugReports: https://github.com/gschofl/reutils/issues
 Collate:
     'utils.R'
     'eutil-error.R'
     'eutil.R'
-    'einfo.R'
-    'esearch.R'
+    'ecitmatch.R'
     'parse-params.R'
     'efetch.R'
-    'esummary.R'
-    'ecitmatch.R'
+    'egquery.R'
+    'einfo.R'
     'elink.R'
     'epost.R'
+    'esearch.R'
     'espell.R'
-    'egquery.R'
+    'esummary.R'
     'parse-docsum.R'
     'reutils-package.R'
     'zzz.R'
