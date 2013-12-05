@@ -47,7 +47,7 @@ setMethod("content", "efetch", function(x, as=NULL, ...) {
   if (as == "xml" && retmode(x) != "xml") {
     stop("This document does not contain XML data", call.=FALSE)
   }
-  as <- match.arg(as, c("text", "xml"))
+  as <- match.arg(as, c("text", "textConnection", "xml"))
   callNextMethod(x=x, as=as)
 })
 

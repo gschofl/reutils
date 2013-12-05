@@ -43,11 +43,12 @@
   \code{\linkS4class{eutil_error}}s; should not be used
   directly, use \code{\link{getError}} instead.}
   \item{\code{#get_content(as='text')}:}{Return the results
-  of an Entrez query as text, xml, or a parsed R object;
-  should not be used directly, use \code{\link{content}}
-  instead.} \item{\code{#perform_query(method="GET",
-  ...)}:}{Perform an Entrez query using either http GET or
-  POST requests; should not be used directly.} }
+  of an Entrez query as text, xml, a parsed R object, or a
+  \code{\link{textConnection}}; should not be used
+  directly, use \code{\link{content}} instead.}
+  \item{\code{#perform_query(method="GET", ...)}:}{Perform
+  an Entrez query using either http GET or POST requests;
+  should not be used directly.} }
 }
 \seealso{
   \code{\linkS4class{eutil}}, \code{\link{einfo}},

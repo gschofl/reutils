@@ -13,11 +13,11 @@ NULL
 #' \code{\linkS4class{esearch}}, \code{\linkS4class{esummary}}, \code{\linkS4class{efetch}},
 #' \code{\linkS4class{elink}}, \code{\linkS4class{epost}}, \code{\linkS4class{egquery}},
 #' \code{\linkS4class{espell}}, and \code{\linkS4class{ecitmatch}} reference classes.
-#' This object implements the low level request generator for interaction with the NCBI services.
-#' It should not be used direcly, but initialized through the respective constructor
-#' functions \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
-#' \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}}, \code{\link{egquery}},
-#' \code{\link{espell}}, and \code{\link{ecitmatch}}.
+#' This object implements the low level request generator for interaction with the
+#' NCBI services. It should not be used direcly, but initialized through the
+#' respective constructor functions \code{\link{einfo}}, \code{\link{esearch}},
+#' \code{\link{esummary}}, \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
+#' \code{\link{egquery}}, \code{\link{espell}}, and \code{\link{ecitmatch}}.
 #' 
 #' @section Public methods:
 #' \describe{
@@ -37,11 +37,11 @@ NULL
 #' \describe{  
 #'   \item{\code{#get_url()}:}{Return the URL used for an Entrez query; should not
 #'   be used directly, use \code{\link{getUrl}} instead.}
-#'   \item{\code{#get_error()}:}{Return \code{\linkS4class{eutil_error}}s; should not
-#'   be used directly, use \code{\link{getError}} instead.}
-#'   \item{\code{#get_content(as='text')}:}{Return the results of an Entrez query as
-#'   text, xml, or a parsed R object; should not be used directly,
-#'   use \code{\link{content}} instead.}
+#'   \item{\code{#get_error()}:}{Return \code{\linkS4class{eutil_error}}s; should
+#'   not be used directly, use \code{\link{getError}} instead.}
+#'   \item{\code{#get_content(as='text')}:}{Return the results of an Entrez query
+#'   as text, xml, a parsed R object, or a \code{\link{textConnection}}; should not
+#'   be used directly, use \code{\link{content}} instead.}
 #'   \item{\code{#perform_query(method="GET", ...)}:}{Perform an Entrez query using
 #'   either http GET or POST requests; should not be used directly.}
 #' }
@@ -92,13 +92,14 @@ eutil <- setRefClass(
         'return errors'
         return(.self$errors)
       },
-      get_content=function(as="text") {
+      get_content=function(as="text", ...) {
         'return the contents of a query as text, xml, or parse it into an R object'
-        as <- match.arg(as, c("text", "xml", "parsed"))
+        as <- match.arg(as, c("text", "xml", "parsed", "textConnection"))
         switch(as,
           text=.self$content,
           xml=savely_parse_xml(.self$content),
-          parsed=parse_content(.self)
+          parsed=parse_content(.self),
+          textConnection=textConnection(.self$content, ...)
         )
       },
       perform_query=function(method="GET", ...) {
@@ -128,8 +129,7 @@ eutil <- setRefClass(
         if (method == "POST") {
           e <- tryCatch(postForm(query_url("POST"), .params=.self$params, .opts=opts),
                         error=function(e) e$message)
-        }
-        else if (method == "GET") {
+        } else if (method == "GET") {
           if (verbose) {
             cat(ellipsize(query_url("GET")), "\n")
           }
@@ -244,14 +244,15 @@ parse_content <- function(.object) {
 
 #' Extract the data content from an Entrez request
 #' 
-#' There are three ways to access data returned by an Entrez request: as a character string
-#' \code{(as = "text")}, as a parsed XML tree \code{(as = "xml")}, or, if supported,
-#' parsed into a native R object, e.g. a \code{list} or a \code{data.frame}
-#' \code{(as = "parsed")}.
+#' There are four ways to access data returned by an Entrez request: as a character
+#' string \code{(as = "text")}, as a \code{\link{textConnection}}
+#' \code{(as = "textConnection")}, as a parsed XML tree \code{(as = "xml")}, or,
+#' if supported, parsed into a native R object, e.g. a \code{list} or a
+#' \code{data.frame} \code{(as = "parsed")}.
 #' 
 #' @param x An \code{\linkS4class{eutil}} object.
-#' @param as Type of output: \code{"xml"}, \code{"text"}, or
-#' \code{"parsed"}.
+#' @param as Type of output: \code{"xml"}, \code{"text"}, \code{"textConnection"}, 
+#' or \code{"parsed"}.
 #' @param ... Further arguments passed on to methods.
 #' @seealso
 #'    \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
@@ -271,6 +272,16 @@ parse_content <- function(.object) {
 #' 
 #' ## return DbNames parsed into a character vector.
 #' content(e, "parsed")
+#' 
+#' 
+#' \dontrun{
+#' ## return a textConnection to allow linewise read of the data.
+#' x <- efetch("CP000828", "nuccore", rettype="gbwithparts", retmode="text")
+#' con <- content(x, "textConnection")
+#' readLines(con, 2)
+#' close(con)
+#' }
+#' 
 setGeneric("content", function(x, as = "xml", ...) standardGeneric("content"))
 #' @rdname content-methods
 #' @aliases content,eutil-method
