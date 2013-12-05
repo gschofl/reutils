@@ -1,7 +1,7 @@
 Package: reutils
 Type: Package
 Title: Talk to the NCBI EUtils
-Version: 0.1.1
+Version: 0.1.0.99
 Date: 2013-11-29
 Authors@R: c(person("Gerhard", "Schöfl",
     role = c("aut", "cre"),
@@ -19,7 +19,7 @@ Imports:
     RCurl,
     XML
 Suggests:
-    testthat (>= 0.7.1)
+    testthat (>= 0.8)
 License: MIT + file LICENSE
 Encoding: UTF-8
 URL: https://github.com/gschofl/reutils
