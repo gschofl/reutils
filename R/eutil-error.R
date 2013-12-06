@@ -27,7 +27,7 @@ eutil_error <- setRefClass(
       is.null(error) && is.null(errmsg) && is.null(wrnmsg)
     },
     check_errors=function(.Object, verbose=TRUE) {
-      stopifnot(is(.Object, "eutil"))
+      assert_that(is(.Object, "eutil"))
       x <- .Object$get_content("xml")
       .self$error <- xvalue(x, '//ERROR', default=NULL)
       if (verbose && !is.null(error)) {

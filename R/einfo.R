@@ -96,9 +96,7 @@ extract_df <- function(x, path) {
 #' x <- einfo("gene")
 #' content(x, "parsed")
 einfo <- function(db=NULL) {
-  if (!is.null(db)) {
-    stopifnot(is.string(db))
-  }
+  assert_that(is.null(db) || is.string(db))
   .einfo(method="GET", db=db)
 }
 

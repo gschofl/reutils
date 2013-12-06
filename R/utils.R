@@ -1,4 +1,5 @@
 #' @importFrom XML xpathApply xmlValue xmlName xmlGetAttr
+#' @importFrom assertthat assert_that is.string is.scalar
 NULL
 
 "%&&%" <- function (a, b) {
@@ -39,7 +40,7 @@ merge_list <- function (x, y) {
 merge_linkset <- function(x) {
   uid <- unique(unlist(x, use.names=FALSE))
   db <- unique(vapply(x, attr, "database", FUN.VALUE="", USE.NAMES=FALSE))
-  stopifnot(length(db) == 1)
+  assert_that(is.scalar(db))
   attr(uid, "database") <- db
   uid
 }
@@ -53,12 +54,8 @@ compactNA <- function (x) {
 }
 
 trim <- function (x, trim = '\\s+') {
-  stopifnot(is.vector(x))
+  assert_that(is.vector(x))
   gsub(paste0("^", trim, "|", trim, "$"), '', x)
-}
-
-is.string <- function(x) {
-  is.character(x) && length(x) == 1
 }
 
 #' Extract the content of XML leaf nodes
