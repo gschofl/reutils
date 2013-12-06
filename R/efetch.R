@@ -17,17 +17,27 @@ NULL
     },
     show=function() {
       cat("Object of class", sQuote(eutil()), "\n")
+      nhead <- getOption("reutils.show.headlines")
       if (no_errors()) {
         if (retmode() == "xml") {
           methods::show(get_content("xml"))
-        } else{
-          cat(get_content("text"))
+## This does not work well with huge XML objects          
+#           out <- capture.output(get_content("xml"))
+#           if (!is.null(nhead)) {
+#             out <- out[1:nhead]
+#           }
+#           cat(substring(out, first=1, last=getOption("width") - 2), "...", sep="\n")
+        } else {
+          con <- get_content("textConnection")
+          on.exit(close(con))
+          headlines <- readLines(con, n=nhead %||% -1L)
+          cat(headlines, "...", sep="\n")
         }
       } else {
         methods::show(get_error())
       }
       tail <- sprintf("EFetch query using the %s database.\nQuery url: %s\nRetrieval type: %s, retrieval mode: %s\n",
-                      sQuote(database()), sQuote(ellipsize(get_url(), offset=12)),
+                      sQuote(database()), sQuote(ellipsize(get_url(), offset=15)),
                       sQuote(rettype()), sQuote(retmode()))
       cat(tail, sep="\n")
     } 
