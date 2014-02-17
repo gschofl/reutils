@@ -98,33 +98,24 @@ esummary <- function(uid, db=NULL, retstart=1, retmax=10000,
 #' 
 #' Extract XML nodes from an \code{\linkS4class{esummary}} object.
 #' 
-#' @usage x[...]
 #' @param x An \code{\linkS4class{esummary}} object.
-#' @param ... An XPath expression
+#' @param i An XPath expression.
 #' @return An XML node set.
-#' 
-#' @export
-#' @docType methods
-#' @name [.esummary
 #' @rdname esummary-methods
+#' @export
 #' @examples
 #' ds <- esummary("470338", "protein")
 #' ds["//Slen/node()"]
 #' 
 #' require("XML")
 #' as.numeric(xmlValue(ds[["//Slen"]]))
-#' @aliases [,esummary,character-method
 setMethod("[", c("esummary", "character"), function(x, i) {
   x$xmlSet(i)  
 })
 
 
-#' @usage x[[...]]
-#' @export
-#' @docType methods
-#' @name [[.esummary
 #' @rdname esummary-methods
-#' @aliases [[,esummary,character-method
+#' @export
 setMethod("[[", c("esummary", "character"), function(x, i) {
   ans <- x[i]
   if (length(ans) > 1) {

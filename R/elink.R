@@ -25,8 +25,7 @@ NULL
   )
 )
 
-#' @importFrom XML xmlDoc
-#' @importFrom XML free
+#' @importFrom XML xmlDoc free
 parse_linkset <- function(.obj) {
   x <- .obj$get_content("xml")
   DbFrom <- xvalue(x, "/eLinkResult/LinkSet/DbFrom")
@@ -110,12 +109,12 @@ print.entrez_link <- function(x, ...) {
 
        
 #' @rdname database-methods
-#' @aliases database,entrez_linkset-method
+#' @export
 setMethod("database", "entrez_linkset", function(x, ...) attr(x, "database"))
 
 
 #' @rdname uid-methods
-#' @aliases uid,entrez_linkset-method
+#' @export
 setMethod("uid", "entrez_linkset", function(x, ...) attr(x, "uid"))
 
 
@@ -131,7 +130,6 @@ setMethod("uid", "entrez_linkset", function(x, ...) attr(x, "uid"))
 #' @return A list.
 #' @export
 #' @rdname linkset-methods
-#' @docType methods
 #' @examples
 #' ## Find related articles to PMID 20210808 and xtract linked UIDs from the
 #' ## "pubmed" to "pubmed_reviews" link
@@ -139,7 +137,7 @@ setMethod("uid", "entrez_linkset", function(x, ...) attr(x, "uid"))
 #' linkset(x, "pubmed_pubmed_reviews")
 setGeneric("linkset", function(x, linkname = NULL, ...) standardGeneric("linkset"))
 #' @rdname linkset-methods
-#' @aliases linkset,entrez_linkset-method
+#' @export
 setMethod("linkset", "entrez_linkset", function(x, linkname = NULL, ...) {
   if (!is.null(linkname)) {
     ans <- x[linkname]
@@ -289,39 +287,32 @@ elink <- function(uid, dbFrom=NULL, dbTo=NULL, linkname=NULL,
 #' 
 #' Extract UIDs from an \code{\link{elink}} object.
 #'
-#' @usage x[i]
 #' @param x An \code{\linkS4class{elink}} object.
-#' @param i Integer or character indices.
+#' @param i Numeric or character indices.
 #' @return A \code{\linkS4class{entrez_linkset}} object.
-#' 
-#' @export
-#' @docType methods
-#' @name [.elink
 #' @rdname elink-methods
+#' @export
 #' @examples
 #' e <- elink(c("34577062", "24475906"), dbFrom="nuccore")
 #' e[1]
-#' @aliases [,elink,numeric-method
 setMethod("[", c("elink", "numeric"), function(x, i) {
   linkset(x, i)
 })
 
 #' @rdname elink-methods
-#' @aliases [,elink,character-method
+#' @export
 setMethod("[", c("elink", "character"), function(x, i) {
   linkset(x, i)
 })
 
-
 #' @rdname linkset-methods
-#' @aliases linkset,elink-method
+#' @export
 setMethod("linkset", "elink", function(x, linkname = NULL, ...) {
   linkset(x$get_content("parsed"), linkname=linkname, ...)
 })
 
-
 #' @rdname uid-methods
-#' @aliases uid,elink-method
+#' @export
 setMethod("uid", "elink", function(x, ...) {
   uid(x$get_content("parsed"))
 })

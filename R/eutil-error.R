@@ -3,30 +3,41 @@
 NULL
 
 
-#' Generator object for the \code{\linkS4class{eutil_error}} class
+#' Class \code{"eutil_error"}:
 #'
-#' @usage eutil_error(...)
-#' @section Methods:
-#' \describe{
-#'    \item{\code{#all_empty()}:}{Are all error fields \code{NULL}}
-#'    \item{\code{#check_errors(.Object, verbose = TRUE)}:}{check a \code{linkS4class{eutil}} object
-#'    for errors}
-#' }
+#' A container for handling errors when trying to parse XML files returned
+#' by Entrez.
+#' 
+#' @field Error messages returned by the Entrez server when no search could be
+#' performed like, e.g., "Invalid db name specified".
+#' @field errmsg Error messages pertaining to the search like e.g.,
+#' "PhraseNotFound".
+#' @field wrnmsg Warnings like, e.g., "No items found."
+#' 
+#' @section Extends: All reference classes extend and inherit methods from
+#'     \code{"\linkS4class{envRefClass}"}.
+#' @seealso \code{\link{getError}}, \code{\linkS4class{eutil}}.
+#' 
+#' @name eutil_error-class
 #' @keywords classes internal
 #' @export
+#' @examples
+#' showClass("eutil_error")
 eutil_error <- setRefClass(
-  Class="eutil_error",
-  fields=c("error", "errmsg", "wrnmsg"),
-  methods=list(
-    initialize=function() {
+  Class   = "eutil_error",
+  fields  = c("error", "errmsg", "wrnmsg"),
+  methods = list(
+    initialize = function() {
       .self$error <- NULL
       .self$errmsg <- NULL
       .self$wrnmsg <- NULL
     },
-    all_empty=function() {
+    all_empty = function() {
+      'Are all error fields \\code{NULL}?'
       is.null(error) && is.null(errmsg) && is.null(wrnmsg)
     },
-    check_errors=function(.Object, verbose=TRUE) {
+    check_errors = function(.Object, verbose = TRUE) {
+      'check if a \\code{linkS4class{eutil}} object contains errors'
       assert_that(is(.Object, "eutil"))
       x <- .Object$get_content("xml")
       .self$error <- xvalue(x, '//ERROR', default=NULL)
@@ -46,9 +57,9 @@ eutil_error <- setRefClass(
                 paste(paste(names(wrnmsg), wrnmsg, sep="\t"), collapse="\n\t"))
       }
     },
-    show=function() {
+    show = function() {
       if (all_empty()) {
-        cat("No errors", sep="\n")
+        cat("No errors", sep = "\n")
       } else {
         error  %&&% methods::show(error)
         errmsg %&&% methods::show(errmsg)
@@ -57,25 +68,4 @@ eutil_error <- setRefClass(
     }
   )
 )
-
-#' Class \code{"eutil_error"}
-#'
-#' A container for handling errors when trying to parse XML files returned
-#' by Entrez.
-#' @name eutil_error-class
-#' @section Fields:
-#' \describe{
-#'    \item{\code{error}:}{Error messages returned by the Entrez server when
-#'    no search could be performed like, e.g., "Invalid db name specified".}
-#'    \item{\code{errmsg}:}{Error messages pertaining to the search like
-#'    e.g., "PhraseNotFound".}
-#'    \item{\code{wrnmsg}:}{Warnings like, e.g., "No items found."}
-#' }
-#' @section Extends: All reference classes extend and inherit methods from
-#'     \code{"\linkS4class{envRefClass}"}.
-#' @seealso \code{\link{eutil_error}}, \code{\linkS4class{eutil}}.
-#' @keywords classes internal
-#' @examples
-#' ###
-NULL
 

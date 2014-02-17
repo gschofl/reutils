@@ -32,7 +32,7 @@
 #' 
 #' \item Access specific nodes in the XML tree using XPath expressions with the
 #'    reference class methods \code{#xmlValue}, \code{#xmlAttr}, or \code{#xmlName}
-#'    built into \code{\link{eutil}} objects.
+#'    built into \code{\linkS4class{eutil}} objects.
 #' }
 #' 
 #' The Entrez Programming Utilities can also generate output in other formats,
@@ -76,7 +76,7 @@
 #'    correspond to a set of input citation strings
 #'     
 #'    \item \code{\link{content}}: Extract the content of a request from the
-#'    \code{\link{eutil}} object returned by any of the above functions.
+#'    \code{\linkS4class{eutil}} object returned by any of the above functions.
 #' }
 #'   
 #' @example inst/examples/reutils.R

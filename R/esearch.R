@@ -71,12 +71,12 @@ setOldClass("entrez_uid")
 
 
 #' @rdname database-methods
-#' @aliases database,entrez_uid-method
+#' @export
 setMethod("database", "entrez_uid", function(x, ...) attr(x, "database"))
 
 
 #' @rdname uid-methods
-#' @aliases uid,entrez_uid-method
+#' @export
 setMethod("uid", "entrez_uid", function(x, ...) {
   attributes(x) <- NULL
   x
@@ -84,12 +84,12 @@ setMethod("uid", "entrez_uid", function(x, ...) {
 
 
 #' @rdname webenv-methods
-#' @aliases webenv,entrez_uid-method
+#' @export
 setMethod("webenv", "entrez_uid", function(x, ...) attr(x, "webenv"))
 
 
 #' @rdname querykey-methods
-#' @aliases querykey,entrez_uid-method
+#' @export
 setMethod("querykey", "entrez_uid", function(x, ...) attr(x, "querykey"))
 
 
@@ -216,21 +216,16 @@ esearch <- function(term, db="nuccore", rettype="uilist",
 #' 
 #' Extract UIDs from an \code{\link{esearch}} object.
 #'
-#' @usage x[i]
 #' @param x An \code{\linkS4class{esearch}} object.
-#' @param i Integer indices.
+#' @param i Numeric indices.
 #' @return A \code{\linkS4class{entrez_uid}} object.
-#' 
-#' @export
-#' @docType methods
-#' @name [.esearch
 #' @rdname esearch-methods
+#' @export
 #' @examples
 #' e <- esearch("Mus musculus", "protein", retmax=20)
 #' e[1:5]
 #' ## pass the subset directly on to esummary or efetch
 #' content(esummary(e[1:5]), "parsed")
-#' @aliases [,esearch,numeric-method
 setMethod("[", c("esearch", "numeric"), function(x, i) {
   res <- content(x, "parsed")
   out <- res[i]
@@ -240,16 +235,16 @@ setMethod("[", c("esearch", "numeric"), function(x, i) {
 
 
 #' @rdname uid-methods
-#' @aliases uid,esearch-method
+#' @export
 setMethod("uid", "esearch", function(x, ...) uid(x$get_content("parsed")))
 
 
 #' @rdname webenv-methods
-#' @aliases webenv,esearch-method
+#' @export
 setMethod("webenv", "esearch", function(x, ...) webenv(x$get_content("parsed")))
 
 
 #' @rdname querykey-methods
-#' @aliases querykey,esearch-method
+#' @export
 setMethod("querykey", "esearch", function(x, ...) querykey(x$get_content("parsed")))
 

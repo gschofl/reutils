@@ -1,6 +1,4 @@
-#' @importFrom XML xmlSApply
-#' @importFrom XML xmlChildren
-#' @importFrom XML xmlSize
+#' @importFrom XML xmlSApply xmlChildren xmlSize
 NULL
 
 ## parse docsums (esummary) ####

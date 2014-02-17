@@ -1,62 +1,49 @@
 #' @include eutil-error.R
-#' @importFrom RCurl basicHeaderGatherer
-#' @importFrom RCurl basicTextGatherer
-#' @importFrom RCurl postForm
-#' @importFrom RCurl getURLContent
-#' @importFrom RCurl curlEscape
+#' @importFrom RCurl basicHeaderGatherer basicTextGatherer postForm getURLContent curlEscape
 NULL
 
-
-#' Generator object for the \code{\linkS4class{eutil}} classes
-#'
-#' The generator object for \code{\linkS4class{eutil}}, \code{\linkS4class{einfo}},
-#' \code{\linkS4class{esearch}}, \code{\linkS4class{esummary}}, \code{\linkS4class{efetch}},
-#' \code{\linkS4class{elink}}, \code{\linkS4class{epost}}, \code{\linkS4class{egquery}},
-#' \code{\linkS4class{espell}}, and \code{\linkS4class{ecitmatch}} reference classes.
-#' This object implements the low level request generator for interaction with the
-#' NCBI services. It should not be used direcly, but initialized through the
-#' respective constructor functions \code{\link{einfo}}, \code{\link{esearch}},
-#' \code{\link{esummary}}, \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
-#' \code{\link{egquery}}, \code{\link{espell}}, and \code{\link{ecitmatch}}.
+#' Class \code{"eutil"}: Reference classes that hold the response from EUtils
+#' requests.
 #' 
-#' @section Public methods:
-#' \describe{
-#'   \item{\code{#xmlValue(xpath, as="character", default=NA_character_)}:}{
-#'   Return the text value of a leaf node in the XML data given a valid XPath
-#'   expression.}
-#'   \item{\code{#xmlAttr(xpath, name, as="character", default=NA_character_)}:}{
-#'   Return the value of an XML attribute given a valid XPath expression and an
-#'   attribute name.}
-#'   \item{\code{#xmlName(xpath, as="character", default=NA_character_)}:}{
-#'   Return the tag names of XML nodes given a valid XPath expression.} 
-#'   \item{\code{#xmlSet(xpath)}:}{
-#'   Return a set of XML nodes given a valid XPath expression.}
-#' }
+#' The reference classes \code{\linkS4class{eutil}}, \code{\linkS4class{einfo}},
+#' \code{\linkS4class{esearch}}, \code{\linkS4class{esummary}},
+#' \code{\linkS4class{efetch}}, \code{\linkS4class{elink}}, \code{\linkS4class{epost}},
+#' \code{\linkS4class{egquery}}, \code{\linkS4class{espell}}, and
+#' \code{\linkS4class{ecitmatch}} implement the request generator for interaction
+#' with the NCBI services.
+#' They should not be used direcly, but initialized through the respective
+#' constructor functions \code{\link{einfo}}, \code{\link{esearch}},
+#' \code{\link{esummary}}, \code{\link{efetch}}, \code{\link{elink}},
+#' \code{\link{epost}}, \code{\link{egquery}}, \code{\link{espell}}, and
+#' \code{\link{ecitmatch}}.
 #' 
-#' @section Internal methods:
-#' \describe{  
-#'   \item{\code{#get_url()}:}{Return the URL used for an Entrez query; should not
-#'   be used directly, use \code{\link{getUrl}} instead.}
-#'   \item{\code{#get_error()}:}{Return \code{\linkS4class{eutil_error}}s; should
-#'   not be used directly, use \code{\link{getError}} instead.}
-#'   \item{\code{#get_content(as='text')}:}{Return the results of an Entrez query
-#'   as text, xml, a parsed R object, or a \code{\link{textConnection}}; should not
-#'   be used directly, use \code{\link{content}} instead.}
-#'   \item{\code{#perform_query(method="GET", ...)}:}{Perform an Entrez query using
-#'   either http GET or POST requests; should not be used directly.}
-#' }
+#' @field params A named \code{list} of query parameters.
+#' @field errors A \code{\linkS4class{eutil_error}} object.
+#' @field content Result of an Entrez request stored as a character vector.
+#' 
+#' @section Extends: All reference classes extend and inherit methods from
+#'     \code{"\linkS4class{envRefClass}"}. Furthermore, \code{"einfo"},
+#'     \code{"esearch"}, \code{"esummary"}, \code{"efetch"}, \code{"elink"},
+#'     \code{"epost"}, \code{"egquery"}, \code{"espell"}, and \code{"ecitmatch"}
+#'     all extend the \code{"eutil"} class.
 #' 
 #' @seealso \code{\linkS4class{eutil}}, \code{\link{einfo}},
 #' \code{\link{esearch}}, \code{\link{esummary}}, \code{\link{efetch}},
 #' \code{\link{elink}}, \code{\link{epost}}, \code{\link{egquery}},
 #' \code{\link{espell}}, and \code{\link{ecitmatch}}.
+#' 
+#' @name eutil-class
+#' @aliases eutil-class einfo-class esearch-class esummary-class efetch-class
+#'          elink-class epost-class egquery-class espell-class ecitmatch-class
 #' @keywords classes internal
 #' @export
+#' @examples
+#' showClass("eutil")
 eutil <- setRefClass(
-    Class="eutil",
-    fields=list(params="list", errors="eutil_error", content="character"),
-    methods=list(
-      initialize=function() {
+    Class = "eutil",
+    fields = list(params = "list", errors = "eutil_error", content = "character"),
+    methods = list(
+      initialize = function() {
         .self$params  <- list()
         .self$errors  <- eutil_error()
         .self$content <- NA_character_
@@ -64,46 +51,51 @@ eutil <- setRefClass(
       ##
       ## public methods
       ##
-      xmlValue=function(xpath, as="character", default=NA_character_) {
-        'Extract the text from XML leaf nodes given a valid XPath expression.'
+      xmlValue = function(xpath, as = "character", default = NA_character_) {
+        'Extract the text value of XML leaf nodes given a valid XPath expression.'
         xvalue(get_content("xml"), xpath, as, default)
       },
-      xmlName=function(xpath, as="character", default=NA_character_) {
-        'Extract the tag names from XML nodes given a valid XPath expression.'
+      xmlName = function(xpath, as = "character", default = NA_character_) {
+        'Extract the tag names of XML nodes given a valid XPath expression.'
         xname(get_content("xml"), xpath, as, default)
       },
-      xmlAttr=function(xpath, name, as="character", default=NA_character_) {
-        'Extract the value of an XML attribute given a valid XPath expression
+      xmlAttr = function(xpath, name, as = "character", default = NA_character_) {
+        'Extract the value of XML attributes given a valid XPath expression
         and an attribute name'
         xattr(get_content("xml"), xpath, name, as, default)
       },
-      xmlSet=function(xpath, ...) {
+      xmlSet = function(xpath, ...) {
         'Extract a set of XML nodes given a valid XPath expression.'
         xset(get_content("xml"), xpath, ...)
       },
       ##
-      ## internal methods
+      ## internal but documented methods
       ##
-      get_url=function() {
-        'return the URL used to perform a EUtils query'
+      get_url = function() {
+        "Return the URL used for an Entrez query; should not be used directly,
+        use \\code{\\link{getUrl}} instead."
         return(query_url('GET'))
       },
-      get_error=function() {
-        'return errors'
+      get_error = function() {
+        "Return \\code{\\linkS4class{eutil_error}}s; should not be used directly,
+        use \\code{\\link{getError}} instead."
         return(.self$errors)
       },
-      get_content=function(as="text", ...) {
-        'return the contents of a query as text, xml, or parse it into an R object'
+      get_content = function(as = "text", ...) {
+        "Return the results of an Entrez query as text, xml, a parsed R object,
+         or a \\code{\\link{textConnection}}; should not be used directly, use
+        \\code{\\link{content}} instead."
         as <- match.arg(as, c("text", "xml", "parsed", "textConnection"))
         switch(as,
-          text=.self$content,
-          xml=savely_parse_xml(.self$content),
-          parsed=parse_content(.self),
-          textConnection=textConnection(.self$content, ...)
+          text = .self$content,
+          xml = savely_parse_xml(.self$content),
+          parsed = parse_content(.self),
+          textConnection = textConnection(.self$content, ...)
         )
       },
-      perform_query=function(method="GET", ...) {
-        'Perform an Entrez query using either http GET or POST requests'
+      perform_query = function(method = "GET", ...) {
+        "Perform an Entrez query using either http GET or POST requests;
+        should not be used directly."
         verbose <- isTRUE(getOption("reutils.verbose.queries"))
         if (verbose) {
           cat("Perfoming an", sQuote(eutil()), "query ...\n")
@@ -111,13 +103,13 @@ eutil <- setRefClass(
         method <- match.arg(method, c("GET", "POST"))
         ## update an object with new query parameters
         .email <- getOption("reutils.email")
-        if (is.null(.email) || grepl("^Your\\.name\\.here.+", .email, ignore.case=TRUE)) {
+        if (is.null(.email) || grepl("^Your\\.name\\.here.+", .email, ignore.case = TRUE)) {
           warning("NCBI requests that you provide an email address with each query to their API.\n",
                   " Set the global option ", sQuote("reutils.email"), " to your address to make",
-                  " this message go away.", call.=FALSE, immediate.=FALSE)
+                  " this message go away.", call. = FALSE, immediate. = FALSE)
         }
         .params <- list(...)
-        .params <- compact(Reduce(merge_list, list(.params, params,  list(email=.email, tool="reutils"))))
+        .params <- compact(Reduce(merge_list, list(.params, params,  list(email = .email, tool = "reutils"))))
         .self$params <- .params
         
         opts <- list()
@@ -127,14 +119,14 @@ eutil <- setRefClass(
         opts$writefunction <- tg$update
         
         if (method == "POST") {
-          e <- tryCatch(postForm(query_url("POST"), .params=.self$params, .opts=opts),
-                        error=function(e) e$message)
+          e <- tryCatch(postForm(query_url("POST"), .params = .self$params, .opts = opts),
+                        error = function(e) e$message)
         } else if (method == "GET") {
           if (verbose) {
             cat(ellipsize(query_url("GET")), "\n")
           }
-          e <- tryCatch(getURLContent(query_url("GET"), .opts=opts),
-                        error=function(e) e$message)
+          e <- tryCatch(getURLContent(query_url("GET"), .opts = opts),
+                        error = function(e) e$message)
         }
         .self$content <- as.character(tg$value())
         if (is.null(e) || !nzchar(e)) {
@@ -143,87 +135,57 @@ eutil <- setRefClass(
           statusmsg <- header$statusMessage
           if (status != 200) {
             .self$errors$error <- paste0("HTTP error: Status ", status, "; ", statusmsg)
-            warning(errors$error, call.=FALSE, immediate.=TRUE)
+            warning(errors$error, call. = FALSE, immediate. = TRUE)
           }
         } else {
           .self$errors$error <- paste0("CurlError: ", e)
-          warning(errors$error, call.=FALSE, immediate.=TRUE)
+          warning(errors$error, call. = FALSE, immediate. = TRUE)
         }
       },
       ##
-      ## helpers methods
+      ## helper methods (undocumented)
       ##
-      query_url=function(method) {
+      query_url = function(method) {
         host <- switch(eutil(),
-                       egquery="http://eutils.ncbi.nlm.nih.gov/gquery",
-                       ecitmatch="http://eutils.ncbi.nlm.nih.gov/entrez/eutils/ecitmatch.cgi",
+                       egquery = "http://eutils.ncbi.nlm.nih.gov/gquery",
+                       ecitmatch = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/ecitmatch.cgi",
                        paste0('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/', eutil(),'.fcgi')
         )
         if (method == "GET") {
           fields <- paste(curlEscape(names(.self$params)), curlEscape(.self$params),
-                          sep="=", collapse="&")
+                          sep = "=", collapse = "&")
           paste0(host, "?", fields)
         } else {
           host
         }
       },
-      eutil=function() {
+      eutil = function() {
         class(.self)
       },
-      database=function() {
+      database = function() {
         .self$params$db
       },
-      rettype=function() {
+      rettype = function() {
         .self$params$rettype
       },
-      retmode=function() {
+      retmode = function() {
         .self$params$retmode
       },
-      no_errors=function() {
+      no_errors = function() {
         .self$errors$all_empty()
       }
     )
   )
- 
-
-#' Reference classes that capture the response from EUtils requests of
-#' the same name.
-#' 
-#' @title \code{"eutil"} classes
-#' @name eutil-class
-#' @aliases eutil-class einfo-class esearch-class esummary-class efetch-class
-#'          elink-class epost-class egquery-class espell-class ecitmatch-class
-#' @section Fields:
-#' \describe{
-#'    \item{\code{params}:}{A named \code{list} of query parameters.}
-#'    \item{\code{errors}:}{A \code{\linkS4class{eutil_error}} object.}
-#'    \item{\code{content}:}{Result of an Entrez request stored as a character
-#'    vector.}
-#' }
-#' @section Extends: All reference classes extend and inherit methods from
-#'     \code{"\linkS4class{envRefClass}"}. Furthermore, \code{"einfo"},
-#'     \code{"esearch"}, \code{"esummary"}, \code{"efetch"}, \code{"elink"},
-#'     \code{"epost"}, \code{"egquery"}, \code{"espell"}, and \code{"ecitmatch"}
-#'     all extend the \code{"eutil"} class.
-#' @seealso \code{\link{eutil}}, \code{\link{einfo}}, \code{\link{esearch}},
-#' \code{\link{esummary}}, \code{\link{efetch}}, \code{\link{elink}},
-#' \code{\link{epost}}, \code{\link{egquery}}, \code{\link{espell}},
-#' \code{\link{ecitmatch}}.
-#' @keywords classes internal
-#' @examples
-#' showClass("eutil")
-NULL
 
 
-#' @importFrom XML xmlParse
-#' @importFrom XML xmlParseString
+#' @importFrom XML xmlParse xmlParseString
 savely_parse_xml <- function(x, ...) {
-  tryCatch(xmlParse(x, asText=TRUE, error=NULL, ...),
-           "XMLError"=function(e) {
+  tryCatch(xmlParse(x, asText = TRUE, error = NULL, ...),
+           "XMLError" = function(e) {
              errmsg <- paste("XML parse error:", e$message)
              xmlParseString(paste0("<ERROR>", errmsg, "</ERROR>"))
            },
-           "error"=function(e) {
+           "error" = function(e) {
              errmsg <- paste("Simple error:", e$message)
              xmlParseString(paste0("<ERROR>", errmsg, "</ERROR>"))
            })
@@ -260,7 +222,6 @@ parse_content <- function(.object) {
 #'    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 #' @export
 #' @rdname content-methods
-#' @docType methods
 #' @examples
 #' e <- einfo()
 #' 
@@ -276,7 +237,7 @@ parse_content <- function(.object) {
 #' 
 #' \dontrun{
 #' ## return a textConnection to allow linewise read of the data.
-#' x <- efetch("CP000828", "nuccore", rettype="gbwithparts", retmode="text")
+#' x <- efetch("CP000828", "nuccore", rettype = "gbwithparts", retmode = "text")
 #' con <- content(x, "textConnection")
 #' readLines(con, 2)
 #' close(con)
@@ -284,7 +245,7 @@ parse_content <- function(.object) {
 #' 
 setGeneric("content", function(x, as = "xml", ...) standardGeneric("content"))
 #' @rdname content-methods
-#' @aliases content,eutil-method
+#' @export
 setMethod("content", "eutil", function(x, as = "xml", ...) {
   x$get_content(as)
 })
@@ -303,13 +264,12 @@ setMethod("content", "eutil", function(x, as = "xml", ...) {
 #'    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 #' @export
 #' @rdname getError-methods
-#' @docType methods
 #' @examples
-#' e <- efetch("Nonsensical_accession_nr", "protein", rettype="fasta")
+#' e <- efetch("Nonsensical_accession_nr", "protein", rettype = "fasta")
 #' getError(e)
 setGeneric("getError", function(x, ...) standardGeneric("getError"))
 #' @rdname getError-methods
-#' @aliases getError,eutil-method
+#' @export
 setMethod("getError", "eutil", function(x, ...) {
   x$get_error()
 })
@@ -327,13 +287,12 @@ setMethod("getError", "eutil", function(x, ...) {
 #'    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 #' @export
 #' @rdname getUrl-methods
-#' @docType methods
 #' @examples
-#' e <- efetch("AV333213.1", "protein", rettype="fasta")
+#' e <- efetch("AV333213.1", "protein", rettype = "fasta")
 #' getUrl(e)
 setGeneric("getUrl", function(x, ...) standardGeneric("getUrl"))
 #' @rdname getUrl-methods
-#' @aliases getUrl,eutil-method
+#' @export
 setMethod("getUrl", "eutil", function(x, ...) {
   x$get_url()
 })
@@ -346,14 +305,13 @@ setMethod("getUrl", "eutil", function(x, ...) {
 #' @param ... Further arguments passed on to methods.
 #' @export
 #' @rdname performQuery-methods
-#' @docType methods
 #' @keywords internal
-setGeneric("performQuery", function(x, method="GET", ...) standardGeneric("performQuery"))
+setGeneric("performQuery", function(x, method = "GET", ...) standardGeneric("performQuery"))
 #' @rdname performQuery-methods
-#' @aliases performQuery,eutil-method
-setMethod("performQuery", "eutil", function(x, method="GET", ...) {
+#' @export
+setMethod("performQuery", "eutil", function(x, method = "GET", ...) {
   method <- match.arg(method, c("GET", "POST"))
-  x$perform_query(method=method, ...)
+  x$perform_query(method = method, ...)
   return(invisible(x))
 })
 
@@ -371,13 +329,12 @@ setMethod("performQuery", "eutil", function(x, method="GET", ...) {
 #'    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 #' @export
 #' @rdname database-methods
-#' @docType methods
 #' @examples
 #' e <- esearch("Mus musculus", "taxonomy")
 #' database(e)
 setGeneric("database", function(x, ...) standardGeneric("database"))
 #' @rdname database-methods
-#' @aliases database,eutil-method
+#' @export
 setMethod("database", "eutil", function(x, ...) x$database())
 
 
@@ -397,19 +354,18 @@ setMethod("database", "eutil", function(x, ...) x$database())
 #'    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 #' @export
 #' @rdname retmode-methods
-#' @docType methods
 #' @examples
 #' e <- efetch("10090", "taxonomy")
 #' retmode(e)
 setGeneric("retmode", function(x, ...) standardGeneric("retmode"))
 #' @rdname retmode-methods
-#' @aliases retmode,eutil-method
+#' @export
 setMethod("retmode", "eutil", function(x, ...) x$retmode())
 
 #' rettype
 #' 
 #' Get the \dQuote{retrieval type} of an \code{\linkS4class{eutil}} object. See 
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.chapter4_table1/?report=objectonly}{here}
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.chapter4_table1/?report = objectonly}{here}
 #' for the available retrieval types for different NCBI databases.
 #' 
 #' @param x An \code{\linkS4class{eutil}} object.
@@ -421,13 +377,12 @@ setMethod("retmode", "eutil", function(x, ...) x$retmode())
 #'    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 #' @export
 #' @rdname rettype-methods
-#' @docType methods
 #' @examples
 #' e <- esearch("Mus musculus", "taxonomy")
 #' rettype(e)
 setGeneric("rettype", function(x, ...) standardGeneric("rettype"))
 #' @rdname rettype-methods
-#' @aliases rettype,eutil-method
+#' @export
 setMethod("rettype", "eutil", function(x, ...) x$rettype())
 
 #' uid
@@ -441,7 +396,6 @@ setMethod("rettype", "eutil", function(x, ...) x$rettype())
 #'    \code{\link{esearch}}, \code{\link{elink}}.
 #' @export
 #' @rdname uid-methods
-#' @docType methods
 #' @examples
 #' e <- esearch("Mus musculus", "taxonomy")
 #' uid(e)
@@ -461,9 +415,8 @@ setGeneric("uid", function(x, ...) standardGeneric("uid"))
 #'    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 #' @export
 #' @rdname webenv-methods
-#' @docType methods
 #' @examples
-#' e <- esearch("Mus musculus", "taxonomy", usehistory=TRUE)
+#' e <- esearch("Mus musculus", "taxonomy", usehistory = TRUE)
 #' webenv(e)
 setGeneric("webenv", function(x, ...) standardGeneric("webenv"))
 
@@ -481,9 +434,8 @@ setGeneric("webenv", function(x, ...) standardGeneric("webenv"))
 #'    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 #' @export
 #' @rdname querykey-methods
-#' @docType methods 
 #' @examples
-#' e <- esearch("Mus musculus", "taxonomy", usehistory=TRUE)
+#' e <- esearch("Mus musculus", "taxonomy", usehistory = TRUE)
 #' querykey(e)
 setGeneric("querykey", function(x, ...) standardGeneric("querykey"))
 

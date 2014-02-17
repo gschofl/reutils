@@ -45,7 +45,7 @@ NULL
 )
 
 #' @rdname content-methods
-#' @aliases content,efetch-method
+#' @export
 setMethod("content", "efetch", function(x, as=NULL, ...) {
   as <- as %||% retmode(x)
   if (as == "asn.1") {
@@ -193,19 +193,14 @@ efetch <- function(uid, db=NULL, rettype=NULL, retmode=NULL,
 #' 
 #' Extract XML nodes from an \code{\linkS4class{efetch}} object.
 #' 
-#' @usage x[...]
 #' @param x An \code{\linkS4class{efetch}} object containing XML data.
-#' @param ... An XPath expression
+#' @param i An XPath expression specifying the XML nodes to extract.
 #' @return An XML node set.
-#' 
-#' @export
-#' @docType methods
-#' @name [.efetch
 #' @rdname efetch-methods
+#' @export
 #' @examples
 #' p <- efetch("195055", "protein", "gp", "xml")
 #' p['//GBFeature[GBFeature_key="mat_peptide"]//GBQualifier_value']
-#' @aliases [,efetch,character-method
 setMethod("[", c("efetch", "character"), function(x, i) {
   if (retmode(x) != "xml") {
     stop("This document does not contain XML data", call.=FALSE)
@@ -214,12 +209,8 @@ setMethod("[", c("efetch", "character"), function(x, i) {
 })
 
 
-#' @usage x[[...]]
-#' @export
-#' @docType methods
-#' @name [[.efetch
 #' @rdname efetch-methods
-#' @aliases [[,efetch,character-method
+#' @export
 setMethod("[[", c("efetch", "character"), function(x, i) {
   ans <- x[i]
   if (length(ans) > 1) {

@@ -86,10 +86,10 @@ epost <- function(uid, db=NULL, webenv=NULL) {
 }
 
 #' @rdname webenv-methods
-#' @aliases webenv,epost-method
+#' @export
 setMethod("webenv", "epost", function(x, ...) webenv(x$get_content("parsed")))
 
 #' @rdname querykey-methods
-#' @aliases querykey,epost-method
+#' @export
 setMethod("querykey", "epost", function(x, ...) querykey(x$get_content("parsed")))
 

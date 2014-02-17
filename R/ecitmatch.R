@@ -4,12 +4,12 @@ NULL
 
 #' @export
 .ecitmatch <- setRefClass(
-  Class="ecitmatch",
-  contains="eutil",
-  methods=list(
+  Class = "ecitmatch",
+  contains = "eutil",
+  methods = list(
     initialize = function(method, ...) {
       callSuper()
-      perform_query(method=method, ...)
+      perform_query(method = method, ...)
       if (errors$all_empty() && retmode() != "xml") {
         ## Switch off error checking even if retmode is set to "xml"
         ## because weirdly enough with ecitmatch retmode must be set to 'xml'
@@ -18,7 +18,7 @@ NULL
         errors$check_errors(.self)
       }
     },
-    show=function() {
+    show = function() {
       cat("Object of class", sQuote(eutil()), "\n")
       if (no_errors()) {
         cat(get_content("text"))
@@ -31,7 +31,7 @@ NULL
 
 
 #' @rdname content-methods
-#' @aliases content,ecitmatch-method
+#' @export
 setMethod("content", "ecitmatch", function(x, as="text", ...) {
   as <- match.arg(as, "text")
   callNextMethod(x=x, as=as)
