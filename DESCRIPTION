@@ -1,13 +1,11 @@
 Package: reutils
 Type: Package
 Title: Talk to the NCBI EUtils
-Version: 0.1.0.99
-Date: 2013-11-29
-Authors@R: c(person("Gerhard", "Schöfl",
-    role = c("aut", "cre"),
-    email = "gschofl@yahoo.de"))
-Author: Gerhard Schöfl
-Maintainer: Gerhard Schöfl <gschofl@yahoo.de>
+Version: 0.1.1
+Date: 2014-02-21
+Authors@R: 'Gerhard Schöfl <gschofl@yahoo.de> [aut, cre]'
+Author: 'Gerhard Schöfl' [aut, cre]
+Maintainer: 'Gerhard Schöfl' <gschofl@yahoo.de>
 Description: This is an R package for interfacing with NCBI databases such
     as PubMed, Genbank, or GEO via the Entrez Programming Utilities (EUtils).
     The nine EUtils provide a programmatical interface to the NCBI Entrez query
@@ -25,6 +23,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 URL: https://github.com/gschofl/reutils
 BugReports: https://github.com/gschofl/reutils/issues
+Roxygen: list(wrap = FALSE)
 Collate:
     'utils.R'
     'eutil-error.R'

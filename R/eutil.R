@@ -105,7 +105,7 @@ eutil <- setRefClass(
         .email <- getOption("reutils.email")
         if (is.null(.email) || grepl("^Your\\.name\\.here.+", .email, ignore.case = TRUE)) {
           warning("NCBI requests that you provide an email address with each query to their API.\n",
-                  " Set the global option ", sQuote("reutils.email"), " to your address to make",
+                  "Please set the global option ", sQuote("reutils.email"), " to your address to make",
                   " this message go away.", call. = FALSE, immediate. = FALSE)
         }
         .params <- list(...)
