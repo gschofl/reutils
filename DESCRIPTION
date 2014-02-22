@@ -1,7 +1,7 @@
 Package: reutils
 Type: Package
 Title: Talk to the NCBI EUtils
-Version: 0.1.1
+Version: 0.1.1.99
 Date: 2014-02-21
 Authors@R: 'Gerhard Schöfl <gschofl@yahoo.de> [aut, cre]'
 Author: 'Gerhard Schöfl' [aut, cre]
