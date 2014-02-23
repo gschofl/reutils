@@ -70,6 +70,7 @@ NULL
 #' \code{\link{database}}.
 #' @export
 #' @examples
+#' \dontrun{
 #' ## Retrieve the Document Summary information for a set of
 #' ## UIDs frome the Gene datanase.
 #' ds <- esummary(c("828392", "790", "470338"), "gene")
@@ -80,6 +81,7 @@ NULL
 #' 
 #' ## use XPath expressions to extract nodes of interest
 #' ds['//TaxID']
+#' }
 esummary <- function(uid, db=NULL, retstart=1, retmax=10000,
                       querykey=NULL, webenv=NULL, version="2.0") {
   ## extract query parameters
@@ -104,11 +106,13 @@ esummary <- function(uid, db=NULL, retstart=1, retmax=10000,
 #' @rdname esummary-methods
 #' @export
 #' @examples
+#' \dontrun{
 #' ds <- esummary("470338", "protein")
 #' ds["//Slen/node()"]
 #' 
 #' require("XML")
 #' as.numeric(xmlValue(ds[["//Slen"]]))
+#' }
 setMethod("[", c("esummary", "character"), function(x, i) {
   x$xmlSet(i)  
 })

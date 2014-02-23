@@ -131,10 +131,12 @@ setMethod("uid", "entrez_linkset", function(x, ...) attr(x, "uid"))
 #' @export
 #' @rdname linkset-methods
 #' @examples
+#' \dontrun{
 #' ## Find related articles to PMID 20210808 and xtract linked UIDs from the
 #' ## "pubmed" to "pubmed_reviews" link
 #' x <- elink("20210808", dbFrom="pubmed", dbTo="pubmed", cmd="neighbor_score")
 #' linkset(x, "pubmed_pubmed_reviews")
+#' }
 setGeneric("linkset", function(x, linkname = NULL, ...) standardGeneric("linkset"))
 #' @rdname linkset-methods
 #' @export
@@ -240,6 +242,7 @@ print.entrez_linkset <- function(x, ...) {
 #' \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}},
 #' \code{\link{database}}, \code{\link{uid}}, \code{\link{linkset}}, 
 #' @examples
+#' \dontrun{
 #' ## Find one set of Gene IDs linked to nuccore GIs 34577062 and 24475906
 #' e <- elink(c("34577062", "24475906"), dbFrom="nuccore", dbTo="gene")
 #' e
@@ -256,6 +259,7 @@ print.entrez_linkset <- function(x, ...) {
 #' 
 #' ## retrive the abstracts for the first five linked reviews
 #' abstracts <- efetch(p["pubmed_pubmed_reviews"][1:5], rettype="abstract")
+#' }
 elink <- function(uid, dbFrom=NULL, dbTo=NULL, linkname=NULL,
                   usehistory=FALSE, cmd="neighbor",
                   correspondence=FALSE, querykey=NULL, webenv=NULL,
@@ -293,8 +297,10 @@ elink <- function(uid, dbFrom=NULL, dbTo=NULL, linkname=NULL,
 #' @rdname elink-methods
 #' @export
 #' @examples
+#' \dontrun{
 #' e <- elink(c("34577062", "24475906"), dbFrom="nuccore")
 #' e[1]
+#' }
 setMethod("[", c("elink", "numeric"), function(x, i) {
   linkset(x, i)
 })

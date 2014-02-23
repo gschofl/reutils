@@ -78,6 +78,7 @@ See the official online documentation for NCBI's
 for additional information on this EUtility.
 }
 \examples{
+\dontrun{
 ## Search PubMed for articles with the term "Chlamydia psittaci" in the
 ## title that were published in 2013.
 pmid <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed")
@@ -96,6 +97,7 @@ pmid
 pmid2 <- esearch("Chlamydia psittaci[titl] and 2012[pdat]", "pubmed",
                  usehistory=TRUE, webenv=webenv(pmid))
 pmid2
+}
 }
 \seealso{
 Combine calls to ESearch with other EUtils:

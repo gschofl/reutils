@@ -31,6 +31,7 @@ if supported, parsed into a native R object, e.g. a \code{list} or a
 \code{data.frame} \code{(as = "parsed")}.
 }
 \examples{
+\dontrun{
 e <- einfo()
 
 ## return XML as an 'XMLInternalDocument'.
@@ -42,8 +43,6 @@ cat(content(e, "text"))
 ## return DbNames parsed into a character vector.
 content(e, "parsed")
 
-
-\dontrun{
 ## return a textConnection to allow linewise read of the data.
 x <- efetch("CP000828", "nuccore", rettype = "gbwithparts", retmode = "text")
 con <- content(x, "textConnection")

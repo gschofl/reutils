@@ -85,12 +85,10 @@ for the default values for \code{rettype} and r\code{retmode}, as well as a list
 databases for the  EFetch utility.
 }
 \examples{
+\dontrun{
 ## From Protein, retrieve a raw GenPept record and write it to a file.
 p <- efetch("195055", "protein", "gp")
-
-\dontrun{
 write(content(p, "text"), file="~/AAD15290.gp")
-}
 
 ## Get accessions for a list of GenBank IDs (GIs)
 acc <- efetch(c("1621261", "89318838", "68536103", "20807972", "730439"), "protein",
@@ -122,6 +120,7 @@ tx["//LineageEx/Taxon/TaxId"]
 
 ## Use an XPath expession to extract the scientific name.
 tx$xmlValue("/TaxaSet/Taxon/ScientificName")
+}
 }
 \seealso{
 \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}},

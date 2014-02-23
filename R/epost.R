@@ -75,10 +75,12 @@ parse_epost <- function(.obj) {
 #' @return An \code{\linkS4class{epost}} object.
 #' @export
 #' @examples
+#' \dontrun{
 #' ## post a list of protein GIs to the Entrez History server
 #' gi <- c("194680922", "50978626", "28558982", "9507199", "6678417")
 #' p <- epost(gi, "protein")
 #' p
+#' }
 epost <- function(uid, db=NULL, webenv=NULL) {
   params <- parse_params(uid, db)
   .epost(method=if (length(params$uid) < 100) "GET" else "POST",

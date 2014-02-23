@@ -21,8 +21,10 @@ An \code{\linkS4class{eutil_error}} object.
 Retrieve a http or XML parsing error from an \code{\linkS4class{eutil}} object.
 }
 \examples{
+\dontrun{
 e <- efetch("Nonsensical_accession_nr", "protein", rettype = "fasta")
 getError(e)
+}
 }
 \seealso{
 \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},

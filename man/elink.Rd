@@ -85,6 +85,7 @@ Available commands are:
 }
 }
 \examples{
+\dontrun{
 ## Find one set of Gene IDs linked to nuccore GIs 34577062 and 24475906
 e <- elink(c("34577062", "24475906"), dbFrom="nuccore", dbTo="gene")
 e
@@ -101,6 +102,7 @@ p["pubmed_pubmed_reviews"]
 
 ## retrive the abstracts for the first five linked reviews
 abstracts <- efetch(p["pubmed_pubmed_reviews"][1:5], rettype="abstract")
+}
 }
 \seealso{
 Combine calls to ELink with other EUtils:

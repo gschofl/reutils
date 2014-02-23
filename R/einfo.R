@@ -89,12 +89,14 @@ extract_df <- function(x, path) {
 #' \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}}.
 #' @export
 #' @examples
+#' \dontrun{
 #' ## Return a list of all current Entrez database names
 #' einfo()
 #' ## Return statistics for the Entrez Gene database and parse
 #' ## the returned data into a data.frame
 #' x <- einfo("gene")
 #' content(x, "parsed")
+#' }
 einfo <- function(db=NULL) {
   assert_that(is.null(db) || is.string(db))
   .einfo(method="GET", db=db)

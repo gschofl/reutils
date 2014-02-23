@@ -27,8 +27,10 @@ A character string.
 Retrieve the target database name from an \code{\linkS4class{eutil}} object.
 }
 \examples{
+\dontrun{
 e <- esearch("Mus musculus", "taxonomy")
 database(e)
+}
 }
 \seealso{
 \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},

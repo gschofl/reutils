@@ -21,8 +21,10 @@ See the official online documentation for NCBI's
 for additional information.
 }
 \examples{
+\dontrun{
 ## Determine the number of records for mouse in Entrez.
 e <- egquery("mouse[orgn]")
 e
+}
 }
 

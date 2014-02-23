@@ -21,10 +21,12 @@ An XML node set.
 Extract XML nodes from an \code{\linkS4class{esummary}} object.
 }
 \examples{
+\dontrun{
 ds <- esummary("470338", "protein")
 ds["//Slen/node()"]
 
 require("XML")
 as.numeric(xmlValue(ds[["//Slen"]]))
+}
 }
 

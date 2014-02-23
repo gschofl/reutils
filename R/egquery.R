@@ -43,9 +43,11 @@ NULL
 #' @return An \code{\linkS4class{egquery}} object.
 #' @export
 #' @examples
+#' \dontrun{
 #' ## Determine the number of records for mouse in Entrez.
 #' e <- egquery("mouse[orgn]")
 #' e
+#' }
 egquery <- function(term) {
   if (missing(term)) {
     stop("No search term provided")

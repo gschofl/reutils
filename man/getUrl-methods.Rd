@@ -21,8 +21,10 @@ A character string.
 Retrieve the URL used to perform an Entrez E-Utilities query.
 }
 \examples{
+\dontrun{
 e <- efetch("AV333213.1", "protein", rettype = "fasta")
 getUrl(e)
+}
 }
 \seealso{
 \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},

@@ -223,6 +223,7 @@ parse_content <- function(.object) {
 #' @export
 #' @rdname content-methods
 #' @examples
+#' \dontrun{
 #' e <- einfo()
 #' 
 #' ## return XML as an 'XMLInternalDocument'.
@@ -234,15 +235,12 @@ parse_content <- function(.object) {
 #' ## return DbNames parsed into a character vector.
 #' content(e, "parsed")
 #' 
-#' 
-#' \dontrun{
 #' ## return a textConnection to allow linewise read of the data.
 #' x <- efetch("CP000828", "nuccore", rettype = "gbwithparts", retmode = "text")
 #' con <- content(x, "textConnection")
 #' readLines(con, 2)
 #' close(con)
 #' }
-#' 
 setGeneric("content", function(x, as = "xml", ...) standardGeneric("content"))
 #' @rdname content-methods
 #' @export
@@ -265,8 +263,10 @@ setMethod("content", "eutil", function(x, as = "xml", ...) {
 #' @export
 #' @rdname getError-methods
 #' @examples
+#' \dontrun{
 #' e <- efetch("Nonsensical_accession_nr", "protein", rettype = "fasta")
 #' getError(e)
+#' }
 setGeneric("getError", function(x, ...) standardGeneric("getError"))
 #' @rdname getError-methods
 #' @export
@@ -288,8 +288,10 @@ setMethod("getError", "eutil", function(x, ...) {
 #' @export
 #' @rdname getUrl-methods
 #' @examples
+#' \dontrun{
 #' e <- efetch("AV333213.1", "protein", rettype = "fasta")
 #' getUrl(e)
+#' }
 setGeneric("getUrl", function(x, ...) standardGeneric("getUrl"))
 #' @rdname getUrl-methods
 #' @export
@@ -330,8 +332,10 @@ setMethod("performQuery", "eutil", function(x, method = "GET", ...) {
 #' @export
 #' @rdname database-methods
 #' @examples
+#' \dontrun{
 #' e <- esearch("Mus musculus", "taxonomy")
 #' database(e)
+#' }
 setGeneric("database", function(x, ...) standardGeneric("database"))
 #' @rdname database-methods
 #' @export
@@ -355,8 +359,10 @@ setMethod("database", "eutil", function(x, ...) x$database())
 #' @export
 #' @rdname retmode-methods
 #' @examples
+#' \dontrun{
 #' e <- efetch("10090", "taxonomy")
 #' retmode(e)
+#' }
 setGeneric("retmode", function(x, ...) standardGeneric("retmode"))
 #' @rdname retmode-methods
 #' @export
@@ -378,8 +384,10 @@ setMethod("retmode", "eutil", function(x, ...) x$retmode())
 #' @export
 #' @rdname rettype-methods
 #' @examples
+#' \dontrun{
 #' e <- esearch("Mus musculus", "taxonomy")
 #' rettype(e)
+#' }
 setGeneric("rettype", function(x, ...) standardGeneric("rettype"))
 #' @rdname rettype-methods
 #' @export
@@ -397,8 +405,10 @@ setMethod("rettype", "eutil", function(x, ...) x$rettype())
 #' @export
 #' @rdname uid-methods
 #' @examples
+#' \dontrun{
 #' e <- esearch("Mus musculus", "taxonomy")
 #' uid(e)
+#' }
 setGeneric("uid", function(x, ...) standardGeneric("uid"))
 
 #' webenv
@@ -416,8 +426,10 @@ setGeneric("uid", function(x, ...) standardGeneric("uid"))
 #' @export
 #' @rdname webenv-methods
 #' @examples
+#' \dontrun{
 #' e <- esearch("Mus musculus", "taxonomy", usehistory = TRUE)
 #' webenv(e)
+#' }
 setGeneric("webenv", function(x, ...) standardGeneric("webenv"))
 
 #' querykey
@@ -435,7 +447,9 @@ setGeneric("webenv", function(x, ...) standardGeneric("webenv"))
 #' @export
 #' @rdname querykey-methods
 #' @examples
+#' \dontrun{
 #' e <- esearch("Mus musculus", "taxonomy", usehistory = TRUE)
 #' querykey(e)
+#' }
 setGeneric("querykey", function(x, ...) standardGeneric("querykey"))
 

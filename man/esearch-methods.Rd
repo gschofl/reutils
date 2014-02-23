@@ -18,9 +18,11 @@ A \code{\linkS4class{entrez_uid}} object.
 Extract UIDs from an \code{\link{esearch}} object.
 }
 \examples{
+\dontrun{
 e <- esearch("Mus musculus", "protein", retmax=20)
 e[1:5]
 ## pass the subset directly on to esummary or efetch
 content(esummary(e[1:5]), "parsed")
+}
 }
 

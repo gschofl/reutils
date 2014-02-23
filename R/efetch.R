@@ -117,12 +117,10 @@ setMethod("content", "efetch", function(x, as=NULL, ...) {
 #' \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}},
 #' \code{\link{database}}, \code{\link{retmode}}, \code{\link{rettype}}.
 #' @examples
+#' \dontrun{
 #' ## From Protein, retrieve a raw GenPept record and write it to a file.
 #' p <- efetch("195055", "protein", "gp")
-#' 
-#' \dontrun{
 #' write(content(p, "text"), file="~/AAD15290.gp")
-#' }
 #' 
 #' ## Get accessions for a list of GenBank IDs (GIs)
 #' acc <- efetch(c("1621261", "89318838", "68536103", "20807972", "730439"), "protein",
@@ -154,6 +152,7 @@ setMethod("content", "efetch", function(x, as=NULL, ...) {
 #' 
 #' ## Use an XPath expession to extract the scientific name.
 #' tx$xmlValue("/TaxaSet/Taxon/ScientificName")
+#' }
 efetch <- function(uid, db=NULL, rettype=NULL, retmode=NULL,
                    retstart=NULL, retmax=NULL, querykey=NULL,
                    webenv=NULL, strand=NULL, seqstart=NULL,

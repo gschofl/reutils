@@ -30,8 +30,10 @@ A character vector.
 Retrieve the list of UIDs returned by a call to ESearch or ELink.
 }
 \examples{
+\dontrun{
 e <- esearch("Mus musculus", "taxonomy")
 uid(e)
+}
 }
 \seealso{
 \code{\link{esearch}}, \code{\link{elink}}.

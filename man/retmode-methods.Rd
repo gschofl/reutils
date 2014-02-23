@@ -24,8 +24,10 @@ It is set to \code{NULL} if \dQuote{retrieval mode} is not supported by an
 E-Utility.
 }
 \examples{
+\dontrun{
 e <- efetch("10090", "taxonomy")
 retmode(e)
+}
 }
 \seealso{
 \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},

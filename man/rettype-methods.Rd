@@ -23,8 +23,10 @@ Get the \dQuote{retrieval type} of an \code{\linkS4class{eutil}} object. See
 for the available retrieval types for different NCBI databases.
 }
 \examples{
+\dontrun{
 e <- esearch("Mus musculus", "taxonomy")
 rettype(e)
+}
 }
 \seealso{
 \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},

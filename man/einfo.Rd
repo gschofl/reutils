@@ -24,12 +24,14 @@ See the official online documentation for NCBI's
 for additional information.
 }
 \examples{
+\dontrun{
 ## Return a list of all current Entrez database names
 einfo()
 ## Return statistics for the Entrez Gene database and parse
 ## the returned data into a data.frame
 x <- einfo("gene")
 content(x, "parsed")
+}
 }
 \seealso{
 \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}}.

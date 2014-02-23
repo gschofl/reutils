@@ -171,6 +171,7 @@ print.entrez_uid <- function(x, ...) {
 #' \code{\link{database}}, \code{\link{uid}},
 #' \code{\link{webenv}}, \code{\link{querykey}}.
 #' @examples
+#' \dontrun{
 #' ## Search PubMed for articles with the term "Chlamydia psittaci" in the
 #' ## title that were published in 2013.
 #' pmid <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed")
@@ -189,6 +190,7 @@ print.entrez_uid <- function(x, ...) {
 #' pmid2 <- esearch("Chlamydia psittaci[titl] and 2012[pdat]", "pubmed",
 #'                  usehistory=TRUE, webenv=webenv(pmid))
 #' pmid2
+#' }
 esearch <- function(term, db="nuccore", rettype="uilist",
                     retstart=0, retmax=100, usehistory=FALSE,
                     webenv=NULL, querykey=NULL, field=NULL,
@@ -222,10 +224,12 @@ esearch <- function(term, db="nuccore", rettype="uilist",
 #' @rdname esearch-methods
 #' @export
 #' @examples
+#' \dontrun{
 #' e <- esearch("Mus musculus", "protein", retmax=20)
 #' e[1:5]
 #' ## pass the subset directly on to esummary or efetch
 #' content(esummary(e[1:5]), "parsed")
+#' }
 setMethod("[", c("esearch", "numeric"), function(x, i) {
   res <- content(x, "parsed")
   out <- res[i]

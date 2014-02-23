@@ -51,11 +51,13 @@ setMethod("content", "ecitmatch", function(x, as="text", ...) {
 #' @return An \code{\linkS4class{ecitmatch}} object.
 #' @export
 #' @examples
+#' \dontrun{
 #' citstrings <- c("proc natl acad sci u s a|1991|88|3248|mann bj|Art1|",
 #'                 "science|1987|235|182|palmenber ac|Art2|")
 #' x <- ecitmatch(citstrings)
 #' x
 #' content(x)
+#' }
 ecitmatch <- function(bdata, db="pubmed", retmode="xml") {
   if (missing(bdata)) {
     stop("No citation string provided", call.=FALSE)

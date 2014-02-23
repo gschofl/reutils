@@ -28,8 +28,10 @@ An integer query key returned by an ESearch, EPost or ELink call if
 the History server was used. Otherwise \code{NA}.
 }
 \examples{
+\dontrun{
 e <- esearch("Mus musculus", "taxonomy", usehistory = TRUE)
 querykey(e)
+}
 }
 \seealso{
 \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},

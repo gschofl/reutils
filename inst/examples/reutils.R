@@ -1,8 +1,8 @@
-############################################################################
+\dontrun{
 #
 # combine esearch and efetch
 #
-# Download PubMed records that are indexed in MeSH for both 'Clamydia' and 
+# Download PubMed records that are indexed in MeSH for both 'Chlamydia' and 
 # 'genome' and were published in 2013.
 query <- "Chlamydia[mesh] and genome[mesh] and 2013[pdat]"
 
@@ -17,9 +17,9 @@ articles <- efetch(pmids)
 # extract specific data from the XML records stored in the 'efetch' object.
 titles <- articles$xmlValue("//ArticleTitle")
 abstracts <- articles$xmlValue("//AbstractText")
+}
 
-
-############################################################################
+\dontrun{
 #
 # combine epost with esummary/efetch
 #
@@ -39,3 +39,4 @@ prot
 
 # retrieve the content from the efetch object
 fasta <- content(prot)
+}

@@ -28,8 +28,10 @@ Retrieve the Web environment string returned from an ESearch, EPost or ELink cal
 \code{NA} if the History server was not used.
 }
 \examples{
+\dontrun{
 e <- esearch("Mus musculus", "taxonomy", usehistory = TRUE)
 webenv(e)
+}
 }
 \seealso{
 \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
