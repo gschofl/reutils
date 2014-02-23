@@ -30,7 +30,8 @@ NULL
   op.reutils <- list(
     reutils.email = "Your.Name.Here@example.org",
     reutils.show.headlines = 12,
-    reutils.verbose.queries = FALSE
+    reutils.verbose.queries = FALSE,
+    reutils.test.remote = FALSE
   )
   toset <- !(names(op.reutils) %in% names(op))
   if (any(toset)) {

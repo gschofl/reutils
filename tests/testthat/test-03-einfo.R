@@ -3,8 +3,15 @@
 
 context("Testing 'einfo()'")
 
-a <- einfo()
-b <- einfo("gene")
+if (getOption('reutils.test.remote')) {
+  a <- einfo()
+  b <- einfo("gene")
+  save(a, file = "data/test-03-a.rda")
+  save(b, file = "data/test-03-b.rda")
+} else {
+  load("data/test-03-a.rda")
+  load("data/test-03-b.rda")
+}
 
 test_that("einfo() returns an 'einfo' object", {
   expect_is(a, "einfo")

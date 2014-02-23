@@ -1,6 +1,6 @@
 context("Test helper functions")
 
-xml <- xmlParse("test.xml")
+xml <- xmlParse("data/test.xml")
 
 test_that("'xvalue' and 'xname' work as advertised", {
   expect_equal(xvalue(xml, "//Id"), c("23927984", "23903989"))

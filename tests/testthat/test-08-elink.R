@@ -3,7 +3,12 @@
 
 context("Testing 'elink()'")
 
-x <- elink(c("24475906", "34577062"), dbFrom="nuccore")
+if (getOption('reutils.test.remote')) {
+  x <- elink(c("24475906", "34577062"), dbFrom="nuccore")
+  save(x, file = "data/test-08-x.rda")
+} else {
+  load("data/test-08-x.rda")
+}
 
 test_that("elink() returns an 'elink' object", {
   expect_is(x, "elink")

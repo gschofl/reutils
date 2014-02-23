@@ -356,5 +356,3 @@ set_retmode <- function (db, rt, rm = NULL) {
          )
   )
 }
-
-

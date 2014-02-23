@@ -3,10 +3,18 @@
 
 context("Testing 'esearch()'")
 
-a <- esearch(term="cancer", db="pubmed", reldate=60, datetype="edat",
-             retmax=6, usehistory=TRUE)
-b <- esearch(term="cancer", db="pubmed", reldate=60, datetype="edat",
-             retmax=6, usehistory=FALSE)
+if (getOption('reutils.test.remote')) {
+  a <- esearch(term="cancer", db="pubmed", reldate=60, datetype="edat",
+               retmax=6, usehistory=TRUE)
+  b <- esearch(term="cancer", db="pubmed", reldate=60, datetype="edat",
+               retmax=6, usehistory=FALSE)
+  save(a, file = "data/test-04-a.rda")
+  save(b, file = "data/test-04-b.rda")
+} else {
+  load("data/test-04-a.rda")
+  load("data/test-04-b.rda")
+}
+
 
 test_that("esearch() returns an 'esearch' object", {
   expect_is(a, "esearch")
