@@ -22,10 +22,12 @@ A list.
 Extract parts of a parsed \code{\linkS4class{einfo}} object.
 }
 \examples{
+\dontrun{
 e <- einfo("pubmed")
 e[1:5]
 e["Description"]
 e[["Links"]]
+}
 }
 \seealso{
 \code{\link[base]{Extract}}

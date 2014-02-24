@@ -23,7 +23,9 @@ An XML node set.
 Extract XML nodes from an \code{\linkS4class{efetch}} object.
 }
 \examples{
+\dontrun{
 p <- efetch("195055", "protein", "gp", "xml")
 p['//GBFeature[GBFeature_key="mat_peptide"]//GBQualifier_value']
+}
 }
 

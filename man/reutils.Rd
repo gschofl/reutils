@@ -112,10 +112,15 @@ when calling a EUtil.
 
   \item \code{reutils.verbose.queries}: If you perform many
   queries interactively you might want to get messages
-  announcing the queris you run. You can do so by setting
+  announcing the queries you run. You can do so by setting
   the option \code{reutils.verbose.queries} to \code{TRUE}.
 
-  }
+  \item \code{reutils.test.remote}: Unit tests that require
+  online access to NCBI services are disabled by default,
+  as they cannot be garanteed to be available/working under
+  all circumstances. Set the option
+  code{reutils.test.remote} to \code{TRUE} to run the full
+  suite of tests. }
 }
 \examples{
 \dontrun{

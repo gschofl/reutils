@@ -198,8 +198,10 @@ efetch <- function(uid, db=NULL, rettype=NULL, retmode=NULL,
 #' @rdname efetch-methods
 #' @export
 #' @examples
+#' \dontrun{
 #' p <- efetch("195055", "protein", "gp", "xml")
 #' p['//GBFeature[GBFeature_key="mat_peptide"]//GBQualifier_value']
+#' }
 setMethod("[", c("efetch", "character"), function(x, i) {
   if (retmode(x) != "xml") {
     stop("This document does not contain XML data", call.=FALSE)

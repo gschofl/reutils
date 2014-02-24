@@ -21,7 +21,9 @@ A \code{\linkS4class{entrez_linkset}} object.
 Extract UIDs from an \code{\link{elink}} object.
 }
 \examples{
+\dontrun{
 e <- elink(c("34577062", "24475906"), dbFrom="nuccore")
 e[1]
+}
 }
 

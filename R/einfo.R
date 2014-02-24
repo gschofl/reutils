@@ -114,9 +114,12 @@ einfo <- function(db=NULL) {
 #' @rdname einfo-methods
 #' @export
 #' @examples
+#' \dontrun{
 #' e <- einfo("pubmed")
 #' e[1:5]
 #' e["Description"]
+#' e[["Links"]]
+#' }
 setMethod("[", "einfo", function(x, i) {
   content(x, "parsed")[i]
 })
@@ -124,8 +127,6 @@ setMethod("[", "einfo", function(x, i) {
 
 #' @rdname einfo-methods
 #' @export
-#' @examples
-#' e[["Links"]]
 setMethod("[[", "einfo", function(x, i) {
   content(x, "parsed")[[i]]
 })
