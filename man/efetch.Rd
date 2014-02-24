@@ -88,18 +88,18 @@ databases for the  EFetch utility.
 \dontrun{
 ## From Protein, retrieve a raw GenPept record and write it to a file.
 p <- efetch("195055", "protein", "gp")
-write(content(p, "text"), file="~/AAD15290.gp")
+write(content(p, "text"), file = "~/AAD15290.gp")
 
 ## Get accessions for a list of GenBank IDs (GIs)
-acc <- efetch(c("1621261", "89318838", "68536103", "20807972", "730439"), "protein",
-              rettype="acc")
+acc <- efetch(c("1621261", "89318838", "68536103", "20807972", "730439"),
+              "protein", rettype = "acc")
 acc
 acc <- strsplit(content(acc), "\\n")[[1]]
 acc
 
 ## Get GIs from a list of accession numbers
 gi <- efetch(c("CAB02640.1", "EAS10332.1", "YP_250808.1", "NP_623143.1", "P41007.1"),
-              "protein", "uilist")
+             "protein", "uilist")
 gi
 
 ## we can conveniently extract the UIDs using the eutil method #xmlValue(xpath)
