@@ -183,12 +183,12 @@ print.entrez_uid <- function(x, ...) {
 #' uids <- uid(pmid)
 #' 
 #' ## Alternatively post the UIDs to the History Server.
-#' pmid <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed", usehistory=TRUE)
+#' pmid <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed", usehistory = TRUE)
 #' pmid
 #' 
 #' ## Associate new search results with the existing search results.
 #' pmid2 <- esearch("Chlamydia psittaci[titl] and 2012[pdat]", "pubmed",
-#'                  usehistory=TRUE, webenv=webenv(pmid))
+#'                  usehistory = TRUE, webenv = webenv(pmid))
 #' pmid2
 #' }
 esearch <- function(term, db="nuccore", rettype="uilist",
@@ -225,7 +225,7 @@ esearch <- function(term, db="nuccore", rettype="uilist",
 #' @export
 #' @examples
 #' \dontrun{
-#' e <- esearch("Mus musculus", "protein", retmax=20)
+#' e <- esearch("Mus musculus", "protein", retmax = 20)
 #' e[1:5]
 #' ## pass the subset directly on to esummary or efetch
 #' content(esummary(e[1:5]), "parsed")
