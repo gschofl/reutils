@@ -130,7 +130,9 @@ eutil <- setRefClass(
         }
         .self$content <- as.character(tg$value())
         if (is.null(e) || !nzchar(e)) {
-          header <- as.list(hg$value())
+          header <- as.list(tryCatch(hg$value()), error = function(e) {
+            c(status = 500, statusMessage = e$message)
+          })
           status <- as.numeric(header$status)
           statusmsg <- header$statusMessage
           if (status != 200) {
@@ -177,7 +179,6 @@ eutil <- setRefClass(
     )
   )
 
-
 #' @importFrom XML xmlParse xmlParseString
 savely_parse_xml <- function(x, ...) {
   tryCatch(xmlParse(x, asText = TRUE, error = NULL, ...),
@@ -191,7 +192,6 @@ savely_parse_xml <- function(x, ...) {
            })
 }
 
-
 parse_content <- function(.object) {
   switch(.object$eutil(),
     einfo    = parse_einfo(.object),
@@ -202,7 +202,6 @@ parse_content <- function(.object) {
     "Not yet implemented"
   )
 }
-
 
 #' Extract the data content from an Entrez request
 #' 
@@ -221,7 +220,6 @@ parse_content <- function(.object) {
 #'    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
 #'    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 #' @export
-#' @rdname content-methods
 #' @examples
 #' \dontrun{
 #' e <- einfo()
@@ -242,12 +240,10 @@ parse_content <- function(.object) {
 #' close(con)
 #' }
 setGeneric("content", function(x, as = "xml", ...) standardGeneric("content"))
-#' @rdname content-methods
-#' @export
+#' @rdname content
 setMethod("content", "eutil", function(x, as = "xml", ...) {
   x$get_content(as)
 })
-
 
 #' getError
 #' 
@@ -261,14 +257,13 @@ setMethod("content", "eutil", function(x, as = "xml", ...) {
 #'    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
 #'    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 #' @export
-#' @rdname getError-methods
 #' @examples
 #' \dontrun{
 #' e <- efetch("Nonsensical_accession_nr", "protein", rettype = "fasta")
 #' getError(e)
 #' }
 setGeneric("getError", function(x, ...) standardGeneric("getError"))
-#' @rdname getError-methods
+#' @rdname getError
 #' @export
 setMethod("getError", "eutil", function(x, ...) {
   x$get_error()
@@ -286,14 +281,13 @@ setMethod("getError", "eutil", function(x, ...) {
 #'    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
 #'    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 #' @export
-#' @rdname getUrl-methods
 #' @examples
 #' \dontrun{
 #' e <- efetch("AV333213.1", "protein", rettype = "fasta")
 #' getUrl(e)
 #' }
 setGeneric("getUrl", function(x, ...) standardGeneric("getUrl"))
-#' @rdname getUrl-methods
+#' @rdname getUrl
 #' @export
 setMethod("getUrl", "eutil", function(x, ...) {
   x$get_url()
@@ -306,17 +300,15 @@ setMethod("getUrl", "eutil", function(x, ...) {
 #' @param method One of \dQuote{GET} or \dQuote{POST}.
 #' @param ... Further arguments passed on to methods.
 #' @export
-#' @rdname performQuery-methods
 #' @keywords internal
 setGeneric("performQuery", function(x, method = "GET", ...) standardGeneric("performQuery"))
-#' @rdname performQuery-methods
+#' @rdname performQuery
 #' @export
 setMethod("performQuery", "eutil", function(x, method = "GET", ...) {
   method <- match.arg(method, c("GET", "POST"))
   x$perform_query(method = method, ...)
   return(invisible(x))
 })
-
 
 #' database
 #' 
@@ -330,17 +322,15 @@ setMethod("performQuery", "eutil", function(x, method = "GET", ...) {
 #'    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
 #'    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 #' @export
-#' @rdname database-methods
 #' @examples
 #' \dontrun{
 #' e <- esearch("Mus musculus", "taxonomy")
 #' database(e)
 #' }
 setGeneric("database", function(x, ...) standardGeneric("database"))
-#' @rdname database-methods
+#' @rdname database
 #' @export
 setMethod("database", "eutil", function(x, ...) x$database())
-
 
 #' retmode
 #' 
@@ -357,14 +347,13 @@ setMethod("database", "eutil", function(x, ...) x$database())
 #'    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
 #'    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 #' @export
-#' @rdname retmode-methods
 #' @examples
 #' \dontrun{
 #' e <- efetch("10090", "taxonomy")
 #' retmode(e)
 #' }
 setGeneric("retmode", function(x, ...) standardGeneric("retmode"))
-#' @rdname retmode-methods
+#' @rdname retmode
 #' @export
 setMethod("retmode", "eutil", function(x, ...) x$retmode())
 
@@ -382,14 +371,13 @@ setMethod("retmode", "eutil", function(x, ...) x$retmode())
 #'    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
 #'    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 #' @export
-#' @rdname rettype-methods
 #' @examples
 #' \dontrun{
 #' e <- esearch("Mus musculus", "taxonomy")
 #' rettype(e)
 #' }
 setGeneric("rettype", function(x, ...) standardGeneric("rettype"))
-#' @rdname rettype-methods
+#' @rdname rettype
 #' @export
 setMethod("rettype", "eutil", function(x, ...) x$rettype())
 
@@ -403,7 +391,6 @@ setMethod("rettype", "eutil", function(x, ...) x$rettype())
 #' @seealso
 #'    \code{\link{esearch}}, \code{\link{elink}}.
 #' @export
-#' @rdname uid-methods
 #' @examples
 #' \dontrun{
 #' e <- esearch("Mus musculus", "taxonomy")
@@ -424,7 +411,6 @@ setGeneric("uid", function(x, ...) standardGeneric("uid"))
 #'    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
 #'    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 #' @export
-#' @rdname webenv-methods
 #' @examples
 #' \dontrun{
 #' e <- esearch("Mus musculus", "taxonomy", usehistory = TRUE)
@@ -445,7 +431,6 @@ setGeneric("webenv", function(x, ...) standardGeneric("webenv"))
 #'    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
 #'    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 #' @export
-#' @rdname querykey-methods
 #' @examples
 #' \dontrun{
 #' e <- esearch("Mus musculus", "taxonomy", usehistory = TRUE)

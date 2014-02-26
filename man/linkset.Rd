@@ -32,7 +32,7 @@ Retrieve a linkset from an \code{\linkS4class{elink}} object.
 \dontrun{
 ## Find related articles to PMID 20210808 and xtract linked UIDs from the
 ## "pubmed" to "pubmed_reviews" link
-x <- elink("20210808", dbFrom="pubmed", dbTo="pubmed", cmd="neighbor_score")
+x <- elink("20210808", dbFrom = "pubmed", dbTo = "pubmed", cmd = "neighbor_score")
 linkset(x, "pubmed_pubmed_reviews")
 }
 }

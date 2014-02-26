@@ -1,7 +1,6 @@
 #' @include eutil.R
 NULL
 
-
 #' @export
 .egquery <- setRefClass(
   Class="egquery",
@@ -28,8 +27,6 @@ NULL
   )
 )
 
-
-
 #' \code{egquery} retrieves the number of records in all Entrez databases for
 #' a single text query.
 #' 
@@ -43,11 +40,9 @@ NULL
 #' @return An \code{\linkS4class{egquery}} object.
 #' @export
 #' @examples
-#' \dontrun{
 #' ## Determine the number of records for mouse in Entrez.
 #' e <- egquery("mouse[orgn]")
 #' e
-#' }
 egquery <- function(term) {
   if (missing(term)) {
     stop("No search term provided")

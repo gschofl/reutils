@@ -1,7 +1,6 @@
 #' @include eutil.R
 NULL
 
-
 #' @export
 .elink <- setRefClass(
   Class="elink",
@@ -60,7 +59,6 @@ parse_linkset <- function(.obj) {
   )
 }
 
-
 #' Class \code{"entrez_linkset"}
 #'
 #' A list containing a set of links as returned by a call to \code{\link{elink}}.
@@ -85,8 +83,7 @@ parse_linkset <- function(.obj) {
 #' ###
 setOldClass("entrez_linkset")
 
-
-#' @S3method print entrez_link
+#' @export
 print.entrez_link <- function(x, ...) {
   db <- strsplit(attr(x, "linkName"), "_")[[1]]
   dbFrom <- db[1]
@@ -96,8 +93,7 @@ print.entrez_link <- function(x, ...) {
   invisible()
 }
 
-
-#' @S3method [ entrez_link
+#' @export
 "[.entrez_link" <- function(x, i, j, ..., drop=TRUE) {
   out <- NextMethod(...)
   attr(out, "score") <- attr(x, "score")[i]
@@ -107,16 +103,13 @@ print.entrez_link <- function(x, ...) {
   out
 }
 
-       
-#' @rdname database-methods
+#' @rdname database
 #' @export
 setMethod("database", "entrez_linkset", function(x, ...) attr(x, "database"))
 
-
-#' @rdname uid-methods
+#' @rdname uid
 #' @export
 setMethod("uid", "entrez_linkset", function(x, ...) attr(x, "uid"))
-
 
 #' linkset
 #' 
@@ -129,16 +122,15 @@ setMethod("uid", "entrez_linkset", function(x, ...) attr(x, "uid"))
 #' @param ... Further arguments passed on to methods.
 #' @return A list.
 #' @export
-#' @rdname linkset-methods
 #' @examples
 #' \dontrun{
 #' ## Find related articles to PMID 20210808 and xtract linked UIDs from the
 #' ## "pubmed" to "pubmed_reviews" link
-#' x <- elink("20210808", dbFrom="pubmed", dbTo="pubmed", cmd="neighbor_score")
+#' x <- elink("20210808", dbFrom = "pubmed", dbTo = "pubmed", cmd = "neighbor_score")
 #' linkset(x, "pubmed_pubmed_reviews")
 #' }
 setGeneric("linkset", function(x, linkname = NULL, ...) standardGeneric("linkset"))
-#' @rdname linkset-methods
+#' @rdname linkset
 #' @export
 setMethod("linkset", "entrez_linkset", function(x, linkname = NULL, ...) {
   if (!is.null(linkname)) {
@@ -157,8 +149,7 @@ setMethod("linkset", "entrez_linkset", function(x, linkname = NULL, ...) {
   }
 })
 
-
-#' @S3method print entrez_linkset
+#' @export
 print.entrez_linkset <- function(x, ...) {
   db <- database(x)
   dbTo <- vapply(x, attr, 'database', FUN.VALUE="")
@@ -171,7 +162,6 @@ print.entrez_linkset <- function(x, ...) {
   llen <- vapply(x, length, 0)
   print(format(data.frame(DbTo=dbTo, LinkName=lnames, LinkCount=llen)))
 }
-
 
 #' \code{elink} generates a list of UIDs in a specified Entrez database that
 #' are linked to a set of input UIDs in either the same or another
@@ -242,13 +232,13 @@ print.entrez_linkset <- function(x, ...) {
 #' \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}},
 #' \code{\link{database}}, \code{\link{uid}}, \code{\link{linkset}}, 
 #' @examples
-#' \dontrun{
 #' ## Find one set of Gene IDs linked to nuccore GIs 34577062 and 24475906
-#' e <- elink(c("34577062", "24475906"), dbFrom="nuccore", dbTo="gene")
+#' e <- elink(c("34577062", "24475906"), dbFrom = "nuccore", dbTo = "gene")
 #' e
 #' 
+#' \dontrun{
 #' ## Find related articles to PMID 20210808
-#' p <- elink("20210808", dbFrom="pubmed", dbTo="pubmed")
+#' p <- elink("20210808", dbFrom = "pubmed", dbTo = "pubmed")
 #' p
 #' 
 #' ## Extract linked UIDs from the "pubmed" to "pubmed_reviews" link
@@ -258,7 +248,7 @@ print.entrez_linkset <- function(x, ...) {
 #' p["pubmed_pubmed_reviews"]
 #' 
 #' ## retrive the abstracts for the first five linked reviews
-#' abstracts <- efetch(p["pubmed_pubmed_reviews"][1:5], rettype="abstract")
+#' abstracts <- efetch(p["pubmed_pubmed_reviews"][1:5], rettype = "abstract")
 #' }
 elink <- function(uid, dbFrom=NULL, dbTo=NULL, linkname=NULL,
                   usehistory=FALSE, cmd="neighbor",
@@ -286,7 +276,6 @@ elink <- function(uid, dbFrom=NULL, dbTo=NULL, linkname=NULL,
          datetype=datetype, reldate=reldate, mindate=mindate, maxdate=maxdate)
 }
 
-
 #' ELink Accessors
 #' 
 #' Extract UIDs from an \code{\link{elink}} object.
@@ -298,7 +287,7 @@ elink <- function(uid, dbFrom=NULL, dbTo=NULL, linkname=NULL,
 #' @export
 #' @examples
 #' \dontrun{
-#' e <- elink(c("34577062", "24475906"), dbFrom="nuccore")
+#' e <- elink(c("34577062", "24475906"), dbFrom = "nuccore")
 #' e[1]
 #' }
 setMethod("[", c("elink", "numeric"), function(x, i) {
@@ -311,13 +300,13 @@ setMethod("[", c("elink", "character"), function(x, i) {
   linkset(x, i)
 })
 
-#' @rdname linkset-methods
+#' @rdname linkset
 #' @export
 setMethod("linkset", "elink", function(x, linkname = NULL, ...) {
   linkset(x$get_content("parsed"), linkname=linkname, ...)
 })
 
-#' @rdname uid-methods
+#' @rdname uid
 #' @export
 setMethod("uid", "elink", function(x, ...) {
   uid(x$get_content("parsed"))

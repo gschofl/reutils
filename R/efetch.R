@@ -2,7 +2,6 @@
 #' @include parse-params.R
 NULL
 
-
 #' @export
 .efetch <- setRefClass(
   Class="efetch",
@@ -44,7 +43,7 @@ NULL
   )
 )
 
-#' @rdname content-methods
+#' @rdname content
 #' @export
 setMethod("content", "efetch", function(x, as=NULL, ...) {
   as <- as %||% retmode(x)
@@ -60,7 +59,6 @@ setMethod("content", "efetch", function(x, as=NULL, ...) {
   as <- match.arg(as, c("text", "textConnection", "xml"))
   callNextMethod(x=x, as=as)
 })
-
 
 #' \code{efetch} performs calls to the NCBI EFetch utility to retrieve data records
 #' in the requested format for an NCBI Accession Number, one or more primary UIDs,
@@ -120,6 +118,8 @@ setMethod("content", "efetch", function(x, as=NULL, ...) {
 #' \dontrun{
 #' ## From Protein, retrieve a raw GenPept record and write it to a file.
 #' p <- efetch("195055", "protein", "gp")
+#' p
+#' 
 #' write(content(p, "text"), file = "~/AAD15290.gp")
 #' 
 #' ## Get accessions for a list of GenBank IDs (GIs)
@@ -187,7 +187,6 @@ efetch <- function(uid, db=NULL, rettype=NULL, retmode=NULL,
          seq_stop=seqstop, complexity=complexity)
 }
 
-
 #' EFetch accessors
 #' 
 #' Extract XML nodes from an \code{\linkS4class{efetch}} object.
@@ -208,7 +207,6 @@ setMethod("[", c("efetch", "character"), function(x, i) {
   }
   x$xmlSet(i)  
 })
-
 
 #' @rdname efetch-methods
 #' @export

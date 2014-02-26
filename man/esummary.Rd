@@ -55,11 +55,12 @@ See the official online documentation for NCBI's
 for additional information.
 }
 \examples{
-\dontrun{
 ## Retrieve the Document Summary information for a set of
 ## UIDs frome the Gene datanase.
 ds <- esummary(c("828392", "790", "470338"), "gene")
+ds
 
+\dontrun{
 ## parse the XML into a data frame
 df <- content(ds, "parsed")
 df

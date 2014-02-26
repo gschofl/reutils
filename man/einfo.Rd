@@ -24,9 +24,10 @@ See the official online documentation for NCBI's
 for additional information.
 }
 \examples{
-\dontrun{
 ## Return a list of all current Entrez database names
 einfo()
+
+\dontrun{
 ## Return statistics for the Entrez Gene database and parse
 ## the returned data into a data.frame
 x <- einfo("gene")

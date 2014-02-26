@@ -5,9 +5,8 @@
 #' \itemize{
 #'   \item \code{reutils.email}: NCBI requires that a user of their API provides an
 #'      email address with a call to Entrez. If you are going to perform a lot
-#'      of queries you should set \code{reutils.email} to your email address in
-#'      your .Rprofile file. \emph{reutils} will annoy you with warnings until
-#'      you comply.
+#'      of queries consider setting \code{reutils.email} to your email address in
+#'      your .Rprofile file.
 #'      
 #'   \item \code{reutils.show.headlines}: By default \code{\linkS4class{efetch}}
 #'      objects containing text data show only the first 12 lines. This is quite handy
@@ -32,7 +31,7 @@ NULL
 .onLoad <- function(libname, pkgname) {
   op <- options()
   op.reutils <- list(
-    reutils.email = "Your.Name.Here@example.org",
+    reutils.email = "gschofl@yahoo.de",
     reutils.show.headlines = 12,
     reutils.verbose.queries = FALSE,
     reutils.test.remote = FALSE

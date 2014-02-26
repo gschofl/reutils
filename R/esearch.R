@@ -1,7 +1,6 @@
 #' @include eutil.R
 NULL
 
-
 #' @export
 .esearch <- setRefClass(
   Class="esearch",
@@ -25,7 +24,6 @@ NULL
   )
 )
 
-
 parse_esearch <- function(.obj) {
   if (.obj$no_errors()) {
     x <- .obj$get_content("xml")
@@ -45,7 +43,6 @@ parse_esearch <- function(.obj) {
     structure(NA_character_, database=NA_character_, class=c("entrez_uid", "character"))
   }
 }
-
 
 #' Class \code{"entrez_uid"}
 #'
@@ -69,31 +66,26 @@ parse_esearch <- function(.obj) {
 #' ###
 setOldClass("entrez_uid")
 
-
-#' @rdname database-methods
+#' @rdname database
 #' @export
 setMethod("database", "entrez_uid", function(x, ...) attr(x, "database"))
 
-
-#' @rdname uid-methods
+#' @rdname uid
 #' @export
 setMethod("uid", "entrez_uid", function(x, ...) {
   attributes(x) <- NULL
   x
 })
 
-
-#' @rdname webenv-methods
+#' @rdname webenv
 #' @export
 setMethod("webenv", "entrez_uid", function(x, ...) attr(x, "webenv"))
 
-
-#' @rdname querykey-methods
+#' @rdname querykey
 #' @export
 setMethod("querykey", "entrez_uid", function(x, ...) attr(x, "querykey"))
 
-
-#' @S3method print entrez_uid
+#' @export
 print.entrez_uid <- function(x, ...) {
   db <- database(x)
   if (!is.na(webenv(x))) {
@@ -108,14 +100,12 @@ print.entrez_uid <- function(x, ...) {
   invisible()
 }
 
-
-#' @S3method [ entrez_uid
+#' @export
 "[.entrez_uid" <- function(x, i, j, ..., drop=TRUE) {
   out <- NextMethod(...)
   attributes(out) <- attributes(x)  
   out    
 }
-
 
 #' \code{esearch} performs searches using the the NCBI ESearch utility to retrieve
 #' primary UIDs matching a text query. These UIDs can be used in subsequent calls
@@ -171,19 +161,20 @@ print.entrez_uid <- function(x, ...) {
 #' \code{\link{database}}, \code{\link{uid}},
 #' \code{\link{webenv}}, \code{\link{querykey}}.
 #' @examples
-#' \dontrun{
 #' ## Search PubMed for articles with the term "Chlamydia psittaci" in the
 #' ## title that were published in 2013.
 #' pmid <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed")
 #' pmid
-#'
+#' 
+#' \dontrun{
 #' ## Extract the query results either as an XML tree or parsed into
 #' ## a character vector
 #' xml <- content(pmid, "xml")
 #' uids <- uid(pmid)
 #' 
 #' ## Alternatively post the UIDs to the History Server.
-#' pmid <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed", usehistory = TRUE)
+#' pmid <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed",
+#'                 usehistory = TRUE)
 #' pmid
 #' 
 #' ## Associate new search results with the existing search results.
@@ -237,18 +228,14 @@ setMethod("[", c("esearch", "numeric"), function(x, i) {
   out    
 })
 
-
-#' @rdname uid-methods
+#' @rdname uid
 #' @export
 setMethod("uid", "esearch", function(x, ...) uid(x$get_content("parsed")))
 
-
-#' @rdname webenv-methods
+#' @rdname webenv
 #' @export
 setMethod("webenv", "esearch", function(x, ...) webenv(x$get_content("parsed")))
 
-
-#' @rdname querykey-methods
+#' @rdname querykey
 #' @export
 setMethod("querykey", "esearch", function(x, ...) querykey(x$get_content("parsed")))
-

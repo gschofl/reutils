@@ -78,19 +78,20 @@ See the official online documentation for NCBI's
 for additional information on this EUtility.
 }
 \examples{
-\dontrun{
 ## Search PubMed for articles with the term "Chlamydia psittaci" in the
 ## title that were published in 2013.
 pmid <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed")
 pmid
 
+\dontrun{
 ## Extract the query results either as an XML tree or parsed into
 ## a character vector
 xml <- content(pmid, "xml")
 uids <- uid(pmid)
 
 ## Alternatively post the UIDs to the History Server.
-pmid <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed", usehistory = TRUE)
+pmid <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed",
+                usehistory = TRUE)
 pmid
 
 ## Associate new search results with the existing search results.

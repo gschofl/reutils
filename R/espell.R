@@ -1,7 +1,6 @@
 #' @include eutil.R
 NULL
 
-
 #' @export
 .espell <- setRefClass(
   Class="espell",
@@ -20,7 +19,6 @@ NULL
     }
   )
 )
-
 
 #' For a text query retrieve an XML containing the original query
 #' and spelling suggestions.

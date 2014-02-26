@@ -2,7 +2,6 @@
 #' @importFrom methods show
 NULL
 
-
 #' Class \code{"eutil_error"}:
 #'
 #' A container for handling errors when trying to parse XML files returned
@@ -68,4 +67,3 @@ eutil_error <- setRefClass(
     }
   )
 )
-

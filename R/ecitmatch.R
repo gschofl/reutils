@@ -1,7 +1,6 @@
 #' @include eutil.R
 NULL
 
-
 #' @export
 .ecitmatch <- setRefClass(
   Class = "ecitmatch",
@@ -29,14 +28,12 @@ NULL
   )
 )
 
-
-#' @rdname content-methods
+#' @rdname content
 #' @export
 setMethod("content", "ecitmatch", function(x, as="text", ...) {
   as <- match.arg(as, "text")
   callNextMethod(x=x, as=as)
 })
-
 
 #' \code{ecitmatch} serves as an API to the PubMed
 #' \href{http://www.ncbi.nlm.nih.gov/pubmed/batchcitmatch}{batch citation matcher}.
@@ -51,13 +48,11 @@ setMethod("content", "ecitmatch", function(x, as="text", ...) {
 #' @return An \code{\linkS4class{ecitmatch}} object.
 #' @export
 #' @examples
-#' \dontrun{
 #' citstrings <- c("proc natl acad sci u s a|1991|88|3248|mann bj|Art1|",
 #'                 "science|1987|235|182|palmenber ac|Art2|")
 #' x <- ecitmatch(citstrings)
 #' x
 #' content(x)
-#' }
 ecitmatch <- function(bdata, db="pubmed", retmode="xml") {
   if (missing(bdata)) {
     stop("No citation string provided", call.=FALSE)

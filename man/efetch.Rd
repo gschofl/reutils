@@ -88,6 +88,8 @@ databases for the  EFetch utility.
 \dontrun{
 ## From Protein, retrieve a raw GenPept record and write it to a file.
 p <- efetch("195055", "protein", "gp")
+p
+
 write(content(p, "text"), file = "~/AAD15290.gp")
 
 ## Get accessions for a list of GenBank IDs (GIs)

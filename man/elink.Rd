@@ -85,13 +85,13 @@ Available commands are:
 }
 }
 \examples{
-\dontrun{
 ## Find one set of Gene IDs linked to nuccore GIs 34577062 and 24475906
-e <- elink(c("34577062", "24475906"), dbFrom="nuccore", dbTo="gene")
+e <- elink(c("34577062", "24475906"), dbFrom = "nuccore", dbTo = "gene")
 e
 
+\dontrun{
 ## Find related articles to PMID 20210808
-p <- elink("20210808", dbFrom="pubmed", dbTo="pubmed")
+p <- elink("20210808", dbFrom = "pubmed", dbTo = "pubmed")
 p
 
 ## Extract linked UIDs from the "pubmed" to "pubmed_reviews" link
@@ -101,7 +101,7 @@ linkset(p, "pubmed_pubmed_reviews")
 p["pubmed_pubmed_reviews"]
 
 ## retrive the abstracts for the first five linked reviews
-abstracts <- efetch(p["pubmed_pubmed_reviews"][1:5], rettype="abstract")
+abstracts <- efetch(p["pubmed_pubmed_reviews"][1:5], rettype = "abstract")
 }
 }
 \seealso{
