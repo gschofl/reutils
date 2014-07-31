@@ -22,7 +22,7 @@ Install the development version from `github` using the `devtools` package.
 
 ```r
 require("devtools")
-install_github("reutils/gschofl")
+install_github("gschofl/reutils")
 ```
 
 Please post feature or support requests and bugs at the [issues tracker for the reutils package](https://github.com/gschofl/reutils/issues) on GitHub. 
