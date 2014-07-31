@@ -1,7 +1,6 @@
+# reutils
 
-
-
-# reutils #
+[![Build Status](https://travis-ci.org/gschofl/reutils.png?branch=master)](https://travis-ci.org/gschofl/reutils)
 
 `reutils` is an R package for interfacing with NCBI databases such as PubMed,
 Genbank, or GEO via the Entrez Programming Utilities
@@ -15,28 +14,19 @@ when using these services. Note that Entrez server requests are subject to frequ
 
 Install the latest stable release of the reutils package from CRAN:
 
-
-
 ```r
 install.packages("reutils")
 ```
 
-
-
-
 Install the development version from `github` using the `devtools` package.
-
-
 
 ```r
 require("devtools")
-install_github("reutils", "gschofl")
+install_github("reutils/gschofl")
 ```
 
-
-
-
 Please post feature or support requests and bugs at the [issues tracker for the reutils package](https://github.com/gschofl/reutils/issues) on GitHub. 
+
 
 ### Important functions ###
 

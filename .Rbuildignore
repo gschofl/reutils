@@ -3,3 +3,4 @@
 scratch.r
 cache/
 Readme.*
+^\.travis\.yml$
