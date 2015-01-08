@@ -3,17 +3,17 @@ NULL
 
 #' @export
 .esearch <- setRefClass(
-  Class="esearch",
-  contains="eutil",
-  methods=list(
-    initialize=function(method, ...) {
+  Class    = "esearch",
+  contains = "eutil",
+  methods  = list(
+    initialize = function(method, ...) {
       callSuper()
-      perform_query(method=method, ...)
+      perform_query(method = method, ...)
       if (no_errors()) {
         errors$check_errors(.self)
       }
     },
-    show=function() {
+    show = function() {
       cat("Object of class", sQuote(eutil()), "\n")
       if (no_errors()) {
         methods::show(get_content("parsed"))
@@ -24,23 +24,23 @@ NULL
   )
 )
 
-parse_esearch <- function(.obj) {
-  if (.obj$no_errors()) {
-    x <- .obj$get_content("xml")
+parse_esearch <- function(object) {
+  if (object$no_errors()) {
+    x <- object$get_content("xml")
     structure(
       xvalue(x, '/eSearchResult/IdList/Id'),
       ## Attributes
-      retmax=xvalue(x, '/eSearchResult/RetMax', as='numeric'),
-      retstart=xvalue(x, '/eSearchResult/RetStart', as='numeric'),
-      count=xvalue(x, '/eSearchResult/Count', as='numeric'),
-      query_translation=xvalue(x, '/eSearchResult/QueryTranslation'),
-      querykey=xvalue(x, '/eSearchResult/QueryKey', as='numeric'),
-      webenv=xvalue(x, '/eSearchResult/WebEnv'),
-      database=.obj$database(),
-      class=c("entrez_uid", "character")
+      retmax   = xvalue(x, '/eSearchResult/RetMax', as='numeric'),
+      retstart = xvalue(x, '/eSearchResult/RetStart', as='numeric'),
+      count    = xvalue(x, '/eSearchResult/Count', as='numeric'),
+      query_translation = xvalue(x, '/eSearchResult/QueryTranslation'),
+      querykey = xvalue(x, '/eSearchResult/QueryKey', as='numeric'),
+      webenv   = xvalue(x, '/eSearchResult/WebEnv'),
+      database = object$database(),
+      class = c("entrez_uid", "character")
     )
   } else {
-    structure(NA_character_, database=NA_character_, class=c("entrez_uid", "character"))
+    structure(NA_character_, database = NA_character_, class = c("entrez_uid", "character"))
   }
 }
 
@@ -66,23 +66,19 @@ parse_esearch <- function(.obj) {
 #' ###
 setOldClass("entrez_uid")
 
-#' @rdname database
-#' @export
+#' @describeIn database
 setMethod("database", "entrez_uid", function(x, ...) attr(x, "database"))
 
-#' @rdname uid
-#' @export
+#' @describeIn uid
 setMethod("uid", "entrez_uid", function(x, ...) {
   attributes(x) <- NULL
   x
 })
 
-#' @rdname webenv
-#' @export
+#' @describeIn webenv
 setMethod("webenv", "entrez_uid", function(x, ...) attr(x, "webenv"))
 
-#' @rdname querykey
-#' @export
+#' @describeIn querykey
 setMethod("querykey", "entrez_uid", function(x, ...) attr(x, "querykey"))
 
 #' @export
@@ -182,11 +178,11 @@ print.entrez_uid <- function(x, ...) {
 #'                  usehistory = TRUE, webenv = webenv(pmid))
 #' pmid2
 #' }
-esearch <- function(term, db="nuccore", rettype="uilist",
-                    retstart=0, retmax=100, usehistory=FALSE,
-                    webenv=NULL, querykey=NULL, field=NULL,
-                    datetype=NULL, reldate=NULL, mindate=NULL,
-                    maxdate=NULL) {
+esearch <- function(term, db = "nuccore", rettype = "uilist",
+                    retstart = 0, retmax = 100, usehistory = FALSE,
+                    webenv = NULL, querykey = NULL, field = NULL,
+                    datetype = NULL, reldate = NULL, mindate = NULL,
+                    maxdate = NULL) {
   if (missing(term)) {
     stop("No query term provided", call.=FALSE)
   }
@@ -196,14 +192,19 @@ esearch <- function(term, db="nuccore", rettype="uilist",
   if (length(term) > 1L) {
     term <- paste(term, collapse=" OR ")
   }
-  .esearch(method=if (nchar(term) < 100) "GET" else "POST",
-           term=.escape(term), db=db, 
-           usehistory=if (usehistory) "y" else NULL,
-           WebEnv=webenv, query_key=querykey, retstart=retstart,
-           retmax=if (usehistory) 0 else retmax, rettype=rettype,
-           field=field, datetype=datetype, reldate=reldate,
-           mindate=mindate, maxdate=maxdate)
+  .esearch(method = if (nchar(term) < 100) "GET" else "POST",
+           term = .escape(term), db = db, 
+           usehistory = if (usehistory) "y" else NULL,
+           WebEnv = webenv, query_key = querykey, retstart = retstart,
+           retmax = if (usehistory) 0 else retmax, rettype = rettype,
+           retmode = 'xml', field = field, datetype = datetype,
+           reldate = reldate, mindate = mindate, maxdate = maxdate)
 }
+
+#' @describeIn content
+setMethod("content", "esearch", function(x, as = 'xml') {
+  callNextMethod(x = x, as = as)
+})
 
 #' ESearch Accessors
 #' 
@@ -228,14 +229,11 @@ setMethod("[", c("esearch", "numeric"), function(x, i) {
   out    
 })
 
-#' @rdname uid
-#' @export
+#' @describeIn uid
 setMethod("uid", "esearch", function(x, ...) uid(x$get_content("parsed")))
 
-#' @rdname webenv
-#' @export
+#' @describeIn webenv
 setMethod("webenv", "esearch", function(x, ...) webenv(x$get_content("parsed")))
 
-#' @rdname querykey
-#' @export
+#' @describeIn querykey
 setMethod("querykey", "esearch", function(x, ...) querykey(x$get_content("parsed")))

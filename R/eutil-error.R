@@ -35,25 +35,27 @@ eutil_error <- setRefClass(
       'Are all error fields \\code{NULL}?'
       is.null(error) && is.null(errmsg) && is.null(wrnmsg)
     },
-    check_errors = function(.Object, verbose = TRUE) {
+    check_errors = function(object, verbose = TRUE) {
       'check if a \\code{linkS4class{eutil}} object contains errors'
-      assert_that(is(.Object, "eutil"))
-      x <- .Object$get_content("xml")
-      .self$error <- xvalue(x, '//ERROR', default=NULL)
-      if (verbose && !is.null(error)) {
-        message('Error:\n\t', error)
-      }
-      errmsg_name  <- xname(x, '//ErrorList/*', default=NULL)
-      .self$errmsg <- setNames(xvalue(x, '//ErrorList/*', default=NULL), errmsg_name)
-      if (verbose && !is.null(errmsg)) {
-        message('Error(s):\n\t', 
-                paste(paste(names(errmsg), errmsg, sep="\t"), collapse="\n\t"))
-      }
-      wrnmsg_name  <- xname(x, '//WarningList/*', default=NULL)
-      .self$wrnmsg <- setNames(xvalue(x, '//WarningList/*', default=NULL), wrnmsg_name) 
-      if (verbose && !is.null(wrnmsg)) {
-        message('Warning(s):\n\t', 
-                paste(paste(names(wrnmsg), wrnmsg, sep="\t"), collapse="\n\t"))
+      assert_that(is(object, "eutil"))
+      if (is.null(object$retmode()) || object$retmode() != "json") {
+        x <- object$get_content("xml")
+        .self$error <- xvalue(x, '//ERROR', default = NULL)
+        if (verbose && !is.null(error)) {
+          message('Error:\n\t', error)
+        }
+        errmsg_name  <- xname(x, '//ErrorList/*', default = NULL)
+        .self$errmsg <- setNames(xvalue(x, '//ErrorList/*', default = NULL), errmsg_name)
+        if (verbose && !is.null(errmsg)) {
+          message('Error(s):\n\t', 
+                  paste(paste(names(errmsg), errmsg, sep = "\t"), collapse = "\n\t"))
+        }
+        wrnmsg_name  <- xname(x, '//WarningList/*', default = NULL)
+        .self$wrnmsg <- setNames(xvalue(x, '//WarningList/*', default = NULL), wrnmsg_name) 
+        if (verbose && !is.null(wrnmsg)) {
+          message('Warning(s):\n\t', 
+                  paste(paste(names(wrnmsg), wrnmsg, sep = "\t"), collapse = "\n\t"))
+        }
       }
     },
     show = function() {

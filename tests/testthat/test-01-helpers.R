@@ -16,3 +16,7 @@ test_that("Setting defaults with 'value' work as advertised", {
   expect_equal(xvalue(xml, "//bla", default=0), "0")
   expect_equal(xvalue(xml, "//bla", as="numeric", default=0), 0)
 })
+
+test_that("ncbi_retrieval_type works with 'bioproject'", {
+  expect_equal(ncbi_retrieval_type('bioproject', rettype = 'docsum'), list(rettype = "docsum", retmode = "xml"))
+})

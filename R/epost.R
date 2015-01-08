@@ -4,17 +4,17 @@ NULL
 
 #' @export
 .epost <- setRefClass(
-  Class="epost",
-  contains="eutil",
-  methods=list(
-    initialize=function (method, ...) {
+  Class    = "epost",
+  contains = "eutil",
+  methods  = list(
+    initialize = function(method, ...) {
       callSuper()
-      perform_query(method=method, ...)
+      perform_query(method = method, ...)
       if (errors$all_empty()) {
         errors$check_errors(.self)
       }
     },
-    show=function() {
+    show = function() {
       cat("Object of class", sQuote(eutil()), "\n")
       if (no_errors()) {
         methods::show(get_content("parsed"))
@@ -25,20 +25,20 @@ NULL
   )
 )
 
-parse_epost <- function(.obj) {
-  if (.obj$no_errors()) {
-    x <- .obj$get_content("xml")
+parse_epost <- function(object) {
+  if (object$no_errors()) {
+    x <- object$get_content("xml")
     structure(
       NA_character_,
       ## Attributes
-      retmax=NA_integer_,
-      retstart=NA_integer_,
-      count=NA_integer_,
-      query_translation=NA_character_,
-      querykey=xvalue(x, '/ePostResult/QueryKey', as='numeric'),
-      webenv=xvalue(x, '/ePostResult/WebEnv'),
-      database=.obj$database(),
-      class=c("entrez_uid", "character")
+      retmax   = NA_integer_,
+      retstart = NA_integer_,
+      count    = NA_integer_,
+      query_translation = NA_character_,
+      querykey = xvalue(x, '/ePostResult/QueryKey', as = 'numeric'),
+      webenv   = xvalue(x, '/ePostResult/WebEnv'),
+      database = object$database(),
+      class = c("entrez_uid", "character")
     )
   } else {
     structure(NA_character_, database=NA_character_, class=c("entrez_uid", "character"))
@@ -77,16 +77,20 @@ parse_epost <- function(.obj) {
 #' gi <- c("194680922", "50978626", "28558982", "9507199", "6678417")
 #' p <- epost(gi, "protein")
 #' p
-epost <- function(uid, db=NULL, webenv=NULL) {
+epost <- function(uid, db = NULL, webenv = NULL) {
   params <- parse_params(uid, db)
-  .epost(method=if (length(params$uid) < 100) "GET" else "POST",
-        id=.collapse(params$uid), db=params$db, WebEnv=webenv)
+  .epost(method = if (length(params$uid) < 100) "GET" else "POST",
+        id = .collapse(params$uid), db = params$db, WebEnv = webenv,
+        retmode = 'xml')
 }
 
-#' @rdname webenv
-#' @export
+#' @describeIn content
+setMethod("content", "epost", function(x, as = NULL) {
+  callNextMethod(x = x, as = as)
+})
+
+#' @describeIn webenv
 setMethod("webenv", "epost", function(x, ...) webenv(x$get_content("parsed")))
 
-#' @rdname querykey
-#' @export
+#' @describeIn querykey
 setMethod("querykey", "epost", function(x, ...) querykey(x$get_content("parsed")))

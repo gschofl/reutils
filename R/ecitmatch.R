@@ -3,9 +3,9 @@ NULL
 
 #' @export
 .ecitmatch <- setRefClass(
-  Class = "ecitmatch",
+  Class    = "ecitmatch",
   contains = "eutil",
-  methods = list(
+  methods  = list(
     initialize = function(method, ...) {
       callSuper()
       perform_query(method = method, ...)
@@ -28,11 +28,10 @@ NULL
   )
 )
 
-#' @rdname content
-#' @export
-setMethod("content", "ecitmatch", function(x, as="text", ...) {
+#' @describeIn content
+setMethod("content", "ecitmatch", function(x, as = "text", ...) {
   as <- match.arg(as, "text")
-  callNextMethod(x=x, as=as)
+  callNextMethod(x = x, as = as)
 })
 
 #' \code{ecitmatch} serves as an API to the PubMed
@@ -44,7 +43,7 @@ setMethod("content", "ecitmatch", function(x, as="text", ...) {
 #' by a citation string in the following format:
 #' \emph{journal_title|year|volume|first_page|author_name|your_key|}
 #' @param db Database to search. The only supported value is \sQuote{pubmed}.
-#' @param retmode Retrieval mode The only supported value is \sQuote{xml}.
+#' @param retmode Retrieval mode. The only supported value is \sQuote{xml}.
 #' @return An \code{\linkS4class{ecitmatch}} object.
 #' @export
 #' @examples
@@ -53,14 +52,14 @@ setMethod("content", "ecitmatch", function(x, as="text", ...) {
 #' x <- ecitmatch(citstrings)
 #' x
 #' content(x)
-ecitmatch <- function(bdata, db="pubmed", retmode="xml") {
+ecitmatch <- function(bdata, db = "pubmed", retmode = "xml") {
   if (missing(bdata)) {
-    stop("No citation string provided", call.=FALSE)
+    stop("No citation string provided", call. = FALSE)
   }
   if (length(bdata) > 1) {
-    bdata <- paste0(bdata, collapse='\r')
+    bdata <- paste0(bdata, collapse = '\r')
   }
   db <- match.arg(db, "pubmed")
   retmode <- match.arg(retmode, "xml")
-  .ecitmatch('GET', db=db, retmode=retmode, bdata=bdata)
+  .ecitmatch('GET', db = db, retmode = retmode, bdata = bdata)
 }

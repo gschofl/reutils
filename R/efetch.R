@@ -4,17 +4,17 @@ NULL
 
 #' @export
 .efetch <- setRefClass(
-  Class="efetch",
-  contains="eutil",
-  methods=list(
-    initialize=function(method, ...) {
+  Class    = "efetch",
+  contains = "eutil",
+  methods  = list(
+    initialize = function(method, ...) {
       callSuper()
-      perform_query("efetch", method=method, ...)
+      perform_query("efetch", method = method, ...)
       if (errors$all_empty() && retmode() == "xml") {
         errors$check_errors(.self)
       }
     },
-    show=function() {
+    show = function() {
       cat("Object of class", sQuote(eutil()), "\n")
       nhead <- getOption("reutils.show.headlines")
       if (no_errors()) {
@@ -29,7 +29,7 @@ NULL
         } else {
           con <- get_content("textConnection")
           on.exit(close(con))
-          headlines <- readLines(con, n=nhead %||% -1L)
+          headlines <- readLines(con, n = nhead %||% -1L)
           cat(headlines, "...", sep="\n")
         }
       } else {
@@ -43,9 +43,8 @@ NULL
   )
 )
 
-#' @rdname content
-#' @export
-setMethod("content", "efetch", function(x, as=NULL, ...) {
+#' @describeIn content
+setMethod("content", "efetch", function(x, as = NULL, ...) {
   as <- as %||% retmode(x)
   if (as == "asn.1") {
     as <- "text"
@@ -53,11 +52,7 @@ setMethod("content", "efetch", function(x, as=NULL, ...) {
   if (as == "parsed") {
     as <- retmode(x)
   }
-  if (as == "xml" && retmode(x) != "xml") {
-    stop("This document does not contain XML data", call.=FALSE)
-  }
-  as <- match.arg(as, c("text", "textConnection", "xml"))
-  callNextMethod(x=x, as=as)
+  callNextMethod(x = x, as = as)
 })
 
 #' \code{efetch} performs calls to the NCBI EFetch utility to retrieve data records
@@ -70,8 +65,8 @@ setMethod("content", "efetch", function(x, as=NULL, ...) {
 #' for additional information.
 #' 
 #' See
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.chapter4_table1/?report=objectonly}{here}
-#' for the default values for \code{rettype} and r\code{retmode}, as well as a list of the available
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly}{here}
+#' for the default values for \code{rettype} and \code{retmode}, as well as a list of the available
 #' databases for the  EFetch utility.
 #' 
 #' @title efetch - downloading full records
@@ -84,15 +79,15 @@ setMethod("content", "efetch", function(x, as=NULL, ...) {
 #' specified by \code{db}.
 #' @param db (Required if \code{uid} is a character vector of UIDs)
 #' Database from which to retrieve records. See
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25497/table/chapter2.chapter2_table1/?report=objectonly}{here}
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25497/table/chapter2.T._entrez_unique_identifiers_ui/?report=objectonly}{here}
 #' for the supported databases.
 #' @param rettype A character string specifying the retrieval type, such as 'abstract' or
 #' 'medline' for PubMed, 'gp' or 'fasta' for Protein, or 'gb', or 'fasta' for Nuccore. See 
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.chapter4_table1/?report=objectonly}{here}
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly}{here}
 #' for the available values for each database.
 #' @param retmode A character string specifying the data mode of the records returned,
 #' such as 'text' or 'xml'. See 
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.chapter4_table1/?report=objectonly}{here}
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly}{here}
 #' for the available values for each database.
 #' @param retstart Numeric index of the first record to be retrieved.
 #' @param retmax Total number of records from the input set to be retrieved.
@@ -153,15 +148,15 @@ setMethod("content", "efetch", function(x, as=NULL, ...) {
 #' ## Use an XPath expession to extract the scientific name.
 #' tx$xmlValue("/TaxaSet/Taxon/ScientificName")
 #' }
-efetch <- function(uid, db=NULL, rettype=NULL, retmode=NULL,
-                   retstart=NULL, retmax=NULL, querykey=NULL,
-                   webenv=NULL, strand=NULL, seqstart=NULL,
-                   seqstop=NULL, complexity=NULL) {
+efetch <- function(uid, db = NULL, rettype = NULL, retmode = NULL,
+                   retstart = NULL, retmax = NULL, querykey = NULL,
+                   webenv = NULL, strand = NULL, seqstart = NULL,
+                   seqstop = NULL, complexity = NULL) {
   ## extract query parameters
   params <- parse_params(uid, db, querykey, webenv)
 
   # set default rettype and retmode for a given db
-  r <- ncbi_retrieval_type(params$db, rettype, retmode)
+  r <- ncbi_retrieval_type(params$db, rettype %||% "", retmode)
   
   if (is.null(retmax)) {
     retmax <- Inf
@@ -179,12 +174,12 @@ efetch <- function(uid, db=NULL, rettype=NULL, retmode=NULL,
     # message("A single download request is restricted to 500 records.\nUse efetch.batch() to download more records.")
     retmax <- 500
   }
-  .efetch(method=if (length(params$uid) < 100) "GET" else "POST",
-         db=params$db, id=.collapse(params$uid),
-         query_key=params$querykey, WebEnv=params$webenv, 
-         retmode=r$retmode, rettype=r$rettype, retstart=retstart,
-         retmax=retmax, strand=strand, seq_start=seqstart,
-         seq_stop=seqstop, complexity=complexity)
+  .efetch(method = if (length(params$uid) < 100) "GET" else "POST",
+         db = params$db, id = .collapse(params$uid),
+         query_key = params$querykey, WebEnv = params$webenv, 
+         retmode = r$retmode, rettype = r$rettype, retstart = retstart,
+         retmax = retmax, strand = strand, seq_start = seqstart,
+         seq_stop = seqstop, complexity = complexity)
 }
 
 #' EFetch accessors

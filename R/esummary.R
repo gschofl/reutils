@@ -4,17 +4,17 @@ NULL
 
 #' @export
 .esummary <- setRefClass(
-  Class="esummary",
-  contains="eutil",
-  methods=list(
-    initialize=function(method, ...) {
+  Class    = "esummary",
+  contains = "eutil",
+  methods  = list(
+    initialize = function(method, ...) {
       callSuper()
-      perform_query(method=method, ...)
+      perform_query(method = method, ...)
       if (no_errors()) {
         errors$check_errors(.self)
       }
     },
-    show=function() {
+    show = function() {
       cat("Object of class", sQuote(eutil()), "\n")
       if (no_errors()) {
         methods::show(get_content("xml"))
@@ -81,19 +81,24 @@ NULL
 #' ## use XPath expressions to extract nodes of interest
 #' ds['//TaxID']
 #' }
-esummary <- function(uid, db=NULL, retstart=1, retmax=10000,
-                      querykey=NULL, webenv=NULL, version="2.0") {
+esummary <- function(uid, db = NULL, retstart = 1, retmax = 10000,
+                      querykey = NULL, webenv = NULL, version = "2.0") {
   ## extract query parameters
   params <- parse_params(uid, db, querykey, webenv)
   if (retmax > 10000) {
     stop("Number of DocSums to be downloaded should not exceed 10,000.", call.=FALSE)
   }
-  .esummary(method=if (length(params$uid) < 100) "GET" else "POST",
-            db=params$db, id=.collapse(params$uid),
-            query_key=params$querykey, WebEnv=params$webenv, 
-            retstart=retstart, retmax=retmax,
-            version=if (version == "2.0") "2.0" else NULL)
+  .esummary(method = if (length(params$uid) < 100) "GET" else "POST",
+            db = params$db, id = .collapse(params$uid),
+            query_key = params$querykey, WebEnv = params$webenv, 
+            retstart = retstart, retmax = retmax, retmode = 'xml',
+            version = if (version == "2.0") "2.0" else NULL)
 }
+
+#' @describeIn content
+setMethod("content", "esummary", function(x, as = 'xml') {
+  callNextMethod(x = x, as = as)
+})
 
 #' ESummary accessors
 #' 

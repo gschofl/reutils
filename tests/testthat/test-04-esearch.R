@@ -17,6 +17,8 @@ if (getOption('reutils.test.remote')) {
     expect_that(content(b, "text"), is_a("character"))
     expect_that(content(a, "xml"), is_a("XMLInternalDocument"))
     expect_that(content(b, "xml"), is_a("XMLInternalDocument"))
+    expect_that(content(a, "json"), throws_error("Cannot return data of mode.+"))
+    expect_that(content(b, "json"), throws_error("Cannot return data of mode.+"))
     expect_that(content(a, 'parsed'), is_a("entrez_uid"))
     expect_that(content(b, 'parsed'), is_a("entrez_uid"))
   })
@@ -35,6 +37,14 @@ if (getOption('reutils.test.remote')) {
     expect_equal(querykey(b), NA_integer_)
     expect_equal(webenv(b), NA_character_)
     expect_equal(database(b), 'pubmed')
+  })
+  
+  test_that("'rettype', and 'retmode' return the appropriate results", {
+    expect_equal(rettype(a), "uilist")
+    expect_match(retmode(a), "xml")
+    
+    expect_equal(rettype(b), "uilist")
+    expect_match(retmode(b), "xml")
   })
   
   test_that("'uid' returns a character vector for esearch objdect", {

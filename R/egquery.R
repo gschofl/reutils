@@ -3,23 +3,23 @@ NULL
 
 #' @export
 .egquery <- setRefClass(
-  Class="egquery",
-  contains="eutil",
-  methods=list(
-    initialize=function (method, ...) {
+  Class    = "egquery",
+  contains = "eutil",
+  methods  = list(
+    initialize = function(method, ...) {
       callSuper()
-      perform_query(method=method, ...)
+      perform_query(method = method, ...)
       if (errors$all_empty()) {
         errors$check_errors(.self)
       }
     },
-    show=function() {
+    show = function() {
       cat("Object of class", sQuote(eutil()), "\n")
       if (no_errors()) {
         methods::show(get_content("xml"))
         tail <- sprintf("EGQuery query for the search term %s.",
                         sQuote(xmlValue("/Result/Term")))
-        cat(tail, sep="\n")
+        cat(tail, sep = "\n")
       } else {
         methods::show(get_error())
       }
@@ -50,5 +50,10 @@ egquery <- function(term) {
   if (length(term) > 1L) {
     term <- paste(term, collapse=" OR ")
   }
-  .egquery('GET', term=term, retmode='xml')
+  .egquery('GET', term = term, retmode = 'xml')
 }
+
+#' @describeIn content
+setMethod("content", "egquery", function(x, as = NULL) {
+  callNextMethod(x = x, as = as)
+})
