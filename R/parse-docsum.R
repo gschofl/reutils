@@ -2,18 +2,21 @@
 NULL
 
 ## parse docsums (esummary) ####
-parse_esummary <- function (.obj) {
-  if (!.obj$no_errors()) {
-    warning("Errors parsing DocumentSummary", call.=FALSE)
-    list() 
-  } else {
-    x <- .obj$get_content("xml")
+parse_esummary <- function(object) {
+  retmode <- object$retmode()
+  if (!object$no_errors()) {
+    warning("Errors parsing DocumentSummary", call. = FALSE)
+    return(list()) 
+  } else if (retmode == 'json') {
+    return(fromJSON(object$get_content("json")))
+  } else if (retmode == 'xml') {
+    x <- object$get_content("xml")
     nodes <- xset(x, '/eSummaryResult/DocSum')
     if (length(nodes) != 0) {
       uids <- xvalue(x, '/eSummaryResult/DocSum/Id')
     } else {
       nodes <- xset(x, '/eSummaryResult/DocumentSummarySet/DocumentSummary')
-      uids <- vapply(nodes, xmlGetAttr, name="uid", FUN.VALUE="")
+      uids <- vapply(nodes, xmlGetAttr, name = "uid", FUN.VALUE = "")
     }
   }
   docsum <- {
@@ -21,24 +24,24 @@ parse_esummary <- function (.obj) {
     flattened_docsum <- flatten2(docsum_list)
     # check if all docsums have same number of tags
     if (length(unique(vapply(flattened_docsum, length, 0))) > 1L) {
-      warning("DocSum records have a different numbers of tags.", call.=FALSE)
+      warning("DocSum records have a different numbers of tags.", call. = FALSE)
       setNames(flattened_docsum, uids)
     } else {
-      data.frame(Id = uids, do.call("rbind", flattened_docsum), stringsAsFactors=FALSE)
+      data.frame(Id = uids, do.call("rbind", flattened_docsum), stringsAsFactors = FALSE)
     }
   }
   docsum
 }
 
 # Parse a DocSum recursively and return it as a named list
-parse_docsum <- function (ds) {
+parse_docsum <- function(ds) {
   parsefun <- docsum_parser(xmlName(ds))
   parsefun(ds)
 }
 
 docsum_parser <- function(version) {
   switch(version,
-         DocSum=function(ds) {
+         DocSum = function(ds) {
            items <- xmlChildren(ds)
            items <- items[names(items) == "Item"]
            value <- vector("list", length(items))
@@ -50,7 +53,7 @@ docsum_parser <- function(version) {
                value[[i]] <- Recall(items[[i]])
              }
            }
-           names(value) <- vapply(items, xmlGetAttr, name="Name", FUN.VALUE="", USE.NAMES=FALSE)
+           names(value) <- vapply(items, xmlGetAttr, name = "Name", FUN.VALUE = "", USE.NAMES = FALSE)
            value
          },
          DocumentSummary=function(ds) {

@@ -2,7 +2,8 @@
 
 * New parameters 'version' and 'retmode' in `einfo()`.
 * New parameters 'sort' and 'retmode' in `esearch()`.
-* Support for JSON as alternative output format for EInfo and ESearch.
+* New parameter 'retmode' in `esummary()`.
+* Support for JSON as alternative output format for EInfo, ESearch and ESummary.
 
 # reutils 0.1.2
 

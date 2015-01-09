@@ -5,7 +5,7 @@
 \title{esummary - downloading Document Summaries}
 \usage{
 esummary(uid, db = NULL, retstart = 1, retmax = 10000, querykey = NULL,
-  webenv = NULL, version = "2.0")
+  webenv = NULL, retmode = "xml", version = "2.0")
 }
 \arguments{
 \item{uid}{(Required)
@@ -36,6 +36,8 @@ to a user's Web Environment will be used as input to \code{efetch}.
 contains the UID list. (Usually obtained directely from objects returned
 by previous \code{\link{esearch}}, \code{\link{epost}} or
 \code{\link{elink}} calls.)}
+
+\item{retmode}{Retrieval mode. (default: 'xml', alternative: 'json')}
 
 \item{version}{If "2.0" \code{esummary} will retrieve version 2.0
 ESummary XML output.}

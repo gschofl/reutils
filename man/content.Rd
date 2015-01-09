@@ -31,7 +31,7 @@
 
 \S4method{content}{espell}(x, as = NULL)
 
-\S4method{content}{esummary}(x, as = "xml")
+\S4method{content}{esummary}(x, as = NULL)
 
 content(x, ...)
 

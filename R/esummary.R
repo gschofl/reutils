@@ -14,12 +14,20 @@ NULL
         errors$check_errors(.self)
       }
     },
+    show_xml = function() {
+      methods::show(get_content("xml"))
+      tail <- sprintf("ESummary query using the database %s.", sQuote(database()))
+      cat(tail, sep="\n")
+    },
+    show_json = function() {
+      methods::show(get_content("json"))
+      tail <- sprintf("ESummary query using the database %s.", sQuote(database()))
+      cat(tail, sep="\n")
+    },
     show = function() {
       cat("Object of class", sQuote(eutil()), "\n")
       if (no_errors()) {
-        methods::show(get_content("xml"))
-        tail <- sprintf("ESummary query using the database %s.", sQuote(database()))
-        cat(tail, sep="\n")
+        switch(retmode(), xml = show_xml(), json = show_json())
       } else {
         methods::show(get_error())
       }
@@ -60,6 +68,7 @@ NULL
 #' contains the UID list. (Usually obtained directely from objects returned
 #' by previous \code{\link{esearch}}, \code{\link{epost}} or
 #' \code{\link{elink}} calls.)
+#' @param retmode Retrieval mode. (default: 'xml', alternative: 'json')
 #' @param version If "2.0" \code{esummary} will retrieve version 2.0
 #' ESummary XML output.
 #' @return An \code{\linkS4class{esummary}} object.
@@ -82,21 +91,23 @@ NULL
 #' ds['//TaxID']
 #' }
 esummary <- function(uid, db = NULL, retstart = 1, retmax = 10000,
-                      querykey = NULL, webenv = NULL, version = "2.0") {
+                      querykey = NULL, webenv = NULL, retmode = 'xml',
+                     version = "2.0") {
   ## extract query parameters
   params <- parse_params(uid, db, querykey, webenv)
+  retmode <- match.arg(retmode, c('xml', 'json'))
   if (retmax > 10000) {
     stop("Number of DocSums to be downloaded should not exceed 10,000.", call.=FALSE)
   }
   .esummary(method = if (length(params$uid) < 100) "GET" else "POST",
             db = params$db, id = .collapse(params$uid),
             query_key = params$querykey, WebEnv = params$webenv, 
-            retstart = retstart, retmax = retmax, retmode = 'xml',
+            retstart = retstart, retmax = retmax, retmode = retmode,
             version = if (version == "2.0") "2.0" else NULL)
 }
 
 #' @describeIn content
-setMethod("content", "esummary", function(x, as = 'xml') {
+setMethod("content", "esummary", function(x, as = NULL) {
   callNextMethod(x = x, as = as)
 })
 
