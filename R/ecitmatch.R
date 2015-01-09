@@ -28,9 +28,17 @@ NULL
   )
 )
 
-#' @describeIn content
-setMethod("content", "ecitmatch", function(x, as = "text", ...) {
-  as <- match.arg(as, "text")
+parse_ecitmatch <- function(object) {
+  if (object$no_errors()) {
+    vapply(strsplit(object$get_content("text"), '\n')[[1]], function(x) {
+      strsplit(x, '|', fixed = TRUE)[[1]][7]
+    }, "", USE.NAMES = FALSE)
+  } else NA_character_
+}
+
+#' @describeIn content Return PubMed IDs if \code{as = "parsed"}.
+setMethod("content", "ecitmatch", function(x, as = "text") {
+  as <- match.arg(as, c("text", "parsed"))
   callNextMethod(x = x, as = as)
 })
 
@@ -51,7 +59,7 @@ setMethod("content", "ecitmatch", function(x, as = "text", ...) {
 #'                 "science|1987|235|182|palmenber ac|Art2|")
 #' x <- ecitmatch(citstrings)
 #' x
-#' content(x)
+#' content(x, "parsed")
 ecitmatch <- function(bdata, db = "pubmed", retmode = "xml") {
   if (missing(bdata)) {
     stop("No citation string provided", call. = FALSE)

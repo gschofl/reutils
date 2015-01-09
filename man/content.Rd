@@ -15,9 +15,9 @@
 \alias{content,eutil-method}
 \title{Extract the data content from an Entrez request}
 \usage{
-\S4method{content}{ecitmatch}(x, as = "text", ...)
+\S4method{content}{ecitmatch}(x, as = "text")
 
-\S4method{content}{efetch}(x, as = NULL, ...)
+\S4method{content}{efetch}(x, as = NULL)
 
 \S4method{content}{egquery}(x, as = NULL)
 
@@ -41,7 +41,9 @@ content(x, ...)
 \item{x}{An \code{\linkS4class{eutil}} object.}
 
 \item{as}{Type of output: \code{"text"}, \code{"xml"}, \code{"json"},
-\code{"textConnection"}, or \code{"parsed"}.}
+\code{"textConnection"}, or \code{"parsed"}. \code{content} attempts to
+figure out the most appropriate output type, based on the \code{retmode} of
+the object.}
 
 \item{...}{Further arguments passed on to methods.}
 }
@@ -56,7 +58,7 @@ or parsed into a native R object, e.g. a \code{list} or a \code{data.frame}
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{ecitmatch}: 
+\item \code{ecitmatch}: Return PubMed IDs if \code{as = "parsed"}.
 
 \item \code{efetch}: 
 
@@ -81,7 +83,7 @@ or parsed into a native R object, e.g. a \code{list} or a \code{data.frame}
 ## einfo() defaults to retmode 'xml'
 e <- einfo()
 
-## return data as an 'XMLInternalDocument'.
+## automatically return data as an 'XMLInternalDocument'.
 content(e)
 
 ## return the XML data as character string.
@@ -90,7 +92,7 @@ cat(content(e, "text"))
 ## return DbNames parsed into a character vector.
 content(e, "parsed")
 
-## Return data as a JSON object
+## return data as a JSON object
 e2 <- einfo(db = "gene", retmode = "json")
 content(e2)
 

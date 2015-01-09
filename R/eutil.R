@@ -82,11 +82,11 @@ eutil <- setRefClass(
         return(.self$errors)
       },
       get_content = function(as = "text", ...) {
-        "Return the results of an Entrez query as text, xml, json, a parsed R object,
-         or a \\code{\\link{textConnection}}; should not be used directly, use
+        "Return the results of an Entrez query as text, xml, json, a textConnection,
+        or parsed to a list or data.frame; should not be used directly, use
         \\code{\\link{content}} instead."
-        as <- match.arg(as, c("text", "xml", "json", "parsed", "textConnection"))
-        check_retmode(as, retmode())
+        as <- match.arg(as, c("text", "xml", "json", "textConnection", "parsed"))
+        check_retmode(as)
         switch(as,
           text   = .self$content,
           xml    = savely_parse_xml(.self$content, ...),
@@ -177,22 +177,21 @@ eutil <- setRefClass(
       },
       no_errors = function() {
         .self$errors$all_empty()
+      },
+      check_retmode = function(as) {
+        if (!is.null(retmode())) {
+          if (retmode() == 'xml' && as %ni% c("text", "xml", "parsed"))
+            stop("Cannot return data of mode ", dQuote(retmode()), " as ", dQuote(as), ".", call. = TRUE)
+          if (retmode() == 'json' && as %ni% c("text", "json", "parsed"))
+            stop("Cannot return data of mode ", dQuote(retmode()), " as ", dQuote(as), ".", call. = TRUE)
+          if (retmode() == 'text' && as %ni% c("text", "textConnection"))
+            stop("Cannot return data of mode ", dQuote(retmode()), " as ", dQuote(as), ".", call. = TRUE)
+          if (retmode() == 'asn.1' && as %ni% c("text", "textConnection"))
+            stop("Cannot return data of mode ", dQuote(retmode()), " as ", dQuote(as), ".", call. = TRUE)
+        }
       }
     )
   )
-
-check_retmode <- function(as, retmode) {
-  if (!is.null(retmode)) {
-    if (retmode == 'xml' && as %ni% c("text", "xml", "parsed"))
-      stop("Cannot return data of mode ", dQuote(retmode), " as ", dQuote(as), ".", call. = TRUE)
-    if (retmode == 'json' && as %ni% c("text", "json", "parsed"))
-      stop("Cannot return data of mode ", dQuote(retmode), " as ", dQuote(as), ".", call. = TRUE)
-    if (retmode == 'text' && as %ni% c("text", "textConnection"))
-      stop("Cannot return data of mode ", dQuote(retmode), " as ", dQuote(as), ".", call. = TRUE)
-    if (retmode == 'asn.1' && as %ni% c("text", "textConnection"))
-      stop("Cannot return data of mode ", dQuote(retmode), " as ", dQuote(as), ".", call. = TRUE)
-  }
-}
 
 #' @importFrom XML xmlParse xmlParseString
 savely_parse_xml <- function(x, ...) {
@@ -215,11 +214,12 @@ savely_parse_json <- function(x, ...) {
 
 parse_content <- function(object, ...) {
   switch(object$eutil(),
-    einfo    = parse_einfo(object, ...),
-    esearch  = parse_esearch(object, ...),
-    epost    = parse_epost(object, ...),
-    esummary = parse_esummary(object, ...),
-    elink    = parse_linkset(object, ...),
+    einfo     = parse_einfo(object, ...),
+    esearch   = parse_esearch(object, ...),
+    epost     = parse_epost(object, ...),
+    esummary  = parse_esummary(object, ...),
+    elink     = parse_linkset(object, ...),
+    ecitmatch = parse_ecitmatch(object, ...),
     "Not yet implemented"
   )
 }
@@ -236,7 +236,9 @@ parse_content <- function(object, ...) {
 #' 
 #' @param x An \code{\linkS4class{eutil}} object.
 #' @param as Type of output: \code{"text"}, \code{"xml"}, \code{"json"},
-#' \code{"textConnection"}, or \code{"parsed"}.
+#' \code{"textConnection"}, or \code{"parsed"}. \code{content} attempts to
+#' figure out the most appropriate output type, based on the \code{retmode} of
+#' the object.
 #' @param ... Further arguments passed on to methods.
 #' @seealso
 #'    \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
@@ -248,7 +250,7 @@ parse_content <- function(object, ...) {
 #' ## einfo() defaults to retmode 'xml'
 #' e <- einfo()
 #' 
-#' ## return data as an 'XMLInternalDocument'.
+#' ## automatically return data as an 'XMLInternalDocument'.
 #' content(e)
 #' 
 #' ## return the XML data as character string.
@@ -257,7 +259,7 @@ parse_content <- function(object, ...) {
 #' ## return DbNames parsed into a character vector.
 #' content(e, "parsed")
 #' 
-#' ## Return data as a JSON object
+#' ## return data as a JSON object
 #' e2 <- einfo(db = "gene", retmode = "json")
 #' content(e2)
 #' 

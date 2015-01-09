@@ -44,7 +44,7 @@ NULL
 )
 
 #' @describeIn content
-setMethod("content", "efetch", function(x, as = NULL, ...) {
+setMethod("content", "efetch", function(x, as = NULL) {
   as <- as %||% retmode(x)
   if (as == "asn.1") {
     as <- "text"

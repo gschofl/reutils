@@ -4,13 +4,14 @@
 \alias{einfo}
 \title{einfo - getting database statistics and search fields}
 \usage{
-einfo(db = NULL, version = NULL, retmode = "xml")
+einfo(db = NULL, version = "2.0", retmode = "xml")
 }
 \arguments{
-\item{db}{A valid NCBI database name. If \code{NULL}, a list of all current NCBI
-databases is returned.}
+\item{db}{A valid NCBI database name. If \code{NULL}, a list of all current
+NCBI databases is returned.}
 
-\item{version}{Specifies version 2.0 EInfo XML. The only supported value is '2.0'.}
+\item{version}{Specifies version 2.0 EInfo XML. Set to \code{NULL} for the
+older version.}
 
 \item{retmode}{'xml' (default) or 'json'.}
 }
@@ -18,10 +19,10 @@ databases is returned.}
 An \code{\linkS4class{einfo}} object.
 }
 \description{
-\code{einfo} performs calls to the NCBI EInfo utility to retrieve the names
-of all valid Entrez databases, or, if \code{db} is provided,
-to retrieve statistics for a single database, including lists of indexing
-fields and available link names.
+\code{einfo} queries the NCBI EInfo utility to retrieve the names of all
+valid Entrez databases, or, if \code{db} is provided, to retrieve statistics
+for a single database, including lists of indexing fields and available link
+names. Version 2.0 data is requested by default.
 }
 \details{
 See the official online documentation for NCBI's
@@ -35,12 +36,12 @@ einfo()
 ## Fetch statistics for an Entrez database and parse
 ## the data into a data.frame
 x <- einfo("gene")
-content(x, as = "parsed")
+content(x, "parsed")
 
 ## Fetch statistics for an Entrez database in JSON format
 ## and parse the data into a list
 x <- einfo("pubmed", retmode = "json")
-content(x, as = "parsed")
+content(x, "parsed")
 }
 \seealso{
 \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}}.

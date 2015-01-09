@@ -40,8 +40,8 @@ constructor functions \code{\link{einfo}}, \code{\link{esearch}},
 \section{Methods}{
 
 \describe{
-\item{\code{get_content(as = "text", ...)}}{Return the results of an Entrez query as text, xml, json, a parsed R object,
- or a \code{\link{textConnection}}; should not be used directly, use
+\item{\code{get_content(as = "text", ...)}}{Return the results of an Entrez query as text, xml, json, a textConnection,
+or parsed to a list or data.frame; should not be used directly, use
 \code{\link{content}} instead.}
 
 \item{\code{get_error()}}{Return \code{\linkS4class{eutil_error}}s; should not be used directly,
