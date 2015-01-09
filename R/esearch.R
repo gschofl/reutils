@@ -24,24 +24,47 @@ NULL
   )
 )
 
-parse_esearch <- function(object) {
+parse_esearch <- function(object) {  
   if (object$no_errors()) {
-    x <- object$get_content("xml")
-    structure(
-      xvalue(x, '/eSearchResult/IdList/Id'),
-      ## Attributes
-      retmax   = xvalue(x, '/eSearchResult/RetMax', as='numeric'),
-      retstart = xvalue(x, '/eSearchResult/RetStart', as='numeric'),
-      count    = xvalue(x, '/eSearchResult/Count', as='numeric'),
-      query_translation = xvalue(x, '/eSearchResult/QueryTranslation'),
-      querykey = xvalue(x, '/eSearchResult/QueryKey', as='numeric'),
-      webenv   = xvalue(x, '/eSearchResult/WebEnv'),
-      database = object$database(),
-      class = c("entrez_uid", "character")
+    switch(object$retmode(),
+           xml  = esearch_parse_xml(object),
+           json = esearch_parse_json(object)
     )
   } else {
     structure(NA_character_, database = NA_character_, class = c("entrez_uid", "character"))
   }
+}
+
+esearch_parse_xml <- function(object) {
+  x <- object$get_content("xml")
+  structure(
+    xvalue(x, '/eSearchResult/IdList/Id'),
+    ## Attributes
+    retmax   = xvalue(x, '/eSearchResult/RetMax', as = 'numeric'),
+    retstart = xvalue(x, '/eSearchResult/RetStart', as = 'numeric'),
+    count    = xvalue(x, '/eSearchResult/Count', as = 'numeric'),
+    query_translation = xvalue(x, '/eSearchResult/QueryTranslation'),
+    querykey = xvalue(x, '/eSearchResult/QueryKey', as = 'numeric'),
+    webenv   = xvalue(x, '/eSearchResult/WebEnv'),
+    database = object$database(),
+    class = c("entrez_uid", "character")
+  )
+}
+
+esearch_parse_json <- function(object) {
+  rs <- fromJSON(object$get_content("json"))[["esearchresult"]]
+  structure(
+    rs$idlist %|empty|% NA_character_,
+    ## Attributes
+    retmax   = as.numeric(rs$retmax),
+    retstart = as.numeric(rs$retstart),
+    count    = as.numeric(rs$count),
+    query_translation = rs$querytranslation,
+    querykey = as.numeric(rs$querykey) %|empty|% NA_real_,
+    webenv   = rs$webenv %|empty|% NA_character_,
+    database = object$database(),
+    class = c("entrez_uid", "character")
+  )
 }
 
 #' Class \code{"entrez_uid"}
@@ -115,7 +138,8 @@ print.entrez_uid <- function(x, ...) {
 #' @title esearch - searching an Entrez database
 #' @param term A valid Entrez text query.
 #' @param db Database to search (default: nuccore).
-#' @param rettype Retrieval type. (default: 'uilist', alternative: 'count'.)
+#' @param rettype Retrieval type. (default: 'uilist', alternative: 'count')
+#' @param retmode Retrieval mode. (default: 'xml', alternative: 'json')
 #' @param retstart Numeric index of the first UID in the
 #' retrieved set to be shown in the XML output (default: 0).
 #' @param retmax Total number of UIDs to be retrieved (default: 100).
@@ -135,7 +159,11 @@ print.entrez_uid <- function(x, ...) {
 #' \code{\link{esearch}}, \code{\link{epost}} or \code{\link{elink}}.
 #' When provided, \code{esearch} will find the intersection of the set
 #' specified by \code{querykey} and the set retrieved by the query in \code{term}
-#' (i.e. joins the two with AND).  
+#' (i.e. joins the two with AND).
+#' @param sort Method used to sort UIDs in the ESearch output. The available
+#' values vary by database. Example values are \sQuote{relevance} and
+#' \sQuote{name} for Gene and \sQuote{first author} and \sQuote{pub date} for
+#' PubMed. 
 #' @param field Optional. Search field used to limit the entire search
 #' term.
 #' @param datetype Optional. Type of date to limit the search. One of "mdat"
@@ -177,32 +205,39 @@ print.entrez_uid <- function(x, ...) {
 #' pmid2 <- esearch("Chlamydia psittaci[titl] and 2012[pdat]", "pubmed",
 #'                  usehistory = TRUE, webenv = webenv(pmid))
 #' pmid2
+#' 
+#' ## Sort results by author
+#' pmid3 <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed",
+#'                  sort = "first author")
+#' pmid3
 #' }
-esearch <- function(term, db = "nuccore", rettype = "uilist",
+esearch <- function(term, db = "nuccore", rettype = "uilist", retmode = "xml",
                     retstart = 0, retmax = 100, usehistory = FALSE,
-                    webenv = NULL, querykey = NULL, field = NULL,
+                    webenv = NULL, querykey = NULL, sort = NULL, field = NULL,
                     datetype = NULL, reldate = NULL, mindate = NULL,
                     maxdate = NULL) {
   if (missing(term)) {
-    stop("No query term provided", call.=FALSE)
+    stop("No query term provided", call. = FALSE)
   }
   if (!nzchar(db)) {
-    stop("No database provided", call.=FALSE)
+    stop("No database provided", call. = FALSE)
   }
   if (length(term) > 1L) {
     term <- paste(term, collapse=" OR ")
   }
+  rettype <- match.arg(rettype, c("uilist", "count"))
+  retmode <- match.arg(retmode, c("xml", "json"))
   .esearch(method = if (nchar(term) < 100) "GET" else "POST",
            term = .escape(term), db = db, 
            usehistory = if (usehistory) "y" else NULL,
            WebEnv = webenv, query_key = querykey, retstart = retstart,
            retmax = if (usehistory) 0 else retmax, rettype = rettype,
-           retmode = 'xml', field = field, datetype = datetype,
+           retmode = retmode, sort = sort, field = field, datetype = datetype,
            reldate = reldate, mindate = mindate, maxdate = maxdate)
 }
 
 #' @describeIn content
-setMethod("content", "esearch", function(x, as = 'xml') {
+setMethod("content", "esearch", function(x, as = NULL) {
   callNextMethod(x = x, as = as)
 })
 

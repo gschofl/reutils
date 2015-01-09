@@ -27,7 +27,7 @@
 
 \S4method{content}{epost}(x, as = NULL)
 
-\S4method{content}{esearch}(x, as = "xml")
+\S4method{content}{esearch}(x, as = NULL)
 
 \S4method{content}{espell}(x, as = NULL)
 

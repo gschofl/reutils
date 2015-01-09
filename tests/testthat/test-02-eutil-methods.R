@@ -8,8 +8,9 @@ test_that("The methods we want to test are all present in an eutil class", {
 ## generate a test esearch instance.
 ## if not on CRAN go to NCBI, if on CRAN use locally stored instance.
 if (getOption('reutils.test.remote')) {
-  a <- .esearch('GET', db = 'pubmed', term = 'Chlamydia psittaci', retstart = 6, retmax = 2)
-  
+  a <- .esearch('GET', db = 'pubmed', term = 'Chlamydia psittaci', retstart = 6, 
+                retmax = 2, retmode = 'xml')
+   
   test_that("#database works", {
     expect_equal(a$database(), "pubmed")
   })
@@ -21,9 +22,10 @@ if (getOption('reutils.test.remote')) {
   test_that("#get_content works", {
     expect_is(a$get_content("text"), "character")
     expect_is(a$get_content("xml"), "XMLInternalDocument")
+    expect_that(a$get_content("json"), throws_error("Cannot return data of retmode.+"))
+    expect_that(a$get_content("textConnection"), throws_error("Cannot return data of retmode.+"))
     expect_is(a$get_content("parsed"), "entrez_uid")
     expect_is(a$get_content("parsed"), "character")
-    expect_is(a$get_content("textConnection"), "textConnection")
     expect_error(a$get_content("bla"))
   })
   
@@ -54,14 +56,14 @@ if (getOption('reutils.test.remote')) {
     character.uids <- a$xmlValue('/eSearchResult/IdList/*')
     expect_is(character.uids, 'character')
     expect_equal(length(character.uids), 2)
-    integer.uids <- a$xmlValue('/eSearchResult/IdList/*', as='integer')
+    integer.uids <- a$xmlValue('/eSearchResult/IdList/*', as = 'integer')
     expect_is(integer.uids, 'integer')
     expect_equal(length(integer.uids), 2)
     expect_equal(a$xmlValue('/eSearchResult/Bla'), NA_character_)
-    expect_equal(a$xmlValue('/eSearchResult/Bla', as='integer'), NA_integer_)
-    expect_equal(a$xmlValue('/eSearchResult/Bla', default=NULL), NULL)
-    expect_equal(a$xmlValue('/eSearchResult/Bla', default=NULL), NULL)
-    expect_equal(a$xmlValue('/eSearchResult/Bla', default=''), '')
+    expect_equal(a$xmlValue('/eSearchResult/Bla', as = 'integer'), NA_integer_)
+    expect_equal(a$xmlValue('/eSearchResult/Bla', default = NULL), NULL)
+    expect_equal(a$xmlValue('/eSearchResult/Bla', default = NULL), NULL)
+    expect_equal(a$xmlValue('/eSearchResult/Bla', default = ''), '')
   })
   
   test_that("#perform_query updates an existing query", {
@@ -71,7 +73,7 @@ if (getOption('reutils.test.remote')) {
   })
   
   test_that("#rettype and #retmode work", {
-    b <- efetch(uid="8655742", db="protein", rettype="fasta", retmode="xml")
+    b <- efetch(uid = "8655742", db = "protein", rettype = "fasta", retmode = "xml")
     expect_equal(b$rettype(), "fasta")
     expect_equal(b$retmode(), "xml")
   })

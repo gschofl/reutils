@@ -19,8 +19,8 @@ if (getOption('reutils.test.remote')) {
     ## Content
     expect_is(content(a), 'character')
     expect_is(content(a, "text"), 'character')
-    expect_error(content(a, 'xml'), "Cannot return data of mode.+")
-    expect_error(content(a, 'json'), "Cannot return data of mode.+")
+    expect_error(content(a, 'xml'), "Cannot return data of retmode.+")
+    expect_error(content(a, 'json'), "Cannot return data of retmode.+")
     expect_is(content(a, 'parsed'), 'character')
     expect_is(content(a, 'textConnection'), 'textConnection')
   })
@@ -33,9 +33,9 @@ if (getOption('reutils.test.remote')) {
     expect_is(content(a), 'XMLInternalDocument')
     expect_is(content(a, "text"), 'character')
     expect_is(content(a, 'xml'), "XMLInternalDocument")
-    expect_error(content(a, 'json'), "Cannot return data of mode.+")
+    expect_error(content(a, 'json'), "Cannot return data of retmode.+")
     expect_is(content(a, 'parsed'), 'XMLInternalDocument')
-    expect_error(content(a, 'textConnection'), "Cannot return data of mode.+")
+    expect_error(content(a, 'textConnection'), "Cannot return data of retmode.+")
   })
   
   test_that("Fetch 100 bases of the minus strand of GI 21614549", {

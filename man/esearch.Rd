@@ -4,17 +4,19 @@
 \alias{esearch}
 \title{esearch - searching an Entrez database}
 \usage{
-esearch(term, db = "nuccore", rettype = "uilist", retstart = 0,
-  retmax = 100, usehistory = FALSE, webenv = NULL, querykey = NULL,
-  field = NULL, datetype = NULL, reldate = NULL, mindate = NULL,
-  maxdate = NULL)
+esearch(term, db = "nuccore", rettype = "uilist", retmode = "xml",
+  retstart = 0, retmax = 100, usehistory = FALSE, webenv = NULL,
+  querykey = NULL, sort = NULL, field = NULL, datetype = NULL,
+  reldate = NULL, mindate = NULL, maxdate = NULL)
 }
 \arguments{
 \item{term}{A valid Entrez text query.}
 
 \item{db}{Database to search (default: nuccore).}
 
-\item{rettype}{Retrieval type. (default: 'uilist', alternative: 'count'.)}
+\item{rettype}{Retrieval type. (default: 'uilist', alternative: 'count')}
+
+\item{retmode}{Retrieval mode. (default: 'xml', alternative: 'json')}
 
 \item{retstart}{Numeric index of the first UID in the
 retrieved set to be shown in the XML output (default: 0).}
@@ -40,6 +42,11 @@ combined or limited.}
 When provided, \code{esearch} will find the intersection of the set
 specified by \code{querykey} and the set retrieved by the query in \code{term}
 (i.e. joins the two with AND).}
+
+\item{sort}{Method used to sort UIDs in the ESearch output. The available
+values vary by database. Example values are \sQuote{relevance} and
+\sQuote{name} for Gene and \sQuote{first author} and \sQuote{pub date} for
+PubMed.}
 
 \item{field}{Optional. Search field used to limit the entire search
 term.}
@@ -90,6 +97,11 @@ pmid
 pmid2 <- esearch("Chlamydia psittaci[titl] and 2012[pdat]", "pubmed",
                  usehistory = TRUE, webenv = webenv(pmid))
 pmid2
+
+## Sort results by author
+pmid3 <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed",
+                 sort = "first author")
+pmid3
 }
 }
 \seealso{

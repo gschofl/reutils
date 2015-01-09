@@ -1,7 +1,8 @@
 # reutils 0.1.2.9000
 
-* Support new parameters 'version' and 'retmode' in `einfo()`.
-* Support for JSON as alternative output format in einfo()`.
+* New parameters 'version' and 'retmode' in `einfo()`.
+* New parameters 'sort' and 'retmode' in `esearch()`.
+* Support for JSON as alternative output format for EInfo and ESearch.
 
 # reutils 0.1.2
 

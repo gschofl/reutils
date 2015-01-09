@@ -18,6 +18,10 @@ NULL
   if (all(!nzchar(a))) force(b) else a
 }
 
+"%|empty|%" <- function(a, b) {
+  if (length(a) == 0L) force(b) else a
+}
+
 "%ni%" <- Negate("%in%")
 
 .escape <- function(x) {
@@ -40,19 +44,19 @@ merge_list <- function(x, y) {
 }
 
 merge_linkset <- function(x) {
-  uid <- unique(unlist(x, use.names=FALSE))
-  db <- unique(vapply(x, attr, "database", FUN.VALUE="", USE.NAMES=FALSE))
+  uid <- unique(unlist(x, use.names = FALSE))
+  db <- unique(vapply(x, attr, "database", FUN.VALUE = "", USE.NAMES = FALSE))
   assert_that(is.scalar(db))
   attr(uid, "database") <- db
   uid
 }
 
 compact <- function(x) {
-  x[!vapply(x, is.null, FALSE, USE.NAMES=FALSE)]
+  x[!vapply(x, is.null, FALSE, USE.NAMES = FALSE)]
 }
 
 compactNA <- function(x) {
-  x[!vapply(x, function(x) all(is.na(x)), FALSE, USE.NAMES=FALSE)]
+  x[!vapply(x, function(x) all(is.na(x)), FALSE, USE.NAMES = FALSE)]
 }
 
 trim <- function(x, trim = '\\s+') {

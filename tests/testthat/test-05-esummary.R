@@ -17,7 +17,7 @@ if (getOption('reutils.test.remote')) {
   
   test_that("'content()' returns an XMLInternalDocument or data.fame", {
     expect_that(content(a), is_a("XMLInternalDocument"))
-    expect_that(content(a, 'json'), throws_error("Cannot return data of mode.+"))
+    expect_that(content(a, 'json'), throws_error("Cannot return data of retmode.+"))
     expect_that(content(a, 'parsed'), is_a("data.frame"))
   })
 }

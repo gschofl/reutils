@@ -181,13 +181,13 @@ eutil <- setRefClass(
       check_retmode = function(as) {
         if (!is.null(retmode())) {
           if (retmode() == 'xml' && as %ni% c("text", "xml", "parsed"))
-            stop("Cannot return data of mode ", dQuote(retmode()), " as ", dQuote(as), ".", call. = TRUE)
+            stop("Cannot return data of retmode ", dQuote(retmode()), " as ", dQuote(as), ".", call. = FALSE)
           if (retmode() == 'json' && as %ni% c("text", "json", "parsed"))
-            stop("Cannot return data of mode ", dQuote(retmode()), " as ", dQuote(as), ".", call. = TRUE)
+            stop("Cannot return data of retmode ", dQuote(retmode()), " as ", dQuote(as), ".", call. = FALSE)
           if (retmode() == 'text' && as %ni% c("text", "textConnection"))
-            stop("Cannot return data of mode ", dQuote(retmode()), " as ", dQuote(as), ".", call. = TRUE)
+            stop("Cannot return data of retmode ", dQuote(retmode()), " as ", dQuote(as), ".", call. = FALSE)
           if (retmode() == 'asn.1' && as %ni% c("text", "textConnection"))
-            stop("Cannot return data of mode ", dQuote(retmode()), " as ", dQuote(as), ".", call. = TRUE)
+            stop("Cannot return data of retmode ", dQuote(retmode()), " as ", dQuote(as), ".", call. = FALSE)
         }
       }
     )
