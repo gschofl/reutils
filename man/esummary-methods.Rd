@@ -26,7 +26,7 @@ Extract XML nodes from an \code{\linkS4class{esummary}} object.
 ds <- esummary("470338", "protein")
 ds["//Slen/node()"]
 
-require("XML")
+library("XML")
 as.numeric(xmlValue(ds[["//Slen"]]))
 }
 }

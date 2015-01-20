@@ -37,7 +37,7 @@ eutil_error <- setRefClass(
     },
     check_errors = function(object, verbose = TRUE) {
       'check if a \\code{linkS4class{eutil}} object contains errors'
-      assert_that(is(object, "eutil"))
+      assertthat::assert_that(is(object, "eutil"))
       if (is.null(object$retmode()) || object$retmode() != "json") {
         x <- object$get_content("xml")
         .self$error <- xvalue(x, '//ERROR', default = NULL)

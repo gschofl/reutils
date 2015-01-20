@@ -1,6 +1,3 @@
-#' @importFrom XML xmlSApply xmlChildren xmlSize
-NULL
-
 ## parse docsums (esummary) ####
 parse_esummary <- function(object) {
   retmode <- object$retmode()
@@ -8,7 +5,7 @@ parse_esummary <- function(object) {
     warning("Errors parsing DocumentSummary", call. = FALSE)
     return(list()) 
   } else if (retmode == 'json') {
-    return(fromJSON(object$get_content("json")))
+    return(jsonlite::fromJSON(object$get_content("json")))
   } else if (retmode == 'xml') {
     x <- object$get_content("xml")
     nodes <- xset(x, '/eSummaryResult/DocSum')
@@ -16,7 +13,7 @@ parse_esummary <- function(object) {
       uids <- xvalue(x, '/eSummaryResult/DocSum/Id')
     } else {
       nodes <- xset(x, '/eSummaryResult/DocumentSummarySet/DocumentSummary')
-      uids <- vapply(nodes, xmlGetAttr, name = "uid", FUN.VALUE = "")
+      uids <- vapply(nodes, XML::xmlGetAttr, name = "uid", FUN.VALUE = "")
     }
   }
   docsum <- {
@@ -35,39 +32,39 @@ parse_esummary <- function(object) {
 
 # Parse a DocSum recursively and return it as a named list
 parse_docsum <- function(ds) {
-  parsefun <- docsum_parser(xmlName(ds))
+  parsefun <- docsum_parser(XML::xmlName(ds))
   parsefun(ds)
 }
 
 docsum_parser <- function(version) {
   switch(version,
          DocSum = function(ds) {
-           items <- xmlChildren(ds)
+           items <- XML::xmlChildren(ds)
            items <- items[names(items) == "Item"]
            value <- vector("list", length(items))
            for (i in seq_along(items)) {
-             isize <- unname(xmlSApply(items[[i]], xmlSize))
+             isize <- unname(XML::xmlSApply(items[[i]], XML::xmlSize))
              if (length(isize) == 0L || all(isize == 0L)) {
-               value[[i]] <- trim(xmlValue(items[[i]])) %|char|% NA
+               value[[i]] <- trim(XML::xmlValue(items[[i]])) %|char|% NA
              } else {
                value[[i]] <- Recall(items[[i]])
              }
            }
-           names(value) <- vapply(items, xmlGetAttr, name = "Name", FUN.VALUE = "", USE.NAMES = FALSE)
+           names(value) <- vapply(items, XML::xmlGetAttr, name = "Name", FUN.VALUE = "", USE.NAMES = FALSE)
            value
          },
-         DocumentSummary=function(ds) {
-           items <- xmlChildren(ds)
+         DocumentSummary = function(ds) {
+           items <- XML::xmlChildren(ds)
            value <- vector("list", length(items))
            for (i in seq_along(items)) {
-             isize <- unname(xmlSApply(items[[i]], xmlSize))
+             isize <- unname(XML::xmlSApply(items[[i]], XML::xmlSize))
              if (length(isize) == 0L || all(isize == 0L)) {
-               value[[i]] <- trim(xmlValue(items[[i]])) %|char|% NA
+               value[[i]] <- trim(XML::xmlValue(items[[i]])) %|char|% NA
              } else {
                value[[i]] <- Recall(items[[i]])
              }
            }
-           names(value) <- lapply(items, xmlName)
+           names(value) <- lapply(items, XML::xmlName)
            value
          })
 }

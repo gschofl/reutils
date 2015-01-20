@@ -16,17 +16,17 @@ NULL
     show_xml = function() {
       if (is.null(database())) {
         cat("List of Entrez databases\n")
-        methods::show(xmlValue('/eInfoResult/DbList/DbName'))
+        methods::show(xmlValue("/eInfoResult/DbList/DbName"))
       } else {
         cat(sprintf("Overview over the Entrez database %s.\n",
-                    sQuote(xmlValue('/eInfoResult/DbInfo/MenuName'))))
+                    sQuote(xmlValue("/eInfoResult/DbInfo/MenuName"))))
         x <- get_content("parsed")
         nm <- names(x)
         fnm <- ellipsize(paste0(names(x$Fields), collapse = "; "), offset = 10)
         lnm <- ellipsize(paste0(names(x$Links), collapse = "; "), offset = 9)
         showme <- sprintf("  %s: %s", nm, c(vapply(x[1:6], as.character, ""),
                                             fnm, lnm))
-        cat(showme, sep = '\n')
+        cat(showme, sep = "\n")
       }
     },
     show_json = function() {
@@ -43,35 +43,34 @@ NULL
   )
 )
 
-#' @importFrom jsonlite fromJSON
 parse_einfo <- function(object) {
   retmode <- object$retmode()
   if (retmode == "xml") {
     x <- object$get_content("xml")
     if (is.null(object$database())) {
-      xvalue(x, '/eInfoResult/DbList/DbName')
+      xvalue(x, "/eInfoResult/DbList/DbName")
     } else {
       list(
-        dbName      = xvalue(x, '/eInfoResult/DbInfo/DbName'),
-        MenuName    = xvalue(x, '/eInfoResult/DbInfo/MenuName'),
-        Description = xvalue(x, '/eInfoResult/DbInfo/Description'),
-        DbBuild     = xvalue(x, '/eInfoResult/DbInfo/DbBuild'),
-        Count       = xvalue(x, '/eInfoResult/DbInfo/Count', 'integer'),
-        LastUpdate  = xvalue(x, '/eInfoResult/DbInfo/LastUpdate', 'POSIXlt'),
-        Fields      = extract_df(x, '/eInfoResult/DbInfo/FieldList/Field/'),
-        Links       = extract_df(x, '/eInfoResult/DbInfo/LinkList/Link/')
+        dbName      = xvalue(x, "/eInfoResult/DbInfo/DbName"),
+        MenuName    = xvalue(x, "/eInfoResult/DbInfo/MenuName"),
+        Description = xvalue(x, "/eInfoResult/DbInfo/Description"),
+        DbBuild     = xvalue(x, "/eInfoResult/DbInfo/DbBuild"),
+        Count       = xvalue(x, "/eInfoResult/DbInfo/Count", "integer"),
+        LastUpdate  = xvalue(x, "/eInfoResult/DbInfo/LastUpdate", "POSIXlt"),
+        Fields      = extract_df(x, "/eInfoResult/DbInfo/FieldList/Field/"),
+        Links       = extract_df(x, "/eInfoResult/DbInfo/LinkList/Link/")
       )
     }
   } else if (retmode == "json") {
-    fromJSON(object$get_content("json"))
+    jsonlite::fromJSON(object$get_content("json"))
   }
 }
 
 extract_df <- function(x, path) {
-  nm <- unique(xname(x, paste0(path, 'child::node()')))        
+  nm <- unique(xname(x, paste0(path, "child::node()")))        
   if (!all(is.na(nm))) {
-    nodes <- xset(x, paste0(path, '*'))
-    list <- split(vapply(nodes, xmlValue, ""), nm)
+    nodes <- xset(x, paste0(path, "*"))
+    list <- split(vapply(nodes, XML::xmlValue, ""), nm)
     data.frame(stringsAsFactors = FALSE, list)[, nm]
   } else {
     data.frame()
@@ -112,11 +111,11 @@ extract_df <- function(x, path) {
 #' x <- einfo("pubmed", retmode = "json")
 #' content(x, "parsed")
 #' 
-einfo <- function(db = NULL, version = '2.0', retmode = 'xml') {
-  retmode <- match.arg(retmode, c('xml', 'json'))
-  assert_that(is.null(db) || is.string(db))
+einfo <- function(db = NULL, version = "2.0", retmode = "xml") {
+  retmode <- match.arg(retmode, c("xml", "json"))
+  assertthat::assert_that(is.null(db) || assertthat::is.string(db))
   if (!is.null(db)) {
-    assert_that(is.null(version) || version == '2.0')
+    assertthat::assert_that(is.null(version) || version == "2.0")
   } else {
     version <- NULL
   }

@@ -24,7 +24,6 @@ NULL
   )
 )
 
-#' @importFrom XML xmlDoc free
 parse_linkset <- function(object) {
   x <- object$get_content("xml")
   DbFrom <- xvalue(x, "/eLinkResult/LinkSet/DbFrom")
@@ -37,12 +36,12 @@ parse_linkset <- function(object) {
       )
   } else {
     lset <- lapply(LinkSetDb, function(lsd) {
-      lsd <- xmlDoc(lsd)
+      lsd <- XML::xmlDoc(lsd)
       uid <- xvalue(lsd, "/LinkSetDb/Link/Id")
       score <- xvalue(lsd, "/LinkSetDb/Link/Score", as="integer")
       dbTo <- xvalue(lsd, "/LinkSetDb/DbTo") %|char|% NA_character_
       linkName <- xvalue(lsd, "/LinkSetDb/LinkName") %|char|% NA_character_
-      free(lsd)
+      XML::free(lsd)
       structure(uid, score = score, database = dbTo, linkName = linkName,
                 class = c("entrez_link", "character"))
     })

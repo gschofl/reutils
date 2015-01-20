@@ -52,7 +52,7 @@ esearch_parse_xml <- function(object) {
 }
 
 esearch_parse_json <- function(object) {
-  rs <- fromJSON(object$get_content("json"))[["esearchresult"]]
+  rs <- jsonlite::fromJSON(object$get_content("json"))[["esearchresult"]]
   structure(
     rs$idlist %|empty|% NA_character_,
     ## Attributes

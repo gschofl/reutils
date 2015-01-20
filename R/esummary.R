@@ -125,7 +125,7 @@ setMethod("content", "esummary", function(x, as = NULL) {
 #' ds <- esummary("470338", "protein")
 #' ds["//Slen/node()"]
 #' 
-#' require("XML")
+#' library("XML")
 #' as.numeric(xmlValue(ds[["//Slen"]]))
 #' }
 setMethod("[", c("esummary", "character"), function(x, i) {

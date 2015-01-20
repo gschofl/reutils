@@ -1,5 +1,4 @@
 #' @include eutil-error.R
-#' @importFrom RCurl basicHeaderGatherer basicTextGatherer postForm getURLContent curlEscape
 NULL
 
 #' Class \code{"eutil"}: Reference classes that hold the response from EUtils
@@ -115,19 +114,19 @@ eutil <- setRefClass(
         .self$params <- .params
         
         opts <- list()
-        hg <- basicHeaderGatherer()
+        hg <- RCurl::basicHeaderGatherer()
         opts$headerfunction <- hg$update
-        tg <- basicTextGatherer()
+        tg <- RCurl::basicTextGatherer()
         opts$writefunction <- tg$update
         
         if (method == "POST") {
-          e <- tryCatch(postForm(query_url("POST"), .params = .self$params, .opts = opts),
+          e <- tryCatch(RCurl::postForm(query_url("POST"), .params = .self$params, .opts = opts),
                         error = function(e) e$message)
         } else if (method == "GET") {
           if (verbose) {
             cat(ellipsize(query_url("GET")), "\n")
           }
-          e <- tryCatch(getURLContent(query_url("GET"), .opts = opts),
+          e <- tryCatch(RCurl::getURLContent(query_url("GET"), .opts = opts),
                         error = function(e) e$message)
         }
         .self$content <- as.character(tg$value())
@@ -156,7 +155,7 @@ eutil <- setRefClass(
                        paste0('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/', eutil(),'.fcgi')
         )
         if (method == "GET") {
-          fields <- paste(curlEscape(names(.self$params)), curlEscape(.self$params),
+          fields <- paste(RCurl::curlEscape(names(.self$params)), RCurl::curlEscape(.self$params),
                           sep = "=", collapse = "&")
           paste0(host, "?", fields)
         } else {
@@ -193,23 +192,21 @@ eutil <- setRefClass(
     )
   )
 
-#' @importFrom XML xmlParse xmlParseString
 savely_parse_xml <- function(x, ...) {
-  tryCatch(xmlParse(x, asText = TRUE, error = NULL, ...),
+  tryCatch(XML::xmlParse(x, asText = TRUE, error = NULL, ...),
            "XMLError" = function(e) {
              errmsg <- paste("XML parse error:", e$message)
-             xmlParseString(paste0("<ERROR>", errmsg, "</ERROR>"))
+             XML::xmlParseString(paste0("<ERROR>", errmsg, "</ERROR>"))
            },
            "error" = function(e) {
              errmsg <- paste("Simple error:", e$message)
-             xmlParseString(paste0("<ERROR>", errmsg, "</ERROR>"))
+             XML::xmlParseString(paste0("<ERROR>", errmsg, "</ERROR>"))
            })
 }
 
-#' @importFrom jsonlite prettify
 savely_parse_json <- function(x, ...) {
   intent <- list(...)$intent %||% 2
-  prettify(x, indent = intent)
+  jsonlite::prettify(x, indent = intent)
 }
 
 parse_content <- function(object, ...) {

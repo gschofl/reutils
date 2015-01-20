@@ -1,7 +1,3 @@
-#' @importFrom XML xpathApply xmlValue xmlName xmlGetAttr
-#' @importFrom assertthat assert_that is.string is.scalar
-NULL
-
 "%&&%" <- function(a, b) {
   if (is.null(a)) a else force(b)
 }
@@ -26,11 +22,11 @@ NULL
 
 .escape <- function(x) {
   x <- gsub("\\s+", " ", x)
-  gsub(" (and) | (or) | (not) "," \\U\\1\\U\\2\\U\\3 ", x, perl=TRUE)
+  gsub(" (and) | (or) | (not) "," \\U\\1\\U\\2\\U\\3 ", x, perl = TRUE)
 }
 
 .collapse <- function(id) {
-  if (is.null(id)) NULL else paste0(id, collapse=",")
+  if (is.null(id)) NULL else paste0(id, collapse = ",")
 }
 
 merge_list <- function(x, y) {
@@ -46,7 +42,7 @@ merge_list <- function(x, y) {
 merge_linkset <- function(x) {
   uid <- unique(unlist(x, use.names = FALSE))
   db <- unique(vapply(x, attr, "database", FUN.VALUE = "", USE.NAMES = FALSE))
-  assert_that(is.scalar(db))
+  assertthat::assert_that(assertthat::is.scalar(db))
   attr(uid, "database") <- db
   uid
 }
@@ -59,9 +55,9 @@ compactNA <- function(x) {
   x[!vapply(x, function(x) all(is.na(x)), FALSE, USE.NAMES = FALSE)]
 }
 
-trim <- function(x, trim = '\\s+') {
-  assert_that(is.vector(x))
-  gsub(paste0("^", trim, "|", trim, "$"), '', x)
+trim <- function(x, trim = "\\s+") {
+  assertthat::assert_that(is.vector(x))
+  gsub(paste0("^", trim, "|", trim, "$"), "", x)
 }
 
 #' Extract the content of XML leaf nodes
@@ -73,9 +69,9 @@ trim <- function(x, trim = '\\s+') {
 #' @param ... Arguments passed to \code{\link[XML]{xpathApply}}.
 #' @keywords internal
 #' @export
-xvalue <- function(doc, path, as = 'character', default = NA_character_, ...) {
+xvalue <- function(doc, path, as = "character", default = NA_character_, ...) {
   AS <- match.fun(paste0('as.', as))
-  res <- unlist(xpathApply(doc, path, "xmlValue", ...)) %||% default
+  res <- unlist(XML::xpathApply(doc, path, XML::xmlValue, ...)) %||% default
   res %&&% AS(res)
 }
 
@@ -86,7 +82,7 @@ xvalue <- function(doc, path, as = 'character', default = NA_character_, ...) {
 #' @export
 xname <- function(doc, path, as = 'character', default = NA_character_, ...) {
   AS <- match.fun(paste0('as.', as))
-  res <- unlist(xpathApply(doc, path, "xmlName", ...)) %||% default
+  res <- unlist(XML::xpathApply(doc, path, XML::xmlName, ...)) %||% default
   res %&&% AS(res)
 }
 
@@ -98,7 +94,7 @@ xname <- function(doc, path, as = 'character', default = NA_character_, ...) {
 #' @export
 xattr <- function(doc, path, name, as = 'character', default = NA_character_, ...) {
   AS <- match.fun(paste0('as.', as))
-  res <- unlist(xpathApply(doc, path, "xmlGetAttr", name = name, ...)) %||% default
+  res <- unlist(XML::xpathApply(doc, path, XML::xmlGetAttr, name = name, ...)) %||% default
   res %&&% AS(res)
 }
 
@@ -111,7 +107,7 @@ xattr <- function(doc, path, name, as = 'character', default = NA_character_, ..
 #' @keywords internal
 #' @export
 xset <- function(doc, path, ...) {
-  xpathApply(doc, path, fun = NULL, ...)
+  XML::xpathApply(doc, path, fun = NULL, ...)
 }
 
 has_attr <- function(x, which) {
