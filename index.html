@@ -1,64 +1,68 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <title>Reutils by gschofl</title>
 
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
-    <title>Reutils by gschofl</title>
   </head>
-
   <body>
-    <header>
-      <div class="inner">
+    <div class="wrapper">
+      <header>
         <h1>Reutils</h1>
-        <h2>Talk to the NCBI EUtils</h2>
-        <a href="https://github.com/gschofl/reutils" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
+        <p>Talk to the NCBI EUtils</p>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h1>
-<a name="reutils" class="anchor" href="#reutils"><span class="octicon octicon-link"></span></a>reutils</h1>
+        <p class="view"><a href="https://github.com/gschofl/reutils">View the Project on GitHub <small>gschofl/reutils</small></a></p>
 
-<p><code>reutils</code> provides support for interacting with NCBI databases such as PubMed,
+
+        <ul>
+          <li><a href="https://github.com/gschofl/reutils/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/gschofl/reutils/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/gschofl/reutils">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="reutils" class="anchor" href="#reutils" aria-hidden="true"><span class="octicon octicon-link"></span></a>reutils</h1>
+
+<p><a href="https://travis-ci.org/gschofl/reutils"><img src="https://travis-ci.org/gschofl/reutils.png?branch=master" alt="Build Status"></a></p>
+
+<p><code>reutils</code> is an R package for interfacing with NCBI databases such as PubMed,
 Genbank, or GEO via the Entrez Programming Utilities
-(<a href="http://www.ncbi.nlm.nih.gov/books/NBK25501/">EUtils</a>).</p>
+(<a href="http://www.ncbi.nlm.nih.gov/books/NBK25501/">EUtils</a>). It provides access to the
+nine basic <em>eutils</em>: <code>einfo</code>, <code>esearch</code>, <code>esummary</code>, <code>epost</code>, <code>efetch</code>, <code>elink</code>,
+<code>egquery</code>, <code>espell</code>, and <code>ecitmatch</code>.</p>
 
 <p>Please check the relevant
 <a href="http://www.ncbi.nlm.nih.gov/books/NBK25497/#chapter2.Usage_Guidelines_and_Requiremen">usage guidelines</a>
 when using these services. Note that Entrez server requests are subject to frequency limits.</p>
 
-<h2>
-<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h2>
+<p>Install the latest stable release of the reutils package from CRAN:</p>
+
+<div class="highlight highlight-r"><pre>install.packages(<span class="pl-s1"><span class="pl-pds">"</span>reutils<span class="pl-pds">"</span></span>)</pre></div>
+
+<p>Install the development version from <code>github</code> using the <code>devtools</code> package.</p>
+
+<div class="highlight highlight-r"><pre>require(<span class="pl-s1"><span class="pl-pds">"</span>devtools<span class="pl-pds">"</span></span>)
+install_github(<span class="pl-s1"><span class="pl-pds">"</span>gschofl/reutils<span class="pl-pds">"</span></span>)</pre></div>
+
+<p>Please post feature or support requests and bugs at the <a href="https://github.com/gschofl/reutils/issues">issues tracker for the reutils package</a> on GitHub. </p>
 
 <h3>
-<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h3>
-
-<p>reutils is still under development. You can install it from <code>github</code> using the <code>devtools</code> package.</p>
-
-<div class="highlight highlight-r"><pre><span class="c">install_github("reutils", "gschofl")</span>
-</pre></div>
-
-<h3>
-<a name="important-functions" class="anchor" href="#important-functions"><span class="octicon octicon-link"></span></a>Important functions</h3>
+<a id="important-functions" class="anchor" href="#important-functions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Important functions</h3>
 
 <p>With nine E-Utilities, NCBI provides a programmatical interface to the Entrez query and database system for searching and retrieving requested data</p>
 
 <p>Each of these tools corresponds to an <code>R</code> function in the reutils package described below.</p>
 
 <h4>
-<a name="esearch" class="anchor" href="#esearch"><span class="octicon octicon-link"></span></a><code>esearch</code>
+<a id="esearch" class="anchor" href="#esearch" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>esearch</code>
 </h4>
 
 <p><code>esearch</code>: search and retrieve a list of primary UIDs or the NCBI History
@@ -66,337 +70,310 @@ Server information (queryKey and webEnv). The objects returned by <code>esearch<
 can be passed on directly to <code>epost</code>, <code>esummary</code>, <code>elink</code>, or <code>efetch</code>.</p>
 
 <h4>
-<a name="efetch" class="anchor" href="#efetch"><span class="octicon octicon-link"></span></a><code>efetch</code>
+<a id="efetch" class="anchor" href="#efetch" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>efetch</code>
 </h4>
 
-<p><code>efetch</code> retrieves data records from NCBI in a specified retrieval type
+<p><code>efetch</code>: retrieve data records from NCBI in a specified retrieval type
 and retrieval mode as given in this
 <a href="http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.chapter4_table1">table</a>. Data are returned as XML or text documents.</p>
 
 <h4>
-<a name="esummary" class="anchor" href="#esummary"><span class="octicon octicon-link"></span></a><code>esummary</code>
+<a id="esummary" class="anchor" href="#esummary" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>esummary</code>
 </h4>
 
-<p><code>esummary</code> returns Entrez database summaries (DocSums) from a list of primary UIDs (Provided as a character vector or as an <code>esearch</code> object)</p>
+<p><code>esummary</code>: retrieve Entrez database summaries (DocSums) from a list of primary UIDs (Provided as a character vector or as an <code>esearch</code> object)</p>
 
 <h4>
-<a name="elink" class="anchor" href="#elink"><span class="octicon octicon-link"></span></a><code>elink</code>
+<a id="elink" class="anchor" href="#elink" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>elink</code>
 </h4>
 
-<p><code>elink</code> returns a list of UIDs (and relevancy scores) from a target database
-that are related to a set of UIDs provided by the user.</p>
+<p><code>elink</code>: retrieve a list of UIDs (and relevancy scores) from a target database
+that are related to a set of UIDs provided by the user. The objects returned by
+<code>elink</code> can be passed on directly to <code>epost</code>, <code>esummary</code>, or <code>efetch</code>.</p>
 
 <h4>
-<a name="einfo" class="anchor" href="#einfo"><span class="octicon octicon-link"></span></a><code>einfo</code>
+<a id="einfo" class="anchor" href="#einfo" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>einfo</code>
 </h4>
 
-<p><code>einfo</code> provides field names, term counts, last update, and available updates
+<p><code>einfo</code>: provide field names, term counts, last update, and available updates
 for each database.</p>
 
 <h4>
-<a name="epost" class="anchor" href="#epost"><span class="octicon octicon-link"></span></a><code>epost</code>
+<a id="epost" class="anchor" href="#epost" aria-hidden="true"><span class="octicon octicon-link"></span></a><code>epost</code>
 </h4>
 
-<p><code>epost</code> uploads primary UIDs to the users's Web Environment on the Entrez
+<p><code>epost</code>: upload primary UIDs to the users's Web Environment on the Entrez
 history server for subsequent use with <code>esummary</code>, <code>elink</code>, or <code>efetch</code>.</p>
 
 <h2>
-<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h2>
+<a id="examples" class="anchor" href="#examples" aria-hidden="true"><span class="octicon octicon-link"></span></a>Examples</h2>
 
 <h3>
-<a name="esearch-searching-the-entrez-databases" class="anchor" href="#esearch-searching-the-entrez-databases"><span class="octicon octicon-link"></span></a><code>esearch</code>: Searching the Entrez databases</h3>
+<a id="esearch-searching-the-entrez-databases" class="anchor" href="#esearch-searching-the-entrez-databases" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+<code>esearch</code>: Searching the Entrez databases</h3>
 
 <p>Let's search PubMed for articles with Chlamydia psittaci in the title that have been published in 2013 and retrieve a list of PubMed IDs (PMIDs).</p>
 
-<div class="highlight highlight-r"><pre><span class="c">pmid &lt;- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed")</span>
-<span class="c">pmid</span>
+<div class="highlight highlight-r"><pre><span class="pl-vo">pmid</span> <span class="pl-k">&lt;-</span> esearch(<span class="pl-s1"><span class="pl-pds">"</span>Chlamydia psittaci[titl] and 2013[pdat]<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>pubmed<span class="pl-pds">"</span></span>)
+<span class="pl-vo">pmid</span>
 
-<span class="c"> ##  Object of class 'esearch' </span>
-<span class="c"> ##  List of UIDs from the 'pubmed' database.</span>
-<span class="c"> ##  [1] "23699067" "23691148" "23654298" "23532978" "23405306" "23391180"</span>
-<span class="c"> ##  [7] "23265868" "23227890" "23098816"</span>
-</pre></div>
+ <span class="pl-c">##  Object of class 'esearch' </span>
+ <span class="pl-c">##  List of UIDs from the 'pubmed' database.</span>
+ <span class="pl-c">##   [1] "24273177" "24163776" "23699067" "23691148" "23654298" "23532978"</span>
+ <span class="pl-c">##   [7] "23405306" "23391180" "23265868" "23227890" "23098816"</span></pre></div>
 
 <p>Alternatively we can collect the PMIDs on the history server.</p>
 
-<div class="highlight highlight-r"><pre><span class="c">pmid2 &lt;- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed", usehistory = TRUE)</span>
-<span class="c">pmid2</span>
+<div class="highlight highlight-r"><pre><span class="pl-vo">pmid2</span> <span class="pl-k">&lt;-</span> esearch(<span class="pl-s1"><span class="pl-pds">"</span>Chlamydia psittaci[titl] and 2013[pdat]<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>pubmed<span class="pl-pds">"</span></span>, <span class="pl-v">usehistory</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>)
+<span class="pl-vo">pmid2</span>
 
-<span class="c"> ##  Object of class 'esearch' </span>
-<span class="c"> ##  Web Environment for the 'pubmed' database.</span>
-<span class="c"> ##  Number of UIDs stored on the History server: 9</span>
-<span class="c"> ##  Query Key: 1</span>
-<span class="c"> ##  WebEnv: NCID_1_122533193_130.14.22.215_9001_1380555216_1795268571</span>
-</pre></div>
+ <span class="pl-c">##  Object of class 'esearch' </span>
+ <span class="pl-c">##  Web Environment for the 'pubmed' database.</span>
+ <span class="pl-c">##  Number of UIDs stored on the History server: 11</span>
+ <span class="pl-c">##  Query Key: 1</span>
+ <span class="pl-c">##  WebEnv: NCID_1_13545980_165.112.9.28_9001_1385649115_1250182273</span></pre></div>
 
 <p>We can also use <code>esearch</code> to search GenBank. Here we do a search for polymorphic membrane
 proteins (PMPs) in Chlamydiaceae.</p>
 
-<div class="highlight highlight-r"><pre><span class="c">cpaf &lt;- esearch("Chlamydiaceae[orgn] and PMP[gene]", "nucleotide")</span>
-<span class="c">cpaf</span>
+<div class="highlight highlight-r"><pre><span class="pl-vo">cpaf</span> <span class="pl-k">&lt;-</span> esearch(<span class="pl-s1"><span class="pl-pds">"</span>Chlamydiaceae[orgn] and PMP[gene]<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>nucleotide<span class="pl-pds">"</span></span>)
+<span class="pl-vo">cpaf</span>
 
-<span class="c"> ##  Object of class 'esearch' </span>
-<span class="c"> ##  List of UIDs from the 'nucleotide' database.</span>
-<span class="c"> ##  [1] "544687983" "532821218" "520923452" "519865230" "519794601" "392376213"</span>
-<span class="c"> ##  [7] "410857988" "410810883" "313847556"</span>
-</pre></div>
+ <span class="pl-c">##  Object of class 'esearch' </span>
+ <span class="pl-c">##  List of UIDs from the 'nucleotide' database.</span>
+ <span class="pl-c">##  [1] "544687983" "532821218" "519865230" "519794601" "392376213" "410857988"</span>
+ <span class="pl-c">##  [7] "410810883" "313847556"</span></pre></div>
 
 <p>Some accessors for <code>esearch</code> objects</p>
 
-<div class="highlight highlight-r"><pre><span class="c">getUrl(cpaf)</span>
+<div class="highlight highlight-r"><pre>getUrl(<span class="pl-vo">cpaf</span>)
 
-<span class="c"> ##  [1] "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?term=Chlamydiaceae%5Borgn%5D%20AND%20PMP%5Bgene%5D&amp;db=nucleotide&amp;retstart=0&amp;retmax=100&amp;rettype=uilist&amp;email=gschofl%40yahoo.de&amp;tool=reutils"</span>
-</pre></div>
+ <span class="pl-c">##  [1] "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?term=Chlamydiaceae%5Borgn%5D%20AND%20PMP%5Bgene%5D&amp;db=nucleotide&amp;retstart=0&amp;retmax=100&amp;rettype=uilist&amp;email=gschofl%40yahoo.de&amp;tool=reutils"</span></pre></div>
 
-<div class="highlight highlight-r"><pre><span class="c">getError(cpaf)</span>
+<div class="highlight highlight-r"><pre>getError(<span class="pl-vo">cpaf</span>)
 
-<span class="c"> ##  No errors</span>
-</pre></div>
+ <span class="pl-c">##  No errors</span></pre></div>
 
-<div class="highlight highlight-r"><pre><span class="c">database(cpaf)</span>
+<div class="highlight highlight-r"><pre>database(<span class="pl-vo">cpaf</span>)
 
-<span class="c"> ##  [1] "nucleotide"</span>
-</pre></div>
+ <span class="pl-c">##  [1] "nucleotide"</span></pre></div>
 
 <p>Extract a vector of GIs:</p>
 
-<div class="highlight highlight-r"><pre><span class="c">uid(cpaf)</span>
+<div class="highlight highlight-r"><pre>uid(<span class="pl-vo">cpaf</span>)
 
-<span class="c"> ##  [1] "544687983" "532821218" "520923452" "519865230" "519794601" "392376213"</span>
-<span class="c"> ##  [7] "410857988" "410810883" "313847556"</span>
-</pre></div>
+ <span class="pl-c">##  [1] "544687983" "532821218" "519865230" "519794601" "392376213" "410857988"</span>
+ <span class="pl-c">##  [7] "410810883" "313847556"</span></pre></div>
 
 <p>Get query key and web environment:</p>
 
-<div class="highlight highlight-r"><pre><span class="c">querykey(pmid2)</span>
+<div class="highlight highlight-r"><pre>querykey(<span class="pl-vo">pmid2</span>)
 
-<span class="c"> ##  [1] 1</span>
-</pre></div>
+ <span class="pl-c">##  [1] 1</span></pre></div>
 
-<div class="highlight highlight-r"><pre><span class="c">webenv(pmid2)</span>
+<div class="highlight highlight-r"><pre>webenv(<span class="pl-vo">pmid2</span>)
 
-<span class="c"> ##  [1] "NCID_1_122533193_130.14.22.215_9001_1380555216_1795268571"</span>
-</pre></div>
+ <span class="pl-c">##  [1] "NCID_1_13545980_165.112.9.28_9001_1385649115_1250182273"</span></pre></div>
 
 <p>Extract the content of an EUtil request as XML.</p>
 
-<div class="highlight highlight-r"><pre><span class="c">content(cpaf, "xml")</span>
+<div class="highlight highlight-r"><pre>content(<span class="pl-vo">cpaf</span>, <span class="pl-s1"><span class="pl-pds">"</span>xml<span class="pl-pds">"</span></span>)
 
-<span class="c"> ##  &lt;?xml version="1.0"?&gt;</span>
-<span class="c"> ##  &lt;!DOCTYPE eSearchResult PUBLIC "-//NLM//DTD eSearchResult, 11 May 2002//EN" "http://www.ncbi.nlm.nih.gov/entrez/query/DTD/eSearch_020511.dtd"&gt;</span>
-<span class="c"> ##  &lt;eSearchResult&gt;</span>
-<span class="c"> ##    &lt;Count&gt;9&lt;/Count&gt;</span>
-<span class="c"> ##    &lt;RetMax&gt;9&lt;/RetMax&gt;</span>
-<span class="c"> ##    &lt;RetStart&gt;0&lt;/RetStart&gt;</span>
-<span class="c"> ##    &lt;IdList&gt;</span>
-<span class="c"> ##      &lt;Id&gt;544687983&lt;/Id&gt;</span>
-<span class="c"> ##      &lt;Id&gt;532821218&lt;/Id&gt;</span>
-<span class="c"> ##      &lt;Id&gt;520923452&lt;/Id&gt;</span>
-<span class="c"> ##      &lt;Id&gt;519865230&lt;/Id&gt;</span>
-<span class="c"> ##      &lt;Id&gt;519794601&lt;/Id&gt;</span>
-<span class="c">....</span>
-</pre></div>
+ <span class="pl-c">##  &lt;?xml version="1.0"?&gt;</span>
+ <span class="pl-c">##  &lt;!DOCTYPE eSearchResult PUBLIC "-//NLM//DTD eSearchResult, 11 May 2002//EN" "http://www.ncbi.nlm.nih.gov/entrez/query/DTD/eSearch_020511.dtd"&gt;</span>
+ <span class="pl-c">##  &lt;eSearchResult&gt;</span>
+ <span class="pl-c">##    &lt;Count&gt;8&lt;/Count&gt;</span>
+ <span class="pl-c">##    &lt;RetMax&gt;8&lt;/RetMax&gt;</span>
+ <span class="pl-c">##    &lt;RetStart&gt;0&lt;/RetStart&gt;</span>
+ <span class="pl-c">##    &lt;IdList&gt;</span>
+ <span class="pl-c">##      &lt;Id&gt;544687983&lt;/Id&gt;</span>
+ <span class="pl-c">##      &lt;Id&gt;532821218&lt;/Id&gt;</span>
+ <span class="pl-c">##      &lt;Id&gt;519865230&lt;/Id&gt;</span>
+ <span class="pl-c">##      &lt;Id&gt;519794601&lt;/Id&gt;</span>
+ <span class="pl-c">##      &lt;Id&gt;392376213&lt;/Id&gt;</span>
+<span class="pl-k">...</span>.</pre></div>
 
 <p>Or extract parts of the XML data using the reference class method <code>#xmlValue()</code> and
 an XPath expression:</p>
 
-<div class="highlight highlight-r"><pre><span class="c">cpaf$xmlValue("//Id")</span>
+<div class="highlight highlight-r"><pre><span class="pl-vo">cpaf</span><span class="pl-k">$</span>xmlValue(<span class="pl-s1"><span class="pl-pds">"</span>//Id<span class="pl-pds">"</span></span>)
 
-<span class="c"> ##  [1] "544687983" "532821218" "520923452" "519865230" "519794601" "392376213"</span>
-<span class="c"> ##  [7] "410857988" "410810883" "313847556"</span>
-</pre></div>
+ <span class="pl-c">##  [1] "544687983" "532821218" "519865230" "519794601" "392376213" "410857988"</span>
+ <span class="pl-c">##  [7] "410810883" "313847556"</span></pre></div>
 
 <h3>
-<a name="esummary-retrieving-summaries-from-primary-ids" class="anchor" href="#esummary-retrieving-summaries-from-primary-ids"><span class="octicon octicon-link"></span></a><code>esummary</code>: Retrieving summaries from primary IDs</h3>
+<a id="esummary-retrieving-summaries-from-primary-ids" class="anchor" href="#esummary-retrieving-summaries-from-primary-ids" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+<code>esummary</code>: Retrieving summaries from primary IDs</h3>
 
 <p><code>esummary</code> retrieves document summaries (<em>docsum</em>s) from a list of primary IDs.
 Let's find out what the first entry for PMP is about:</p>
 
-<div class="highlight highlight-r"><pre><span class="c">esum &lt;- esummary(cpaf[1])</span>
-<span class="c">esum</span>
+<div class="highlight highlight-r"><pre><span class="pl-vo">esum</span> <span class="pl-k">&lt;-</span> esummary(<span class="pl-vo">cpaf</span>[<span class="pl-c1">1</span>])
+<span class="pl-vo">esum</span>
 
-<span class="c"> ##  Object of class 'esummary' </span>
-<span class="c"> ##  &lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-<span class="c"> ##  &lt;!DOCTYPE eSummaryResult PUBLIC "-//NLM//DTD eSummaryResult//EN" "http://www.ncbi.nlm.nih.gov/entrez/query/DTD/eSummaryDTD/eSummary_nucleotide.dtd"&gt;</span>
-<span class="c"> ##  &lt;eSummaryResult&gt;</span>
-<span class="c"> ##    &lt;DocumentSummarySet status="OK"&gt;</span>
-<span class="c"> ##      &lt;DocumentSummary uid="544687983"&gt;</span>
-<span class="c"> ##        &lt;Caption&gt;NZ_APJW01000002&lt;/Caption&gt;</span>
-<span class="c"> ##        &lt;Title&gt;Chlamydiaceae bacterium 10-1398/6 ibis.contig.1, whole genome shotgun sequence&lt;/Title&gt;</span>
-<span class="c"> ##        &lt;Extra&gt;gi|544687983|ref|NZ_APJW01000002.1||gnl|WGS:NZ_APJW01|ibis.contig.1&lt;/Extra&gt;</span>
-<span class="c"> ##        &lt;Gi&gt;544687983&lt;/Gi&gt;</span>
-<span class="c"> ##        &lt;CreateDate&gt;2013/09/20&lt;/CreateDate&gt;</span>
-<span class="c"> ##        &lt;UpdateDate&gt;2013/09/20&lt;/UpdateDate&gt;</span>
-<span class="c"> ##        &lt;Flags&gt;544&lt;/Flags&gt;</span>
-<span class="c"> ##        &lt;TaxId&gt;1046581&lt;/TaxId&gt;</span>
-<span class="c"> ##        &lt;Slen&gt;334575&lt;/Slen&gt;</span>
-<span class="c"> ##        &lt;Biomol&gt;genomic&lt;/Biomol&gt;</span>
-<span class="c">....</span>
-</pre></div>
+ <span class="pl-c">##  Object of class 'esummary' </span>
+ <span class="pl-c">##  &lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+ <span class="pl-c">##  &lt;!DOCTYPE eSummaryResult PUBLIC "-//NLM//DTD eSummaryResult//EN" "http://www.ncbi.nlm.nih.gov/entrez/query/DTD/eSummaryDTD/eSummary_nucleotide.dtd"&gt;</span>
+ <span class="pl-c">##  &lt;eSummaryResult&gt;</span>
+ <span class="pl-c">##    &lt;DocumentSummarySet status="OK"&gt;</span>
+ <span class="pl-c">##      &lt;DocumentSummary uid="544687983"&gt;</span>
+ <span class="pl-c">##        &lt;Caption&gt;NZ_APJW01000002&lt;/Caption&gt;</span>
+ <span class="pl-c">##        &lt;Title&gt;Chlamydia ibidis 10-1398/6 ibis.contig.1, whole genome shotgun sequence&lt;/Title&gt;</span>
+ <span class="pl-c">##        &lt;Extra&gt;gi|544687983|ref|NZ_APJW01000002.1||gnl|WGS:NZ_APJW01|ibis.contig.1&lt;/Extra&gt;</span>
+ <span class="pl-c">##        &lt;Gi&gt;544687983&lt;/Gi&gt;</span>
+ <span class="pl-c">##        &lt;CreateDate&gt;2013/09/20&lt;/CreateDate&gt;</span>
+ <span class="pl-c">##        &lt;UpdateDate&gt;2013/09/20&lt;/UpdateDate&gt;</span>
+ <span class="pl-c">##        &lt;Flags&gt;544&lt;/Flags&gt;</span>
+ <span class="pl-c">##        &lt;TaxId&gt;1046581&lt;/TaxId&gt;</span>
+ <span class="pl-c">##        &lt;Slen&gt;334575&lt;/Slen&gt;</span>
+ <span class="pl-c">##        &lt;Biomol&gt;genomic&lt;/Biomol&gt;</span>
+<span class="pl-k">...</span>.</pre></div>
 
 <p>We can also parse <em>docsum</em>s into a <code>data.frame</code></p>
 
-<div class="highlight highlight-r"><pre><span class="c">esum &lt;- esummary(cpaf[1:4])</span>
-<span class="c">content(esum, "parsed")</span>
+<div class="highlight highlight-r"><pre><span class="pl-vo">esum</span> <span class="pl-k">&lt;-</span> esummary(<span class="pl-vo">cpaf</span>[<span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">4</span>])
+content(<span class="pl-vo">esum</span>, <span class="pl-s1"><span class="pl-pds">"</span>parsed<span class="pl-pds">"</span></span>)
 
-<span class="c"> ##           Id         Caption</span>
-<span class="c"> ##  1 544687983 NZ_APJW01000002</span>
-<span class="c"> ##  2 532821218    APJW01000002</span>
-<span class="c"> ##  3 520923452     NZ_KE360863</span>
-<span class="c"> ##  4 519865230        KE360863</span>
-<span class="c"> ##                                                                                                    Title</span>
-<span class="c"> ##  1                        Chlamydiaceae bacterium 10-1398/6 ibis.contig.1, whole genome shotgun sequence</span>
-<span class="c"> ##  2                        Chlamydiaceae bacterium 10-1398/6 ibis.contig.1, whole genome shotgun sequence</span>
-<span class="c"> ##  3 Chlamydia psittaci 84-8471/1 genomic scaffold CP_84_8471_1.contig.1261, whole genome shotgun sequence</span>
-<span class="c"> ##  4 Chlamydia psittaci 84-8471/1 genomic scaffold CP_84_8471_1.contig.1261, whole genome shotgun sequence</span>
-<span class="c"> ##                                                                         Extra</span>
-<span class="c"> ##  1        gi|544687983|ref|NZ_APJW01000002.1||gnl|WGS:NZ_APJW01|ibis.contig.1</span>
-<span class="c">....</span>
-</pre></div>
+ <span class="pl-c">##           Id         Caption</span>
+ <span class="pl-c">##  1 544687983 NZ_APJW01000002</span>
+ <span class="pl-c">##  2 532821218    APJW01000002</span>
+ <span class="pl-c">##  3 519865230        KE360863</span>
+ <span class="pl-c">##  4 519794601    ATMY01000224</span>
+ <span class="pl-c">##                                                                                                    Title</span>
+ <span class="pl-c">##  1                               Chlamydia ibidis 10-1398/6 ibis.contig.1, whole genome shotgun sequence</span>
+ <span class="pl-c">##  2                               Chlamydia ibidis 10-1398/6 ibis.contig.1, whole genome shotgun sequence</span>
+ <span class="pl-c">##  3 Chlamydia psittaci 84-8471/1 genomic scaffold CP_84_8471_1.contig.1261, whole genome shotgun sequence</span>
+ <span class="pl-c">##  4                Chlamydia psittaci 84-8471/1 CP_84_8471_1.contig.1261_1, whole genome shotgun sequence</span>
+ <span class="pl-c">##                                                                        Extra</span>
+ <span class="pl-c">##  1       gi|544687983|ref|NZ_APJW01000002.1||gnl|WGS:NZ_APJW01|ibis.contig.1</span>
+<span class="pl-k">...</span>.</pre></div>
 
 <h3>
-<a name="efetch-downloading-full-records-from-entrez" class="anchor" href="#efetch-downloading-full-records-from-entrez"><span class="octicon octicon-link"></span></a><code>efetch</code>: Downloading full records from Entrez</h3>
+<a id="efetch-downloading-full-records-from-entrez" class="anchor" href="#efetch-downloading-full-records-from-entrez" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+<code>efetch</code>: Downloading full records from Entrez</h3>
 
 <p>First we search the protein database for sequences of the <strong>c</strong>hlamydial <strong>p</strong>rotease
 <strong>a</strong>ctivity <strong>f</strong>actor, <a href="http://dx.doi.org/10.1016/j.tim.2009.07.007">CPAF</a></p>
 
-<div class="highlight highlight-r"><pre><span class="c">cpaf &lt;- esearch("Chlamydia[orgn] and CPAF", "protein")</span>
-<span class="c">cpaf</span>
+<div class="highlight highlight-r"><pre><span class="pl-vo">cpaf</span> <span class="pl-k">&lt;-</span> esearch(<span class="pl-s1"><span class="pl-pds">"</span>Chlamydia[orgn] and CPAF<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>protein<span class="pl-pds">"</span></span>)
+<span class="pl-vo">cpaf</span>
 
-<span class="c"> ##  Object of class 'esearch' </span>
-<span class="c"> ##  List of UIDs from the 'protein' database.</span>
-<span class="c"> ##   [1] "339626260" "220702405" "220702404" "220702403" "220702402"</span>
-<span class="c"> ##   [6] "220702401" "220702400" "220702395" "220702394" "339460927"</span>
-</pre></div>
+ <span class="pl-c">##  Object of class 'esearch' </span>
+ <span class="pl-c">##  List of UIDs from the 'protein' database.</span>
+ <span class="pl-c">##   [1] "339626260" "220702405" "220702404" "220702403" "220702402"</span>
+ <span class="pl-c">##   [6] "220702401" "220702400" "220702395" "220702394" "339460927"</span></pre></div>
 
 <p>Let's fetch the FASTA record for the first protein. To do that, we have to
 set <code>rettype = "fasta"</code> and <code>retmode = "text"</code>. </p>
 
-<div class="highlight highlight-r"><pre><span class="c">cpaff &lt;- efetch(cpaf[1], rettype = "fasta", retmode = "text")</span>
-<span class="c">cpaff</span>
+<div class="highlight highlight-r"><pre><span class="pl-vo">cpaff</span> <span class="pl-k">&lt;-</span> efetch(<span class="pl-vo">cpaf</span>[<span class="pl-c1">1</span>], <span class="pl-v">rettype</span> <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>fasta<span class="pl-pds">"</span></span>, <span class="pl-v">retmode</span> <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>text<span class="pl-pds">"</span></span>)
+<span class="pl-vo">cpaff</span>
 
-<span class="c"> ##  Object of class 'efetch' </span>
-<span class="c"> ##  &gt;gi|339626260|ref|YP_004717739.1| general secretion pathway protein E [Chlamydia trachomatis L2c]</span>
-<span class="c"> ##  MDGNKGTMQDLLDRLPYSFLKKNYLLPVEDLGDKIVFARHLKKTPLEALDEVRLITQKPLSLVSKEEAEI</span>
-<span class="c"> ##  IHGLQKLYSDKDGKASEMLQSMQEAVVPESESDTTELLENQENSAPVVRLLNLILKEAIEERASDIHFDP</span>
-<span class="c"> ##  VEDLLRIRYRIDGVLHDRHAPPNHLRAALITRIKVLTKLDIAEHRLPQDGRIKLQLGGQEIDMRVSTVPV</span>
-<span class="c"> ##  IHGERVVLRILDKRNVILDIRGLCMPPKMETSFRKAIGVPEGILLVTGPTGSGKTTTLYSVIQHLSGPFT</span>
-<span class="c"> ##  NIMTIEDPPEYKLPGVAQIAVKPKIGLTFSKGLRHLLRQDPDVLMVGEIRDQETAEIAIQAALTGHLVVS</span>
-<span class="c"> ##  TLHTNDAVSAIPRLLDMGVEPYLLSATMIGAVAQRLVRRICTHCKEFCVADVQEQALLRALGKDPFAPLC</span>
-<span class="c"> ##  KGRGCSQCFRSGYKGRQGIYEFVDVTTTLRSEIALGRPYHILRGVAEREGYCPLLEHGVELALAGETTLS</span>
-<span class="c"> ##  EVLRVAKRSE</span>
-<span class="c"> ##  </span>
-<span class="c"> ##  EFetch query using the 'protein' database.</span>
-<span class="c">....</span>
-</pre></div>
+ <span class="pl-c">##  Object of class 'efetch' </span>
+ <span class="pl-c">##  &gt;gi|339626260|ref|YP_004717739.1| general secretion pathway protein E [Chlamydia trachomatis L2c]</span>
+ <span class="pl-c">##  MDGNKGTMQDLLDRLPYSFLKKNYLLPVEDLGDKIVFARHLKKTPLEALDEVRLITQKPLSLVSKEEAEI</span>
+ <span class="pl-c">##  IHGLQKLYSDKDGKASEMLQSMQEAVVPESESDTTELLENQENSAPVVRLLNLILKEAIEERASDIHFDP</span>
+ <span class="pl-c">##  VEDLLRIRYRIDGVLHDRHAPPNHLRAALITRIKVLTKLDIAEHRLPQDGRIKLQLGGQEIDMRVSTVPV</span>
+ <span class="pl-c">##  IHGERVVLRILDKRNVILDIRGLCMPPKMETSFRKAIGVPEGILLVTGPTGSGKTTTLYSVIQHLSGPFT</span>
+ <span class="pl-c">##  NIMTIEDPPEYKLPGVAQIAVKPKIGLTFSKGLRHLLRQDPDVLMVGEIRDQETAEIAIQAALTGHLVVS</span>
+ <span class="pl-c">##  TLHTNDAVSAIPRLLDMGVEPYLLSATMIGAVAQRLVRRICTHCKEFCVADVQEQALLRALGKDPFAPLC</span>
+ <span class="pl-c">##  KGRGCSQCFRSGYKGRQGIYEFVDVTTTLRSEIALGRPYHILRGVAEREGYCPLLEHGVELALAGETTLS</span>
+ <span class="pl-c">##  EVLRVAKRSE</span>
+ <span class="pl-c">##  </span>
+ <span class="pl-c">##  EFetch query using the 'protein' database.</span>
+<span class="pl-k">...</span>.</pre></div>
 
 <p>Now we can write the sequence to a fasta file by first extracting the data from the
 <code>efetch</code> object using <code>content()</code>:</p>
 
-<div class="highlight highlight-r"><pre><span class="c">write(content(cpaff), file = "~/cpaf.fna")</span>
-</pre></div>
+<div class="highlight highlight-r"><pre>write(content(<span class="pl-vo">cpaff</span>), <span class="pl-v">file</span> <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>~/cpaf.fna<span class="pl-pds">"</span></span>)</pre></div>
 
 <p>Alternatively we can fetch the FASTA records as <em>TSeqSet</em> XML records
 and extract the sequence from the XML file.</p>
 
-<div class="highlight highlight-r"><pre><span class="c">cpafx &lt;- efetch(cpaf, rettype = "fasta", retmode = "xml")</span>
-<span class="c">cpafx</span>
+<div class="highlight highlight-r"><pre><span class="pl-vo">cpafx</span> <span class="pl-k">&lt;-</span> efetch(<span class="pl-vo">cpaf</span>, <span class="pl-v">rettype</span> <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>fasta<span class="pl-pds">"</span></span>, <span class="pl-v">retmode</span> <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>xml<span class="pl-pds">"</span></span>)
+<span class="pl-vo">cpafx</span>
 
-<span class="c"> ##  Object of class 'efetch' </span>
-<span class="c"> ##  &lt;?xml version="1.0"?&gt;</span>
-<span class="c"> ##  &lt;!DOCTYPE TSeqSet PUBLIC "-//NCBI//NCBI TSeq/EN" "http://www.ncbi.nlm.nih.gov/dtd/NCBI_TSeq.dtd"&gt;</span>
-<span class="c"> ##  &lt;TSeqSet&gt;</span>
-<span class="c"> ##    &lt;TSeq&gt;</span>
-<span class="c"> ##      &lt;TSeq_seqtype value="protein"/&gt;</span>
-<span class="c"> ##      &lt;TSeq_gi&gt;339626260&lt;/TSeq_gi&gt;</span>
-<span class="c"> ##      &lt;TSeq_accver&gt;YP_004717739.1&lt;/TSeq_accver&gt;</span>
-<span class="c"> ##      &lt;TSeq_sid&gt;gnl|REF_ideu|CTL2C_511&lt;/TSeq_sid&gt;</span>
-<span class="c"> ##      &lt;TSeq_taxid&gt;887712&lt;/TSeq_taxid&gt;</span>
-<span class="c"> ##      &lt;TSeq_orgname&gt;Chlamydia trachomatis L2c&lt;/TSeq_orgname&gt;</span>
-<span class="c"> ##      &lt;TSeq_defline&gt;general secretion pathway protein E [Chlamydia trachomatis L2c]&lt;/TSeq_defline&gt;</span>
-<span class="c"> ##      &lt;TSeq_length&gt;500&lt;/TSeq_length&gt;</span>
-<span class="c"> ##      &lt;TSeq_sequence&gt;MDGNKGTMQDLLDRLPYSFLKKNYLLPVEDLGDKIVFARHLKKTPLEALDEVRLITQKPLSLVSKEEAEIIHGLQKLYSDKDGKASEMLQSMQEAVVPESESDTTELLENQENSAPVVRLLNLILKEAIEERASDIHFDPVEDLLRIRYRIDGVLHDRHAPPNHLRAALITRIKVLTKLDIAEHRLPQDGRIKLQLGGQEIDMRVSTVPVIHGERVVLRILDKRNVILDIRGLCMPPKMETSFRKAIGVPEGILLVTGPTGSGKTTTLYSVIQHLSGPFTNIMTIEDPPEYKLPGVAQIAVKPKIGLTFSKGLRHLLRQDPDVLMVGEIRDQETAEIAIQAALTGHLVVSTLHTNDAVSAIPRLLDMGVEPYLLSATMIGAVAQRLVRRICTHCKEFCVADVQEQALLRALGKDPFAPLCKGRGCSQCFRSGYKGRQGIYEFVDVTTTLRSEIALGRPYHILRGVAEREGYCPLLEHGVELALAGETTLSEVLRVAKRSE&lt;/TSeq_sequence&gt;</span>
-<span class="c"> ##    &lt;/TSeq&gt;</span>
-<span class="c"> ##    &lt;TSeq&gt;</span>
-<span class="c"> ##      &lt;TSeq_seqtype value="protein"/&gt;</span>
-<span class="c"> ##      &lt;TSeq_gi&gt;220702405&lt;/TSeq_gi&gt;</span>
-<span class="c">....</span>
-</pre></div>
+ <span class="pl-c">##  Object of class 'efetch' </span>
+ <span class="pl-c">##  &lt;?xml version="1.0"?&gt;</span>
+ <span class="pl-c">##  &lt;!DOCTYPE TSeqSet PUBLIC "-//NCBI//NCBI TSeq/EN" "http://www.ncbi.nlm.nih.gov/dtd/NCBI_TSeq.dtd"&gt;</span>
+ <span class="pl-c">##  &lt;TSeqSet&gt;</span>
+ <span class="pl-c">##    &lt;TSeq&gt;</span>
+ <span class="pl-c">##      &lt;TSeq_seqtype value="protein"/&gt;</span>
+ <span class="pl-c">##      &lt;TSeq_gi&gt;339626260&lt;/TSeq_gi&gt;</span>
+ <span class="pl-c">##      &lt;TSeq_accver&gt;YP_004717739.1&lt;/TSeq_accver&gt;</span>
+ <span class="pl-c">##      &lt;TSeq_sid&gt;gnl|REF_ideu|CTL2C_511&lt;/TSeq_sid&gt;</span>
+ <span class="pl-c">##      &lt;TSeq_taxid&gt;887712&lt;/TSeq_taxid&gt;</span>
+ <span class="pl-c">##      &lt;TSeq_orgname&gt;Chlamydia trachomatis L2c&lt;/TSeq_orgname&gt;</span>
+ <span class="pl-c">##      &lt;TSeq_defline&gt;general secretion pathway protein E [Chlamydia trachomatis L2c]&lt;/TSeq_defline&gt;</span>
+ <span class="pl-c">##      &lt;TSeq_length&gt;500&lt;/TSeq_length&gt;</span>
+ <span class="pl-c">##      &lt;TSeq_sequence&gt;MDGNKGTMQDLLDRLPYSFLKKNYLLPVEDLGDKIVFARHLKKTPLEALDEVRLITQKPLSLVSKEEAEIIHGLQKLYSDKDGKASEMLQSMQEAVVPESESDTTELLENQENSAPVVRLLNLILKEAIEERASDIHFDPVEDLLRIRYRIDGVLHDRHAPPNHLRAALITRIKVLTKLDIAEHRLPQDGRIKLQLGGQEIDMRVSTVPVIHGERVVLRILDKRNVILDIRGLCMPPKMETSFRKAIGVPEGILLVTGPTGSGKTTTLYSVIQHLSGPFTNIMTIEDPPEYKLPGVAQIAVKPKIGLTFSKGLRHLLRQDPDVLMVGEIRDQETAEIAIQAALTGHLVVSTLHTNDAVSAIPRLLDMGVEPYLLSATMIGAVAQRLVRRICTHCKEFCVADVQEQALLRALGKDPFAPLCKGRGCSQCFRSGYKGRQGIYEFVDVTTTLRSEIALGRPYHILRGVAEREGYCPLLEHGVELALAGETTLSEVLRVAKRSE&lt;/TSeq_sequence&gt;</span>
+ <span class="pl-c">##    &lt;/TSeq&gt;</span>
+ <span class="pl-c">##    &lt;TSeq&gt;</span>
+ <span class="pl-c">##      &lt;TSeq_seqtype value="protein"/&gt;</span>
+ <span class="pl-c">##      &lt;TSeq_gi&gt;220702405&lt;/TSeq_gi&gt;</span>
+<span class="pl-k">...</span>.</pre></div>
 
-<div class="highlight highlight-r"><pre><span class="c">aa &lt;- cpafx$xmlValue("//TSeq_sequence")</span>
-<span class="c">aa</span>
+<div class="highlight highlight-r"><pre><span class="pl-vo">aa</span> <span class="pl-k">&lt;-</span> <span class="pl-vo">cpafx</span><span class="pl-k">$</span>xmlValue(<span class="pl-s1"><span class="pl-pds">"</span>//TSeq_sequence<span class="pl-pds">"</span></span>)
+<span class="pl-vo">aa</span>
 
-<span class="c"> ##   [1] "MDGNKGTMQDLLDRLPYSFLKKNYLLPVEDLGDKIVFARHLKKTPLEALDEVRLITQKPLSLVSKEEAEIIHGLQKLYSDKDGKASEMLQSMQEAVVPESESDTTELLENQENSAPVVRLLNLILKEAIEERASDIHFDPVEDLLRIRYRIDGVLHDRHAPPNHLRAALITRIKVLTKLDIAEHRLPQDGRIKLQLGGQEIDMRVSTVPVIHGERVVLRILDKRNVILDIRGLCMPPKMETSFRKAIGVPEGILLVTGPTGSGKTTTLYSVIQHLSGPFTNIMTIEDPPEYKLPGVAQIAVKPKIGLTFSKGLRHLLRQDPDVLMVGEIRDQETAEIAIQAALTGHLVVSTLHTNDAVSAIPRLLDMGVEPYLLSATMIGAVAQRLVRRICTHCKEFCVADVQEQALLRALGKDPFAPLCKGRGCSQCFRSGYKGRQGIYEFVDVTTTLRSEIALGRPYHILRGVAEREGYCPLLEHGVELALAGETTLSEVLRVAKRSE"                                                                                   </span>
-<span class="c"> ##   [2] "SLVCKNALQDLSFLEHLLQVKYAPKTWKEQYLGWDLVQSSVSAQQKLRTQENPSTSFCQQVLADFIGGLNDFHAGVTFFAIESAYLPYTVQKSSDGRFYFVDIMTFSSEIRVGDELLEVDGAPVQDVLATLYGSNHKGTAAEESAALRTLFSRMASLGHKVPSGRTTLKIRRPFGTTREVRVKWRYVPEGVGDLATIAPSIRAPQLQKSMRSFFPKKDDAFHRSSSLFYSPMVPHFWAELRNHYATSGLKSGYNIGSTDGFLPVIGPVIWESEGLFRAYISSVTDGDGKSHKVGFLRIPTYSWQDMEDFDPSGPPPWEEFAKIIQVFSSNTEALIIDQTNNPGGSVLYLYALLSMLTDRPLELPKHRMILTQDEVVDALDWLTLLENVDTNVESRLALGDNMEGYTVDLQVAEYLKSFGRQVLNCWSKGDIELSTPIPLFGFEKIHPHPRVQYSKPICVLINEQDFACADFFPVVLKDNDRALIVGTRTAGAGGFVFNVQFPNRTGIKTCSLTGSLAVREHGAFIENIGVEPHIDLPFTANDIRYKGYSEYLDKVKKLVCQLINNDGTIILAEDGSFHHHHHH"</span>
-<span class="c"> ##   [3] "SLVCKNALQDLSFLEHLLQVKYAPKTWKEQYLGWDLVQSSVSAQQKLRTQENPSTSFCQQVLADFIGGLNDFHAGVTFFAIESAYLPYTVQKSSDGRFYFVDIMTFSSEIRVGDELLEVDGAPVQDVLATLYGSNHKGTAAEESAALRTLFSRMASLGHKVPSGRTTLKIRRPFGTTREVRVKWRYVPEGVGDLATIAPSIRAPQLQKSMRSFFPKKDDAFHRSSSLFYSPMVPHFWAELRNHYATSGLKSGYNIGSTDGFLPVIGPVIWESEGLFRAYISSVTDGDGKSHKVGFLRIPTYSWQDMEDFDPSGPPPWEEFAKIIQVFSSNTEALIIDQTNNPGGSVLYLYALLSMLTDRPLELPKHRMILTQDEVVDALDWLTLLENVDTNVESRLALGDNMEGYTVDLQVAEYLKSFGRQVLNCWSKGDIELSTPIPLFGFEKIHPHPRVQYSKPICVLINEQDFACADFFPVVLKDNDRALIVGTRTAGAGGFVFNVQFPNRTGIKTCSLTGSLAVREHGAFIENIGVEPHIDLPFTANDIRYKGYSEYLDKVKKLVCQLINNDGTIILAEDGSFHHHHHH"</span>
-<span class="c"> ##   [4] "SLVCKNALQDLSFLEHLLQVKYAPKTWKEQYLGWDLVQSSVSAQQKLRTQENPSTSFCQQVLADFIGGLNDFHAGVTFFAIESAYLPYTVQKSSDGRFYFVDIMTFSSEIRVGDELLEVDGAPVQDVLATLYGSNHKGTAAEESAALRTLFSRMASLGHKVPSGRTTLKIRRPFGTTREVRVKWRYVPEGVGDLATIAPSIRAPQLQKSMRSFFPKKDDAFHRSSSLFYSPMVPHFWAELRNHYATSGLKSGYNIGSTDGFLPVIGPVIWESEGLFRAYISSVTDGDGKSHKVGFLRIPTYSWQDMEDFDPSGPPPWEEFAKIIQVFSSNTEALIIDQTNNPGGSVLYLYALLSMLTDRPLELPKHRMILTQDEVVDALDWLTLLENVDTNVESRLALGDNMEGYTVDLQVAEYLKSFGRQVLNCWSKGDIELSTPIPLFGFEKIHPHPRVQYSKPICVLINEQDFSCADFFPVVLKDNDRALIVGTRTAGAGGFVFNVQFPNRTGIKTCSLTGSLAVREHGAFIENIGVEPHIDLPFTANDIRYKGYSEYLDKVKKLVCQLINNDGTIILAEDGSFHHHHHH"</span>
-<span class="c"> ##   [5] "SLVCKNALQDLSFLEHLLQVKYAPKTWKEQYLGWDLVQSSVSAQQKLRTQENPSTSFCQQVLADFIGGLNDFHAGVTFFAIESAYLPYTVQKSSDGRFYFVDIMTFSSEIRVGDELLEVDGAPVQDVLATLYGSNHKGTAAEESAALRTLFSRMASLGHKVPSGRTTLKIRRPFGTTREVRVKWRYVPEGVGDLATIAPSIRAPQLQKSMRSFFPKKDDAFHRSSSLFYSPMVPHFWAELRNHYATSGLKSGYNIGSTDGFLPVIGPVIWESEGLFRAYISSVTDGDGKSHKVGFLRIPTYSWQDMEDFDPSGPPPWEEFAKIIQVFSSNTEALIIDQTNNPGGSVLYLYALLSMLTDRPLELPKHRMILTQDEVVDALDWLTLLENVDTNVESRLALGDNMEGYTVDLQVAEYLKSFGRQVLNCWSKGDIELSTPIPLFGFEKIHPHPRVQYSKPICVLINEQDFSCADFFPVVLKDNDRALIVGTRTAGAGGFVFNVQFPNRTGIKTCSLTGSLAVREHGAFIENIGVEPHIDLPFTANDIRYKGYSEYLDKVKKLVCQLINNDGTIILAEDGSFHHHHHH"</span>
-<span class="c"> ##   [6] "SLVCKNALQDLSFLEHLLQVKYAPKTWKEQYLGWDLVQSSVSAQQKLRTQENPSTSFCQQVLADFIGGLNDFHAGVTFFAIESAYLPYTVQKSSDGRFYFVDIMTFSSEIRVGDELLEVDGAPVQDVLATLYGSNHKGTAAEESAALRTLFSRMASLGHKVPSGRTTLKIRRPFGTTREVRVKWRYVPEGVGDLATIAPSIRAPQLQKSMRSFFPKKDDAFHRSSSLFYSPMVPHFWAELRNHYATSGLKSGYNIGSTDGFLPVIGPVIWESEGLFRAYISSVTDGDGKSHKVGFLRIPTYSWQDMEDFDPSGPPPWEEFAKIIQVFSSNTEALIIDQTNNPGGSVLYLYALLSMLTDRPLELPKHRMILTQDEVVDALDWLTLLENVDTNVESRLALGDNMEGYTVDLQVAEYLKSFGRQVLNCWSKGDIELSTPIPLFGFEKIHPHPRVQYSKPICVLINEQDFSCADFFPVVLKDNDRALIVGTRTAGAGGFVFNVQFPNRTGIKTCSLTGSLAVREHGAFIENIGVEPHIDLPFTANDIRYKGYSEYLDKVKKLVCQLINNDGTIILAEDGSFHHHHHH"</span>
-<span class="c">....</span>
+ <span class="pl-c">##   [1] "MDGNKGTMQDLLDRLPYSFLKKNYLLPVEDLGDKIVFARHLKKTPLEALDEVRLITQKPLSLVSKEEAEIIHGLQKLYSDKDGKASEMLQSMQEAVVPESESDTTELLENQENSAPVVRLLNLILKEAIEERASDIHFDPVEDLLRIRYRIDGVLHDRHAPPNHLRAALITRIKVLTKLDIAEHRLPQDGRIKLQLGGQEIDMRVSTVPVIHGERVVLRILDKRNVILDIRGLCMPPKMETSFRKAIGVPEGILLVTGPTGSGKTTTLYSVIQHLSGPFTNIMTIEDPPEYKLPGVAQIAVKPKIGLTFSKGLRHLLRQDPDVLMVGEIRDQETAEIAIQAALTGHLVVSTLHTNDAVSAIPRLLDMGVEPYLLSATMIGAVAQRLVRRICTHCKEFCVADVQEQALLRALGKDPFAPLCKGRGCSQCFRSGYKGRQGIYEFVDVTTTLRSEIALGRPYHILRGVAEREGYCPLLEHGVELALAGETTLSEVLRVAKRSE"                                                                                   </span>
+ <span class="pl-c">##   [2] "SLVCKNALQDLSFLEHLLQVKYAPKTWKEQYLGWDLVQSSVSAQQKLRTQENPSTSFCQQVLADFIGGLNDFHAGVTFFAIESAYLPYTVQKSSDGRFYFVDIMTFSSEIRVGDELLEVDGAPVQDVLATLYGSNHKGTAAEESAALRTLFSRMASLGHKVPSGRTTLKIRRPFGTTREVRVKWRYVPEGVGDLATIAPSIRAPQLQKSMRSFFPKKDDAFHRSSSLFYSPMVPHFWAELRNHYATSGLKSGYNIGSTDGFLPVIGPVIWESEGLFRAYISSVTDGDGKSHKVGFLRIPTYSWQDMEDFDPSGPPPWEEFAKIIQVFSSNTEALIIDQTNNPGGSVLYLYALLSMLTDRPLELPKHRMILTQDEVVDALDWLTLLENVDTNVESRLALGDNMEGYTVDLQVAEYLKSFGRQVLNCWSKGDIELSTPIPLFGFEKIHPHPRVQYSKPICVLINEQDFACADFFPVVLKDNDRALIVGTRTAGAGGFVFNVQFPNRTGIKTCSLTGSLAVREHGAFIENIGVEPHIDLPFTANDIRYKGYSEYLDKVKKLVCQLINNDGTIILAEDGSFHHHHHH"</span>
+ <span class="pl-c">##   [3] "SLVCKNALQDLSFLEHLLQVKYAPKTWKEQYLGWDLVQSSVSAQQKLRTQENPSTSFCQQVLADFIGGLNDFHAGVTFFAIESAYLPYTVQKSSDGRFYFVDIMTFSSEIRVGDELLEVDGAPVQDVLATLYGSNHKGTAAEESAALRTLFSRMASLGHKVPSGRTTLKIRRPFGTTREVRVKWRYVPEGVGDLATIAPSIRAPQLQKSMRSFFPKKDDAFHRSSSLFYSPMVPHFWAELRNHYATSGLKSGYNIGSTDGFLPVIGPVIWESEGLFRAYISSVTDGDGKSHKVGFLRIPTYSWQDMEDFDPSGPPPWEEFAKIIQVFSSNTEALIIDQTNNPGGSVLYLYALLSMLTDRPLELPKHRMILTQDEVVDALDWLTLLENVDTNVESRLALGDNMEGYTVDLQVAEYLKSFGRQVLNCWSKGDIELSTPIPLFGFEKIHPHPRVQYSKPICVLINEQDFACADFFPVVLKDNDRALIVGTRTAGAGGFVFNVQFPNRTGIKTCSLTGSLAVREHGAFIENIGVEPHIDLPFTANDIRYKGYSEYLDKVKKLVCQLINNDGTIILAEDGSFHHHHHH"</span>
+ <span class="pl-c">##   [4] "SLVCKNALQDLSFLEHLLQVKYAPKTWKEQYLGWDLVQSSVSAQQKLRTQENPSTSFCQQVLADFIGGLNDFHAGVTFFAIESAYLPYTVQKSSDGRFYFVDIMTFSSEIRVGDELLEVDGAPVQDVLATLYGSNHKGTAAEESAALRTLFSRMASLGHKVPSGRTTLKIRRPFGTTREVRVKWRYVPEGVGDLATIAPSIRAPQLQKSMRSFFPKKDDAFHRSSSLFYSPMVPHFWAELRNHYATSGLKSGYNIGSTDGFLPVIGPVIWESEGLFRAYISSVTDGDGKSHKVGFLRIPTYSWQDMEDFDPSGPPPWEEFAKIIQVFSSNTEALIIDQTNNPGGSVLYLYALLSMLTDRPLELPKHRMILTQDEVVDALDWLTLLENVDTNVESRLALGDNMEGYTVDLQVAEYLKSFGRQVLNCWSKGDIELSTPIPLFGFEKIHPHPRVQYSKPICVLINEQDFSCADFFPVVLKDNDRALIVGTRTAGAGGFVFNVQFPNRTGIKTCSLTGSLAVREHGAFIENIGVEPHIDLPFTANDIRYKGYSEYLDKVKKLVCQLINNDGTIILAEDGSFHHHHHH"</span>
+ <span class="pl-c">##   [5] "SLVCKNALQDLSFLEHLLQVKYAPKTWKEQYLGWDLVQSSVSAQQKLRTQENPSTSFCQQVLADFIGGLNDFHAGVTFFAIESAYLPYTVQKSSDGRFYFVDIMTFSSEIRVGDELLEVDGAPVQDVLATLYGSNHKGTAAEESAALRTLFSRMASLGHKVPSGRTTLKIRRPFGTTREVRVKWRYVPEGVGDLATIAPSIRAPQLQKSMRSFFPKKDDAFHRSSSLFYSPMVPHFWAELRNHYATSGLKSGYNIGSTDGFLPVIGPVIWESEGLFRAYISSVTDGDGKSHKVGFLRIPTYSWQDMEDFDPSGPPPWEEFAKIIQVFSSNTEALIIDQTNNPGGSVLYLYALLSMLTDRPLELPKHRMILTQDEVVDALDWLTLLENVDTNVESRLALGDNMEGYTVDLQVAEYLKSFGRQVLNCWSKGDIELSTPIPLFGFEKIHPHPRVQYSKPICVLINEQDFSCADFFPVVLKDNDRALIVGTRTAGAGGFVFNVQFPNRTGIKTCSLTGSLAVREHGAFIENIGVEPHIDLPFTANDIRYKGYSEYLDKVKKLVCQLINNDGTIILAEDGSFHHHHHH"</span>
+ <span class="pl-c">##   [6] "SLVCKNALQDLSFLEHLLQVKYAPKTWKEQYLGWDLVQSSVSAQQKLRTQENPSTSFCQQVLADFIGGLNDFHAGVTFFAIESAYLPYTVQKSSDGRFYFVDIMTFSSEIRVGDELLEVDGAPVQDVLATLYGSNHKGTAAEESAALRTLFSRMASLGHKVPSGRTTLKIRRPFGTTREVRVKWRYVPEGVGDLATIAPSIRAPQLQKSMRSFFPKKDDAFHRSSSLFYSPMVPHFWAELRNHYATSGLKSGYNIGSTDGFLPVIGPVIWESEGLFRAYISSVTDGDGKSHKVGFLRIPTYSWQDMEDFDPSGPPPWEEFAKIIQVFSSNTEALIIDQTNNPGGSVLYLYALLSMLTDRPLELPKHRMILTQDEVVDALDWLTLLENVDTNVESRLALGDNMEGYTVDLQVAEYLKSFGRQVLNCWSKGDIELSTPIPLFGFEKIHPHPRVQYSKPICVLINEQDFSCADFFPVVLKDNDRALIVGTRTAGAGGFVFNVQFPNRTGIKTCSLTGSLAVREHGAFIENIGVEPHIDLPFTANDIRYKGYSEYLDKVKKLVCQLINNDGTIILAEDGSFHHHHHH"</span>
+<span class="pl-k">...</span>.
 
-<span class="c">defline &lt;- cpafx$xmlValue("//TSeq_defline")</span>
-<span class="c">defline</span>
+<span class="pl-vo">defline</span> <span class="pl-k">&lt;-</span> <span class="pl-vo">cpafx</span><span class="pl-k">$</span>xmlValue(<span class="pl-s1"><span class="pl-pds">"</span>//TSeq_defline<span class="pl-pds">"</span></span>)
+<span class="pl-vo">defline</span>
 
-<span class="c"> ##   [1] "general secretion pathway protein E [Chlamydia trachomatis L2c]"</span>
-<span class="c"> ##   [2] "Chain B, Crystal Structure Of Cpaf S499a Mutant"                </span>
-<span class="c"> ##   [3] "Chain A, Crystal Structure Of Cpaf S499a Mutant"                </span>
-<span class="c"> ##   [4] "Chain B, Structure Of Mature Cpaf Complexed With Lactacystin"   </span>
-<span class="c"> ##   [5] "Chain A, Structure Of Mature Cpaf Complexed With Lactacystin"   </span>
-<span class="c"> ##   [6] "Chain B, Crystal Structure Of Mature Cpaf"                      </span>
-<span class="c">....</span>
-</pre></div>
+ <span class="pl-c">##   [1] "general secretion pathway protein E [Chlamydia trachomatis L2c]"</span>
+ <span class="pl-c">##   [2] "Chain B, Crystal Structure Of Cpaf S499a Mutant"                </span>
+ <span class="pl-c">##   [3] "Chain A, Crystal Structure Of Cpaf S499a Mutant"                </span>
+ <span class="pl-c">##   [4] "Chain B, Structure Of Mature Cpaf Complexed With Lactacystin"   </span>
+ <span class="pl-c">##   [5] "Chain A, Structure Of Mature Cpaf Complexed With Lactacystin"   </span>
+ <span class="pl-c">##   [6] "Chain B, Crystal Structure Of Mature Cpaf"                      </span>
+<span class="pl-k">...</span>.</pre></div>
 
 <h3>
-<a name="einfo-information-about-the-entrez-databases" class="anchor" href="#einfo-information-about-the-entrez-databases"><span class="octicon octicon-link"></span></a><code>einfo</code>: Information about the Entrez databases</h3>
+<a id="einfo-information-about-the-entrez-databases" class="anchor" href="#einfo-information-about-the-entrez-databases" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+<code>einfo</code>: Information about the Entrez databases</h3>
 
 <p>You can use <code>einfo</code> to obtain a list of all database names accessible through the Entrez utilities:</p>
 
-<div class="highlight highlight-r"><pre><span class="c">einfo()</span>
+<div class="highlight highlight-r"><pre>einfo()
 
-<span class="c"> ##  Object of class 'einfo' </span>
-<span class="c"> ##  List of Entrez databases</span>
-<span class="c"> ##   [1] "pubmed"          "protein"         "nuccore"        </span>
-<span class="c"> ##   [4] "nucleotide"      "nucgss"          "nucest"         </span>
-<span class="c"> ##   [7] "structure"       "genome"          "assembly"       </span>
-<span class="c"> ##  [10] "genomeprj"       "bioproject"      "biosample"      </span>
-<span class="c">....</span>
-</pre></div>
+ <span class="pl-c">##  Object of class 'einfo' </span>
+ <span class="pl-c">##  List of Entrez databases</span>
+ <span class="pl-c">##   [1] "pubmed"          "protein"         "nuccore"        </span>
+ <span class="pl-c">##   [4] "nucleotide"      "nucgss"          "nucest"         </span>
+ <span class="pl-c">##   [7] "structure"       "genome"          "assembly"       </span>
+ <span class="pl-c">##  [10] "genomeprj"       "bioproject"      "biosample"      </span>
+<span class="pl-k">...</span>.</pre></div>
 
 <p>For each of these databases, we can use <code>einfo</code> again to obtain more information:</p>
 
-<div class="highlight highlight-r"><pre><span class="c">einfo("taxonomy")</span>
+<div class="highlight highlight-r"><pre>einfo(<span class="pl-s1"><span class="pl-pds">"</span>taxonomy<span class="pl-pds">"</span></span>)
 
-<span class="c"> ##  Object of class 'einfo' </span>
-<span class="c"> ##  Overview over the Entrez database 'Taxonomy'.</span>
-<span class="c"> ##    dbName: taxonomy</span>
-<span class="c"> ##    MenuName: Taxonomy</span>
-<span class="c"> ##    Description: Taxonomy db</span>
-<span class="c"> ##    DbBuild: Build130918-1325.1</span>
-<span class="c"> ##    Count: 1159149</span>
-<span class="c"> ##    LastUpdate: 2013-09-18 16:03:00</span>
-<span class="c"> ##    Fields: Name; FullName; Description; TermCount; IsDate; IsNumerical; S...</span>
-<span class="c"> ##    Links: Name; Menu; Description; DbTo</span>
-<span class="c">....</span>
-</pre></div>
-        </section>
-
-        <aside id="sidebar">
-          <a href="https://github.com/gschofl/reutils/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/gschofl/reutils/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/gschofl/reutils"></a> is maintained by <a href="https://github.com/gschofl">gschofl</a>.</p>
-
-          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
+ <span class="pl-c">##  Object of class 'einfo' </span>
+ <span class="pl-c">##  Overview over the Entrez database 'Taxonomy'.</span>
+ <span class="pl-c">##    dbName: taxonomy</span>
+ <span class="pl-c">##    MenuName: Taxonomy</span>
+ <span class="pl-c">##    Description: Taxonomy db</span>
+ <span class="pl-c">##    DbBuild: Build131129-0120.1</span>
+ <span class="pl-c">##    Count: 1185009</span>
+ <span class="pl-c">##    LastUpdate: 2013-11-29 03:49:00</span>
+ <span class="pl-c">##    Fields: Name; FullName; Description; TermCount; IsDate; IsNumerical; S...</span>
+ <span class="pl-c">##    Links: Name; Menu; Description; DbTo</span>
+<span class="pl-k">...</span>.</pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/gschofl">gschofl</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
     </div>
-
-  
+    <script src="javascripts/scale.fix.js"></script>
+    
   </body>
 </html>
