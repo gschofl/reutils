@@ -5,7 +5,7 @@ reutils 0.1.2.9000
 * New parameters 'sort' and 'retmode' in `esearch()`.
 * New parameter 'retmode' in `esummary()`.
 * Support for JSON as alternative output format for EInfo, ESearch and ESummary.
-* `esearch()` correctly returns count if `rettype = "count"`.
+* `esearch()` now correctly returns count if `rettype = "count"`.
 
 reutils 0.1.2
 =============

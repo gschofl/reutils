@@ -217,11 +217,11 @@ set_rettype <- function(db, rt = NULL) {
          popset     = rt %&&% match.arg(rt, c("fasta", "acc", "seqid", "native", "gb", "gbc",
                                               "docsum", "uilist")),
          protein    = rt %&&% match.arg(rt, c("fasta", "acc", "seqid", "native", "gp", "gpc",
-                                              "ft", "docsum", "uilist")),
+                                              "ipg", "ft", "docsum", "uilist")),
          pmc        = rt %&&% match.arg(rt, c("medline", "docsum", "uilist")),
          pubmed     = rt %&&% match.arg(rt, c("medline", "uilist", "abstract", "docsum")),
          sequences  = rt  %&&% match.arg(rt, c("acc", "fasta", "seqid", "uilist", "docsum")),
-         snp        = rt %&&% match.arg(rt, c("flt", "fasta", "rsr", "ssexemplar", "chr", "genxml",
+         snp        = rt %&&% match.arg(rt, c("flt", "fasta", "rsr", "ssexemplar", "chr",
                                               "docset", "uilist", "docsum")),
          sra        = match.arg(rt, c("full", "uilist", "docsum")),
          taxonomy   = rt %&&% match.arg(rt, c("uilist", "docsum")),
@@ -309,6 +309,7 @@ set_retmode <- function(db, rt, rm = NULL) {
                           seqid = match.arg(rm, c("text")),
                           gp = match.arg(rm, c("text", "xml")),
                           gpc = match.arg(rm, c("xml")),
+                          ipg = match.arg(rm, c("xml")),
                           ft = match.arg(rm, c("text"))
                           
          ),
@@ -345,7 +346,6 @@ set_retmode <- function(db, rt, rm = NULL) {
                       rsr = match.arg(rm, c("text")),
                       ssexemplar = match.arg(rm, c("text")),
                       chr = match.arg(rm, c("text")),
-                      genxml = match.arg(rm, c("xml")),
                       docset = match.arg(rm, c("text")),
                       uilist = match.arg(rm, c("xml", "text"))  
          ),
