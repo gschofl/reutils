@@ -4,15 +4,15 @@
 \alias{efetch}
 \title{efetch - downloading full records}
 \usage{
-efetch(uid, db = NULL, rettype = NULL, retmode = NULL, retstart = NULL,
-  retmax = NULL, querykey = NULL, webenv = NULL, strand = NULL,
-  seqstart = NULL, seqstop = NULL, complexity = NULL)
+efetch(uid, db = NULL, rettype = NULL, retmode = NULL, outfile = NULL,
+  retstart = NULL, retmax = NULL, querykey = NULL, webenv = NULL,
+  strand = NULL, seqstart = NULL, seqstop = NULL, complexity = NULL)
 }
 \arguments{
 \item{uid}{(Required) A list of UIDs provided either as a character vector, as an
-\code{esearch} object, or by reference to a web environment
+\code{esearch} object, or by reference to a Web Environment
 and a query key obtained directly from previous calls to \code{\link{esearch}}
-(if \code{usehistory=TRUE}), \code{\link{epost}} or \code{\link{elink}}.
+(if \code{usehistory = TRUE}), \code{\link{epost}} or \code{\link{elink}}.
 If UIDs are provided as a plain character vector, \code{db} must be
 specified explicitly, and all of the UIDs must be from the database
 specified by \code{db}.}
@@ -31,6 +31,12 @@ for the available values for each database.}
 such as 'text' or 'xml'. See
 \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly}{here}
 for the available values for each database.}
+
+\item{outfile}{A character string naming a file for writing the data to.
+Required if more than 500 UIDs are retrieved at once. In this case UIDs
+have to be provided by reference to a Web Environment and a query key
+obtained directly from previous calls to \code{\link{esearch}}
+(if \code{usehistory = TRUE}), \code{\link{epost}} or \code{\link{elink}}.}
 
 \item{retstart}{Numeric index of the first record to be retrieved.}
 
@@ -73,6 +79,13 @@ See
 for the default values for \code{rettype} and \code{retmode}, as well as a list of the available
 databases for the  EFetch utility.
 }
+\note{
+If you are going to retrieve more than 500 UIDs at once, you will have to provide
+the UIDs by reference to a Web Environment and a query key obtained from previous
+calls to \code{\link{esearch}} (if \code{usehistory = TRUE}), \code{\link{epost}}
+or \code{\link{elink}} \strong{and} you will have to specify an \code{outfile} to
+write the data to, rather than collecting the data into an R object.
+}
 \examples{
 \dontrun{
 ## From Protein, retrieve a raw GenPept record and write it to a file.
@@ -111,6 +124,13 @@ tx["//LineageEx/Taxon/TaxId"]
 
 ## Use an XPath expession to extract the scientific name.
 tx$xmlValue("/TaxaSet/Taxon/ScientificName")
+
+## Iteratively retrieve a large number of records
+# First store approx. 8400 UIDs on the History server.
+uid <- esearch(term = "hexokinase", db = 'protein', usehistory = TRUE)
+# Fetch the records and write to file in batches of 500.
+efetch(uid, rettype = "fasta", retmode = "text", outfile = "~/tmp/hexokinases.fna")
+
 }
 }
 \seealso{

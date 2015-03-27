@@ -110,7 +110,7 @@ eutil <- setRefClass(
                   " this message go away.", call. = FALSE, immediate. = FALSE)
         }
         .params <- list(...)
-        .params <- compact(Reduce(merge_list, list(.params, params,  list(email = .email, tool = "reutils"))))
+        .params <- compact(Reduce(merge_list, list(.params, params, list(email = .email, tool = "reutils"))))
         .self$params <- .params
         
         opts <- list()
@@ -120,14 +120,17 @@ eutil <- setRefClass(
         opts$writefunction <- tg$update
         
         if (method == "POST") {
-          e <- tryCatch(RCurl::postForm(query_url("POST"), .params = .self$params, .opts = opts),
-                        error = function(e) e$message)
+          e <- tryCatch({
+            RCurl::postForm(query_url("POST"), .params = .self$params,
+                            .opts = opts, style = "POST")
+          }, error = function(e) e$message)
         } else if (method == "GET") {
           if (verbose) {
             cat(ellipsize(query_url("GET")), "\n")
           }
-          e <- tryCatch(RCurl::getURLContent(query_url("GET"), .opts = opts),
-                        error = function(e) e$message)
+          e <- tryCatch({
+            RCurl::getURLContent(query_url("GET"), .opts = opts)
+          }, error = function(e) e$message)
         }
         .self$content <- as.character(tg$value())
         if (is.null(e) || !nzchar(e)) {

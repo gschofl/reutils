@@ -3,17 +3,10 @@
 
 context("Testing 'efetch()'")
 
-
-ncbi_retrieval_type('pubmed')
-
-ncbi_retrieval_type('pubmed', rettype = "", retmode = 'xml')
-set_rettype('pubmed')
-set_retmode('pubmed', rt = '', rm = 'xml')
-
 if (getOption('reutils.test.remote')) {
   
   test_that("Fetch PMIDs 17284678 and 9997 as text abstracts", {
-    a <- efetch(c(17284678, 9997), 'pubmed', 'abstract')
+    a <- efetch(uid = c(17284678, 9997), db = 'pubmed', rettype = 'abstract')
     expect_equal(retmode(a), "text")
     expect_equal(rettype(a), "abstract")
     ## Content

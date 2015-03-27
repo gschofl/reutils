@@ -79,6 +79,7 @@ parse_epost <- function(object) {
 #' p
 epost <- function(uid, db = NULL, webenv = NULL) {
   params <- parse_params(uid, db)
+  #.params <- list(id = .collapse(params$uid), db = params$db, WebEnv = webenv, retmode = 'xml')
   .epost(method = if (length(params$uid) < 100) "GET" else "POST",
         id = .collapse(params$uid), db = params$db, WebEnv = webenv,
         retmode = 'xml')
