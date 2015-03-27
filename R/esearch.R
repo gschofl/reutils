@@ -37,34 +37,42 @@ parse_esearch <- function(object) {
 
 esearch_parse_xml <- function(object) {
   x <- object$get_content("xml")
-  structure(
-    xvalue(x, '/eSearchResult/IdList/Id'),
-    ## Attributes
-    retmax   = xvalue(x, '/eSearchResult/RetMax', as = 'numeric'),
-    retstart = xvalue(x, '/eSearchResult/RetStart', as = 'numeric'),
-    count    = xvalue(x, '/eSearchResult/Count', as = 'numeric'),
-    query_translation = xvalue(x, '/eSearchResult/QueryTranslation'),
-    querykey = xvalue(x, '/eSearchResult/QueryKey', as = 'numeric'),
-    webenv   = xvalue(x, '/eSearchResult/WebEnv'),
-    database = object$database(),
-    class = c("entrez_uid", "character")
-  )
+  if (object$rettype() == "count") {
+    xvalue(x, '/eSearchResult/Count', as = 'numeric')
+  } else {
+    structure(
+      xvalue(x, '/eSearchResult/IdList/Id'),
+      ## Attributes
+      retmax   = xvalue(x, '/eSearchResult/RetMax', as = 'numeric'),
+      retstart = xvalue(x, '/eSearchResult/RetStart', as = 'numeric'),
+      count    = xvalue(x, '/eSearchResult/Count', as = 'numeric'),
+      query_translation = xvalue(x, '/eSearchResult/QueryTranslation'),
+      querykey = xvalue(x, '/eSearchResult/QueryKey', as = 'numeric'),
+      webenv   = xvalue(x, '/eSearchResult/WebEnv'),
+      database = object$database(),
+      class = c("entrez_uid", "character")
+    )
+  }
 }
 
 esearch_parse_json <- function(object) {
   rs <- jsonlite::fromJSON(object$get_content("json"))[["esearchresult"]]
-  structure(
-    rs$idlist %|empty|% NA_character_,
-    ## Attributes
-    retmax   = as.numeric(rs$retmax),
-    retstart = as.numeric(rs$retstart),
-    count    = as.numeric(rs$count),
-    query_translation = rs$querytranslation,
-    querykey = as.numeric(rs$querykey) %|empty|% NA_real_,
-    webenv   = rs$webenv %|empty|% NA_character_,
-    database = object$database(),
-    class = c("entrez_uid", "character")
-  )
+  if (object$rettype() == "count") {
+    as.numeric(rs$count)
+  } else {
+    structure(
+      rs$idlist %|empty|% NA_character_,
+      ## Attributes
+      retmax   = as.numeric(rs$retmax),
+      retstart = as.numeric(rs$retstart),
+      count    = as.numeric(rs$count),
+      query_translation = rs$querytranslation,
+      querykey = as.numeric(rs$querykey) %|empty|% NA_real_,
+      webenv   = rs$webenv %|empty|% NA_character_,
+      database = object$database(),
+      class = c("entrez_uid", "character")
+    )
+  }
 }
 
 #' Class \code{"entrez_uid"}

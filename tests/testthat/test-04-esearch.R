@@ -77,6 +77,19 @@ if (getOption('reutils.test.remote')) {
     expect_match(retmode(a), "json")
     expect_match(retmode(b), "json")
   })
+  
+  ## rettype = 'count'
+  a <- esearch(term = "cancer", db = "pubmed", reldate = 60, datetype = "edat",
+               rettype = "count", retmode = 'xml')
+  b <- esearch(term = "cancer", db = "pubmed", reldate = 60, datetype = "edat",
+               rettype = "count", retmode = 'json')
+  
+  test_that("'content()' returns a numeric vector", {
+    expect_that(content(a, "parsed"), is_a("numeric"))
+    expect_that(content(b, "parsed"), is_a("numeric"))
+    expect_that(content(a, "xml"), is_a("XMLInternalDocument"))
+    expect_that(content(b, "json"), is_a("json"))
+  })
 }
 
 

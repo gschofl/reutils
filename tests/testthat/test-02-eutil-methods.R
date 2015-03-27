@@ -9,8 +9,8 @@ test_that("The methods we want to test are all present in an eutil class", {
 ## if not on CRAN go to NCBI, if on CRAN use locally stored instance.
 if (getOption('reutils.test.remote')) {
   a <- .esearch('GET', db = 'pubmed', term = 'Chlamydia psittaci', retstart = 6, 
-                retmax = 2, retmode = 'xml')
-   
+                retmax = 2, rettype = "uilist", retmode = 'xml')
+  
   test_that("#database works", {
     expect_equal(a$database(), "pubmed")
   })
