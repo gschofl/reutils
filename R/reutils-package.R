@@ -6,7 +6,7 @@
 #' (\href{http://www.ncbi.nlm.nih.gov/books/NBK25501/}{EUtils}).
 #' 
 #' Please check the relevant
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25497/\#chapter2.Usage_Guidelines_and_Requiremen}{usage guidelines}
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25497//#chapter2.Usage_Guidelines_and_Requiremen}{usage guidelines}
 #' when using these services. Note that Entrez server requests are subject to
 #' frequency limits.
 #' 
@@ -80,7 +80,7 @@
 #' }
 #'   
 #' @example inst/examples/reutils.R
-#' @author Gerhard Schöfl \email{gschofl@@yahoo.de}
+#' @author Gerhard Schöfl \email{gerhard.schofl@@gmail.com}
 #' @docType package
 #' @name reutils
 #' @aliases reutils reutils-package

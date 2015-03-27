@@ -167,7 +167,7 @@ print.entrez_linkset <- function(x, ...) {
 #' @title elink - finding related data through Entrez links
 #' @details
 #' See the official online documentation for NCBI's
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.ELink}{EUtilities}
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499//#chapter4.ELink}{EUtilities}
 #' for additional information.
 #' 
 #' If \code{dbTo} and \code{dbFrom} are set to the same database, ELink will

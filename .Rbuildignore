@@ -4,3 +4,4 @@ scratch.r
 cache/
 Readme.*
 ^\.travis\.yml$
+^cran-comments\.md$

@@ -52,7 +52,7 @@ user's web environment (using the Entrez History server).
 }
 \details{
 See the official online documentation for NCBI's
-\href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.ESummary}{EUtilities}
+\href{http://www.ncbi.nlm.nih.gov/books/NBK25499//#chapter4.ESummary}{EUtilities}
 for additional information.
 }
 \examples{

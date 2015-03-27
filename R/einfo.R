@@ -84,7 +84,7 @@ extract_df <- function(x, path) {
 #' 
 #' @details
 #' See the official online documentation for NCBI's
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.EInfo}{EUtilities}
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499//#chapter4.EInfo}{EUtilities}
 #' for additional information.
 #' 
 #' @title einfo - getting database statistics and search fields

@@ -1,4 +1,6 @@
 #' @include eutil-error.R
+#' @importFrom RCurl basicHeaderGatherer basicTextGatherer curlEscape postForm
+#'   getURLContent
 NULL
 
 #' Class \code{"eutil"}: Reference classes that hold the response from EUtils
