@@ -388,7 +388,7 @@ setMethod("retmode", "eutil", function(x, ...) x$retmode())
 #' rettype
 #' 
 #' Get the \dQuote{retrieval type} of an \code{\linkS4class{eutil}} object. See 
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.chapter4_table1/?report = objectonly}{here}
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly}{here}
 #' for the available retrieval types for different NCBI databases.
 #' 
 #' @param x An \code{\linkS4class{eutil}} object.

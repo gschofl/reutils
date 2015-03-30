@@ -60,6 +60,11 @@ trim <- function(x, trim = "\\s+") {
   gsub(paste0("^", trim, "|", trim, "$"), "", x)
 }
 
+count_char <- function(char, s) {
+  s2 <- gsub(char, "", s)
+  nchar(s) - nchar(s2)
+}
+
 #' Extract the content of XML leaf nodes
 #' 
 #' @param doc An object of class \code{XMLInternalDocument}.

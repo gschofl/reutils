@@ -33,7 +33,7 @@ parse_epost <- function(object) {
       ## Attributes
       retmax   = NA_integer_,
       retstart = NA_integer_,
-      count    = NA_integer_,
+      count    = count_char(",", object$params$id) + 1,
       query_translation = NA_character_,
       querykey = xvalue(x, '/ePostResult/QueryKey', as = 'numeric'),
       webenv   = xvalue(x, '/ePostResult/WebEnv'),
@@ -79,10 +79,9 @@ parse_epost <- function(object) {
 #' p
 epost <- function(uid, db = NULL, webenv = NULL) {
   params <- parse_params(uid, db)
-  #.params <- list(id = .collapse(params$uid), db = params$db, WebEnv = webenv, retmode = 'xml')
-  .epost(method = if (length(params$uid) < 100) "GET" else "POST",
-        id = .collapse(params$uid), db = params$db, WebEnv = webenv,
-        retmode = 'xml')
+ .epost(method = if (length(params$uid) < 100) "GET" else "POST",
+               id = .collapse(params$uid), db = params$db, WebEnv = webenv,
+               retmode = 'xml')
 }
 
 #' @describeIn content
