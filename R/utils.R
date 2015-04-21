@@ -55,11 +55,6 @@ compactNA <- function(x) {
   x[!vapply(x, function(x) all(is.na(x)), FALSE, USE.NAMES = FALSE)]
 }
 
-trim <- function(x, trim = "\\s+") {
-  assertthat::assert_that(is.vector(x))
-  gsub(paste0("^", trim, "|", trim, "$"), "", x)
-}
-
 #' Extract the content of XML leaf nodes
 #' 
 #' @param doc An object of class \code{XMLInternalDocument}.

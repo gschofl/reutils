@@ -45,7 +45,7 @@ docsum_parser <- function(version) {
            for (i in seq_along(items)) {
              isize <- unname(XML::xmlSApply(items[[i]], XML::xmlSize))
              if (length(isize) == 0L || all(isize == 0L)) {
-               value[[i]] <- trim(XML::xmlValue(items[[i]])) %|char|% NA
+               value[[i]] <- trimws(XML::xmlValue(items[[i]])) %|char|% NA
              } else {
                value[[i]] <- Recall(items[[i]])
              }
@@ -59,7 +59,7 @@ docsum_parser <- function(version) {
            for (i in seq_along(items)) {
              isize <- unname(XML::xmlSApply(items[[i]], XML::xmlSize))
              if (length(isize) == 0L || all(isize == 0L)) {
-               value[[i]] <- trim(XML::xmlValue(items[[i]])) %|char|% NA
+               value[[i]] <- trimws(XML::xmlValue(items[[i]])) %|char|% NA
              } else {
                value[[i]] <- Recall(items[[i]])
              }
