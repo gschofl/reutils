@@ -55,6 +55,11 @@ compactNA <- function(x) {
   x[!vapply(x, function(x) all(is.na(x)), FALSE, USE.NAMES = FALSE)]
 }
 
+count_char <- function(char, s) {
+  s2 <- gsub(char, "", s)
+  nchar(s) - nchar(s2)
+}
+
 #' Extract the content of XML leaf nodes
 #' 
 #' @param doc An object of class \code{XMLInternalDocument}.
