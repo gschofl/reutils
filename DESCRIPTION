@@ -1,20 +1,20 @@
 Package: reutils
 Type: Package
 Title: Talk to the NCBI EUtils
-Version: 0.2.0
-Date: 2015-03-27
-Author: Gerhard Schöfl <gschofl@yahoo.de>
-Maintainer: Gerhard Schöfl <gschofl@yahoo.de>
+Version: 0.2.1
+Date: 2015-08-27
+Author: Gerhard Schöfl <gerhard.schofl@gmail.com>
+Maintainer: Gerhard Schöfl <gerhard.schofl@gmail.com>
 Description: An interface to NCBI databases such as PubMed, GenBank, or GEO
     powered by the Entrez Programming Utilities (EUtils). The nine EUtils
     provide programmatic access to the NCBI Entrez query and database
     system for searching and retrieving biological data.
 Depends:
-    R (>= 3.2.0),
-    methods
+    R (>= 3.2.0)
 Imports:
     assertthat,
     jsonlite,
+    methods,
     RCurl,
     XML
 Suggests:

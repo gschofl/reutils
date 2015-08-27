@@ -30,18 +30,26 @@ See the official online documentation for NCBI's
 for additional information.
 }
 \examples{
+\dontrun{
 ## Fetch a list of all current Entrez database names
 einfo()
 
 ## Fetch statistics for an Entrez database and parse
 ## the data into a data.frame
 x <- einfo("gene")
-content(x, "parsed")
+if (x$no_errors()) {
+  content(x, "parsed")
+}
+
+
 
 ## Fetch statistics for an Entrez database in JSON format
 ## and parse the data into a list
 x <- einfo("pubmed", retmode = "json")
-content(x, "parsed")
+if (x$no_errors()) {
+  content(x, "parsed")
+}
+}
 }
 \seealso{
 \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}}.

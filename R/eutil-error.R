@@ -61,10 +61,12 @@ eutil_error <- setRefClass(
     show = function() {
       if (all_empty()) {
         cat("No errors", sep = "\n")
+        invisible(.self)
       } else {
         error  %&&% methods::show(error)
         errmsg %&&% methods::show(errmsg)
         wrnmsg %&&% methods::show(wrnmsg)
+        invisible(.self)
       }
     }
   )

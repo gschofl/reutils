@@ -45,7 +45,7 @@ can be passed on directly to `epost`, `esummary`, `elink`, or `efetch`.
 
 `efetch`: retrieve data records from NCBI in a specified retrieval type
 and retrieval mode as given in this
-[table](http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.chapter4_table1). Data are returned as XML or text documents.
+[table](http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly). Data are returned as XML or text documents.
 
 #### `esummary` ####
 

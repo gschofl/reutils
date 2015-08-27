@@ -59,7 +59,10 @@ setMethod("content", "ecitmatch", function(x, as = "text") {
 #'                 "science|1987|235|182|palmenber ac|Art2|")
 #' x <- ecitmatch(citstrings)
 #' x
-#' content(x, "parsed")
+#' if (x$no_errors()) {
+#'   content(x, "parsed")
+#' }
+#' 
 ecitmatch <- function(bdata, db = "pubmed", retmode = "xml") {
   if (missing(bdata)) {
     stop("No citation string provided", call. = FALSE)

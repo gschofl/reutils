@@ -1,6 +1,7 @@
-reutils 0.2.0
+reutils 0.2.1
 =============
 
+* Updated URLs in documentation (#4).
 * New parameters 'version' and 'retmode' in `einfo()`.
 * New parameters 'sort' and 'retmode' in `esearch()`.
 * New parameter 'retmode' in `esummary()`.
