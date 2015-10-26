@@ -132,6 +132,7 @@ ellipsize <- function(obj, offset = 0, width = getOption("width"), ellipsis = ".
 #' start the flattening. \code{1} means to start at the very top.
 #' @return A function that can be used to flatten a nested list
 #' @keywords internal
+#' @importFrom stats setNames
 #' @export
 make_flattener <- function(flatten.at = 1) {
   level <- 1

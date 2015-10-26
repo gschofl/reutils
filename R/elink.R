@@ -31,14 +31,16 @@ parse_linkset <- function(object) {
   LinkSetDb <- xset(x, "/eLinkResult/LinkSet/LinkSetDb")
   if (length(LinkSetDb) < 1L) {
     lset <- list(
-      structure(NA_character_, score = NA_integer_, database = NA_character_,
-                linkName = NA_character_, class = c("entrez_link", "character"))
+      structure(NA_character_, score = NA_integer_,
+                database = object$params[["db"]],
+                linkName = paste0(DbFrom, "_", object$params[["db"]]),
+                class = c("entrez_link", "character"))
       )
   } else {
     lset <- lapply(LinkSetDb, function(lsd) {
       lsd <- XML::xmlDoc(lsd)
       uid <- xvalue(lsd, "/LinkSetDb/Link/Id")
-      score <- xvalue(lsd, "/LinkSetDb/Link/Score", as="integer")
+      score <- xvalue(lsd, "/LinkSetDb/Link/Score", as = "integer")
       dbTo <- xvalue(lsd, "/LinkSetDb/DbTo") %|char|% NA_character_
       linkName <- xvalue(lsd, "/LinkSetDb/LinkName") %|char|% NA_character_
       XML::free(lsd)
@@ -48,14 +50,15 @@ parse_linkset <- function(object) {
     lset <- compactNA(lset)
   }
 
-  lnm <- vapply(lset, attr, "linkName", FUN.VALUE="")
-  structure(
+  lnm <- vapply(lset, attr, "linkName", FUN.VALUE = "")
+  x <- structure(
     lset,
     names = lnm,
     database = DbFrom,
     uid = IdList,
     class = c("entrez_linkset", "list")
   )
+  x
 }
 
 #' Class \code{"entrez_linkset"}
@@ -86,7 +89,7 @@ setOldClass("entrez_linkset")
 print.entrez_link <- function(x, ...) {
   db <- strsplit(attr(x, "linkName"), "_")[[1]]
   dbFrom <- db[1]
-  dbTo <- paste0(db[-1], collapse="_")
+  dbTo <- paste0(db[-1], collapse = "_")
   cat(sprintf("List of linked UIDs from database %s to %s.\n", sQuote(dbFrom), sQuote(dbTo)))
   print(format(x))
   invisible()
@@ -148,16 +151,20 @@ setMethod("linkset", "entrez_linkset", function(x, linkname = NULL, ...) {
 #' @export
 print.entrez_linkset <- function(x, ...) {
   db <- database(x)
-  dbTo <- vapply(x, attr, 'database', FUN.VALUE="")
+  dbTo <- vapply(x, attr, 'database', FUN.VALUE = "")
   cat(sprintf("ELink query from database %s to destination database %s.\n",
               sQuote(db), sQuote(unique(dbTo))))
   cat("Query UIDs:\n")
   print(format(uid(x)))
   cat("Summary of LinkSet:\n")
-  lnames <- vapply(x, attr, 'linkName', FUN.VALUE='')
-  llen <- vapply(x, length, 0)
-  print(format(data.frame(DbTo=dbTo, LinkName=lnames, LinkCount=llen)))
+  lnames <- vapply(x, attr, 'linkName', FUN.VALUE = "")
+  llen <- if (all(is.na(x))) {
+    0
+  } else vapply(x, length, 0)
+  print(format(data.frame(DbTo = unname(dbTo), LinkName = unname(lnames),
+                          LinkCount = unname(llen))))
 }
+
 
 #' \code{elink} generates a list of UIDs in a specified Entrez database that
 #' are linked to a set of input UIDs in either the same or another
@@ -229,7 +236,7 @@ print.entrez_linkset <- function(x, ...) {
 #' \code{\link{database}}, \code{\link{uid}}, \code{\link{linkset}}, 
 #' @examples
 #' ## Find one set of Gene IDs linked to nuccore GIs 34577062 and 24475906
-#' e <- elink(c("34577062", "24475906"), dbFrom = "nuccore", dbTo = "gene")
+#' e <- elink(c("927442695", "312836839"), dbFrom = "nuccore", dbTo = "gene")
 #' e
 #' 
 #' \dontrun{
@@ -262,7 +269,7 @@ elink <- function(uid, dbFrom = NULL, dbTo = NULL, linkname = NULL,
     cmd <- "neighbor_history"
   }
   if  (correspondence && !is.null(params$uid)) {
-    uid  <- paste0(params$uid, collapse="&id=")
+    uid  <- paste0(params$uid, collapse = "&id=")
   } else {
     uid <- .collapse(params$uid)
   }
@@ -304,7 +311,7 @@ setMethod("[", c("elink", "character"), function(x, i) {
 
 #' @describeIn linkset
 setMethod("linkset", "elink", function(x, linkname = NULL, ...) {
-  linkset(x$get_content("parsed"), linkname=linkname, ...)
+  linkset(x$get_content("parsed"), linkname = linkname, ...)
 })
 
 #' @describeIn uid

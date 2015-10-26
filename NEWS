@@ -1,3 +1,7 @@
+reutils 0.2.1
+
+* Correctly print empty LinkSets (#5). 
+
 reutils 0.2.0
 =============
 
@@ -5,7 +9,7 @@ reutils 0.2.0
 * New parameters 'sort' and 'retmode' in `esearch()`.
 * New parameter 'retmode' in `esummary()`.
 * Support for JSON as alternative output format for EInfo, ESearch and ESummary.
-* Allow batch download to file for more than 500 records in `efetch()` (#2) 
+* Allow batch download to file for more than 500 records in `efetch()` (#2). 
 * Correctly return hit count in `esearch()` if `rettype = "count"` (#3).
 
 reutils 0.1.2

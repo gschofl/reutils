@@ -78,7 +78,7 @@ Available commands are:
 }
 \examples{
 ## Find one set of Gene IDs linked to nuccore GIs 34577062 and 24475906
-e <- elink(c("34577062", "24475906"), dbFrom = "nuccore", dbTo = "gene")
+e <- elink(c("927442695", "312836839"), dbFrom = "nuccore", dbTo = "gene")
 e
 
 \dontrun{
