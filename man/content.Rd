@@ -84,17 +84,21 @@ or parsed into a native R object, e.g. a \code{list} or a \code{data.frame}
 e <- einfo()
 
 ## automatically return data as an 'XMLInternalDocument'.
-content(e)
+if (e$no_errors()) {
+  content(e)
 
-## return the XML data as character string.
-cat(content(e, "text"))
+  ## return the XML data as character string.
+  cat(content(e, "text"))
 
-## return DbNames parsed into a character vector.
-content(e, "parsed")
+  ## return DbNames parsed into a character vector.
+  content(e, "parsed")
+}
 
 ## return data as a JSON object
 e2 <- einfo(db = "gene", retmode = "json")
-content(e2)
+if (e2$no_errors()) {
+  content(e2)
+}
 
 ## return a textConnection to allow linewise reading of the data.
 x <- efetch("CP000828", "nuccore", rettype = "gbwithparts", retmode = "text")

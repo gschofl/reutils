@@ -1,4 +1,4 @@
-This is a bugfix submission of reutils 0.2.1. New changes:
+This is a bugfix submission of reutils 0.2.2. New changes:
 
 - Fix broken print method for empty linksets.
 

@@ -236,24 +236,23 @@ efetch <- function(uid, db = NULL, rettype = NULL, retmode = NULL,
 #' 
 #' @param x An \code{\linkS4class{efetch}} object containing XML data.
 #' @param i An XPath expression specifying the XML nodes to extract.
+#' @param j Ignored.
 #' @return An XML node set.
-#' @rdname efetch-methods
-#' @export
+#' @rdname extract-efetch
 #' @examples
 #' \dontrun{
 #' p <- efetch("195055", "protein", "gp", "xml")
 #' p['//GBFeature[GBFeature_key="mat_peptide"]//GBQualifier_value']
 #' }
-setMethod("[", c("efetch", "character"), function(x, i) {
+setMethod("[", c(x =  "efetch", i = "character", j = "missing"), function(x, i, j) {
   if (retmode(x) != "xml") {
     stop("This document does not contain XML data", call.=FALSE)
   }
   x$xmlSet(i)  
 })
 
-#' @rdname efetch-methods
-#' @export
-setMethod("[[", c("efetch", "character"), function(x, i) {
+#' @rdname extract-efetch
+setMethod("[[", c(x = "efetch", i = "character"), function(x, i) {
   ans <- x[i]
   if (length(ans) > 1) {
     warning(length(ans), " elements in node set. Returning just the first!")

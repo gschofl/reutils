@@ -291,20 +291,19 @@ setMethod("content", "elink", function(x, as = NULL) {
 #'
 #' @param x An \code{\linkS4class{elink}} object.
 #' @param i Numeric or character indices.
+#' @param j Ignored.
 #' @return A \code{\linkS4class{entrez_linkset}} object.
-#' @rdname elink-methods
-#' @export
+#' @rdname extract-elink
 #' @examples
 #' \dontrun{
 #' e <- elink(c("34577062", "24475906"), dbFrom = "nuccore")
 #' e[1]
 #' }
-setMethod("[", c("elink", "numeric"), function(x, i) {
+setMethod("[", c(x = "elink", i = "ANY", j = "missing"), function(x, i, j) {
   linkset(x, i)
 })
 
-#' @rdname elink-methods
-#' @export
+#' @rdname extract-elink
 setMethod("[", c("elink", "character"), function(x, i) {
   linkset(x, i)
 })

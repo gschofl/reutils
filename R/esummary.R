@@ -118,7 +118,7 @@ setMethod("content", "esummary", function(x, as = NULL) {
 #' @param x An \code{\linkS4class{esummary}} object.
 #' @param i An XPath expression.
 #' @return An XML node set.
-#' @rdname esummary-methods
+#' @rdname sub-esummary
 #' @export
 #' @examples
 #' \dontrun{
@@ -132,7 +132,7 @@ setMethod("[", c("esummary", "character"), function(x, i) {
   x$xmlSet(i)  
 })
 
-#' @rdname esummary-methods
+#' @rdname sub-esummary
 #' @export
 setMethod("[[", c("esummary", "character"), function(x, i) {
   ans <- x[i]

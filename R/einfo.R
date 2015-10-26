@@ -98,19 +98,26 @@ extract_df <- function(x, path) {
 #' \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}}.
 #' @export
 #' @examples
+#' \dontrun{
 #' ## Fetch a list of all current Entrez database names
 #' einfo()
 #' 
 #' ## Fetch statistics for an Entrez database and parse
 #' ## the data into a data.frame
 #' x <- einfo("gene")
-#' content(x, "parsed")
+#' if (x$no_errors()) {
+#'   content(x, "parsed")
+#' }
+#' 
+#' 
 #' 
 #' ## Fetch statistics for an Entrez database in JSON format
 #' ## and parse the data into a list
 #' x <- einfo("pubmed", retmode = "json")
-#' content(x, "parsed")
-#' 
+#' if (x$no_errors()) {
+#'   content(x, "parsed")
+#' }
+#' }
 einfo <- function(db = NULL, version = "2.0", retmode = "xml") {
   retmode <- match.arg(retmode, c("xml", "json"))
   assertthat::assert_that(is.null(db) || assertthat::is.string(db))
@@ -134,10 +141,10 @@ setMethod("content", "einfo", function(x, as = NULL) {
 #' 
 #' @param x An \code{\linkS4class{einfo}} object.
 #' @param i Numeric or character indices specifying the elements to extract.
+#' @param j Ignored.
 #' @return A list.
 #' @seealso \code{\link[base]{Extract}}
-#' @rdname einfo-methods
-#' @export
+#' @rdname extract-einfo
 #' @examples
 #' \dontrun{
 #' e <- einfo("pubmed")
@@ -149,12 +156,11 @@ setMethod("content", "einfo", function(x, as = NULL) {
 #' e2[["header"]]
 #' e2[["einforesult"]][["dbinfo"]][["description"]]
 #' }
-setMethod("[", "einfo", function(x, i) {
+setMethod("[", c(x = "einfo", i = "ANY", j = "missing"), function(x, i, j) {
   content(x, as = "parsed")[i]
 })
 
-#' @rdname einfo-methods
-#' @export
+#' @rdname extract-einfo
 setMethod("[[", "einfo", function(x, i) {
   content(x, as = "parsed")[[i]]
 })

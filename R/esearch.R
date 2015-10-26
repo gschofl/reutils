@@ -255,9 +255,9 @@ setMethod("content", "esearch", function(x, as = NULL) {
 #'
 #' @param x An \code{\linkS4class{esearch}} object.
 #' @param i Numeric indices.
+#' @param j Ignored.
 #' @return A \code{\linkS4class{entrez_uid}} object.
-#' @rdname esearch-methods
-#' @export
+#' @rdname extract-esearch
 #' @examples
 #' \dontrun{
 #' e <- esearch("Mus musculus", "protein", retmax = 20)
@@ -265,7 +265,7 @@ setMethod("content", "esearch", function(x, as = NULL) {
 #' ## pass the subset directly on to esummary or efetch
 #' content(esummary(e[1:5]), "parsed")
 #' }
-setMethod("[", c("esearch", "numeric"), function(x, i) {
+setMethod("[", c(x = "esearch", i = "numeric", j = "missing"), function(x, i, j) {
   res <- content(x, "parsed")
   out <- res[i]
   attributes(out) <- attributes(res)  

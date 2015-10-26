@@ -79,6 +79,8 @@
 #'    \code{\linkS4class{eutil}} object returned by any of the above functions.
 #' }
 #'   
+#' @importFrom methods callNextMethod is new
+#' @importFrom stats setNames
 #' @example inst/examples/reutils.R
 #' @author Gerhard Schöfl \email{gerhard.schofl@@gmail.com}
 #' @docType package
