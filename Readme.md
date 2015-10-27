@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/gschofl/reutils.png?branch=master)](https://travis-ci.org/gschofl/reutils)
 
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/reutils)](http://cran.r-project.org/package=reutils)
+
 `reutils` is an R package for interfacing with NCBI databases such as PubMed,
 Genbank, or GEO via the Entrez Programming Utilities
 ([EUtils](http://www.ncbi.nlm.nih.gov/books/NBK25501/)). It provides access to the
