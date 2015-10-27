@@ -55,7 +55,7 @@ parse_epost <- function(object) {
 #' 
 #' @details
 #' See the official online documentation for NCBI's
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499//#chapter4.EPost}{EUtilities}
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.EPost}{EUtilities}
 #' for additional information.
 #' 
 #' @title epost - uploading UIDs to Entrez
@@ -84,13 +84,13 @@ epost <- function(uid, db = NULL, webenv = NULL) {
                retmode = 'xml')
 }
 
-#' @describeIn content
+#' @describeIn content Access the data content from an \code{epost} request.
 setMethod("content", "epost", function(x, as = NULL) {
   callNextMethod(x = x, as = as)
 })
 
-#' @describeIn webenv
+#' @describeIn webenv Retrieve the webenv string from an \code{epost} object.
 setMethod("webenv", "epost", function(x, ...) webenv(x$get_content("parsed")))
 
-#' @describeIn querykey
+#' @describeIn querykey Retrieve the querykey from an \code{epost} object.
 setMethod("querykey", "epost", function(x, ...) querykey(x$get_content("parsed")))

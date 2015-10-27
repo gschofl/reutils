@@ -276,7 +276,7 @@ parse_content <- function(object, ...) {
 #' close(con)
 #' }
 setGeneric("content", function(x, ...) standardGeneric("content"))
-#' @describeIn content
+#' @describeIn content Access the data content from an \code{eutil} object.
 setMethod("content", "eutil", function(x, ...) {
   as <- list(...)$as %||% match.arg(x$retmode(), c("text", "xml", "json"))
   x$get_content(as)
@@ -300,7 +300,7 @@ setMethod("content", "eutil", function(x, ...) {
 #' getError(e)
 #' }
 setGeneric("getError", function(x, ...) standardGeneric("getError"))
-#' @describeIn getError
+#' @describeIn getError a http or XML parsing error from an \code{eutil} object.
 setMethod("getError", "eutil", function(x, ...) {
   x$get_error()
 })
@@ -323,7 +323,8 @@ setMethod("getError", "eutil", function(x, ...) {
 #' getUrl(e)
 #' }
 setGeneric("getUrl", function(x, ...) standardGeneric("getUrl"))
-#' @describeIn getUrl
+#' @describeIn getUrl etrieve the URL used to perform an Entrez E-Utilities
+#' query from an \code{eutil} object.
 setMethod("getUrl", "eutil", function(x, ...) {
   x$get_url()
 })
@@ -337,7 +338,8 @@ setMethod("getUrl", "eutil", function(x, ...) {
 #' @export
 #' @keywords internal
 setGeneric("performQuery", function(x, method = "GET", ...) standardGeneric("performQuery"))
-#' @rdname performQuery
+#' @describeIn performQuery Perform an Entrez query using either http GET or
+#' POST requests.
 setMethod("performQuery", "eutil", function(x, method = "GET", ...) {
   method <- match.arg(method, c("GET", "POST"))
   x$perform_query(method = method, ...)
@@ -362,12 +364,13 @@ setMethod("performQuery", "eutil", function(x, method = "GET", ...) {
 #' database(e)
 #' }
 setGeneric("database", function(x, ...) standardGeneric("database"))
-#' @describeIn database
+#' @describeIn database Retrieve the target database name from an \code{eutil}
+#' object.
 setMethod("database", "eutil", function(x, ...) x$database())
 
 #' retmode
 #' 
-#' Get the \dQuote{retrieval mode} of an \code{\linkS4class{eutil}} object
+#' Get the \dQuote{retrieval mode} of an \code{\linkS4class{eutil}} object.
 #' It is usually one of \code{xml}, \code{json}, \code{text}, or \code{asn.1}. 
 #' It is set to \code{NULL} if \dQuote{retrieval mode} is not supported by an
 #' E-Utility.
@@ -386,7 +389,8 @@ setMethod("database", "eutil", function(x, ...) x$database())
 #' retmode(e)
 #' }
 setGeneric("retmode", function(x, ...) standardGeneric("retmode"))
-#' @describeIn retmode
+#' @describeIn retmode Access the \dQuote{retrieval mode} of an \code{eutil}
+#' object.
 setMethod("retmode", "eutil", function(x, ...) x$retmode())
 
 #' rettype
@@ -409,7 +413,8 @@ setMethod("retmode", "eutil", function(x, ...) x$retmode())
 #' rettype(e)
 #' }
 setGeneric("rettype", function(x, ...) standardGeneric("rettype"))
-#' @describeIn rettype
+#' @describeIn rettype Access the \dQuote{retrieval type} of an \code{eutil}
+#' object.
 setMethod("rettype", "eutil", function(x, ...) x$rettype())
 
 #' uid

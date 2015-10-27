@@ -31,8 +31,8 @@ NULL
 #' a single text query.
 #' 
 #' @details
-#' See the official online documentation for NCBI's
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499//#chapter4.EGQuery}{EUtilities}
+#' See the official online documentation for NCBIs
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.EGQuery}{EUtilities}
 #' for additional information.
 #' 
 #' @title egquery - performing a global Entrez search
@@ -53,7 +53,7 @@ egquery <- function(term) {
   .egquery('GET', term = term, retmode = 'xml')
 }
 
-#' @describeIn content
+#' @describeIn content Access the data content from an \code{egquery} request.
 setMethod("content", "egquery", function(x, as = NULL) {
   callNextMethod(x = x, as = as)
 })

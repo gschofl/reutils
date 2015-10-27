@@ -105,10 +105,11 @@ print.entrez_link <- function(x, ...) {
   out
 }
 
-#' @describeIn database
+#' @describeIn database Retrieve the target database name from an \code{entrez_linkset}
+#' object.
 setMethod("database", "entrez_linkset", function(x, ...) attr(x, "database"))
 
-#' @describeIn uid
+#' @describeIn uid Retrieve the list of UIDs from an \code{entrez_linkset} object.
 setMethod("uid", "entrez_linkset", function(x, ...) attr(x, "uid"))
 
 #' linkset
@@ -130,7 +131,7 @@ setMethod("uid", "entrez_linkset", function(x, ...) attr(x, "uid"))
 #' linkset(x, "pubmed_pubmed_reviews")
 #' }
 setGeneric("linkset", function(x, linkname = NULL, ...) standardGeneric("linkset"))
-#' @describeIn linkset
+#' @describeIn linkset Retrieve a linkset from an \code{elink} object.
 setMethod("linkset", "entrez_linkset", function(x, linkname = NULL, ...) {
   if (!is.null(linkname)) {
     ans <- x[linkname]
@@ -174,7 +175,7 @@ print.entrez_linkset <- function(x, ...) {
 #' @title elink - finding related data through Entrez links
 #' @details
 #' See the official online documentation for NCBI's
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499//#chapter4.ELink}{EUtilities}
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.ELink}{EUtilities}
 #' for additional information.
 #' 
 #' If \code{dbTo} and \code{dbFrom} are set to the same database, ELink will
@@ -280,7 +281,7 @@ elink <- function(uid, dbFrom = NULL, dbTo = NULL, linkname = NULL,
          retmode = 'xml')
 }
 
-#' @describeIn content
+#' @describeIn content Access the data content from an \code{elink} request.
 setMethod("content", "elink", function(x, as = NULL) {
   callNextMethod(x = x, as = as)
 })
@@ -308,12 +309,12 @@ setMethod("[", c("elink", "character"), function(x, i) {
   linkset(x, i)
 })
 
-#' @describeIn linkset
+#' @describeIn linkset Retrieve a \code{linkset} from an \code{elink} object.
 setMethod("linkset", "elink", function(x, linkname = NULL, ...) {
   linkset(x$get_content("parsed"), linkname = linkname, ...)
 })
 
-#' @describeIn uid
+#' @describeIn uid Retrieve the list of UIDs from an \code{elink} object.
 setMethod("uid", "elink", function(x, ...) {
   uid(x$get_content("parsed"))
 })

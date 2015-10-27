@@ -45,7 +45,6 @@ espell <- function(term, db = "pubmed") {
           term = .escape(term), db = db, retmode = 'xml')
 }
 
-#' @describeIn content
 setMethod("content", "espell", function(x, as = NULL) {
   callNextMethod(x = x, as = as)
 })

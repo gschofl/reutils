@@ -1,18 +1,8 @@
-#' An interface to the NCBI Entrez programming Utilities.
+#' @details 
 #' 
-#' @description
-#' \code{reutils} provides support for interacting with NCBI databases such as PubMed,
-#' Genbank, or GEO via the Entrez Programming Utilities
-#' (\href{http://www.ncbi.nlm.nih.gov/books/NBK25501/}{EUtils}).
-#' 
-#' Please check the relevant
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25497//#chapter2.Usage_Guidelines_and_Requiremen}{usage guidelines}
-#' when using these services. Note that Entrez server requests are subject to
-#' frequency limits.
-#' 
-#' @details
-#' With nine E-Utilities, NCBI provides a programmatical interface to the
-#' Entrez query and database system for searching and retrieving requested data
+#' With nine \href{http://www.ncbi.nlm.nih.gov/books/NBK25501/}{Entrez Progamming Utilities},
+#' NCBI provides a programmatical interface to the Entrez query and database
+#' system for searching and retrieving requested data
 #' 
 #' Each of these tools corresponds to an \code{R} function in the \code{reutils}
 #' package described below.
@@ -40,6 +30,11 @@
 #' or the MedLine format for the literature database. The type of output is
 #' generally controlled by setting the \code{retmode} and \code{rettype} arguments
 #' when calling a EUtil.
+#' 
+#' Please check the relevant
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25497/\#chapter2.Usage_Guidelines_and_Requiremen}{usage guidelines}
+#' when using these services. Note that Entrez server requests are subject to
+#' frequency limits.
 #' 
 #' @section Main functions:
 #' \itemize{
@@ -78,14 +73,35 @@
 #'    \item \code{\link{content}}: Extract the content of a request from the
 #'    \code{\linkS4class{eutil}} object returned by any of the above functions.
 #' }
-#'   
+#'
+#' @section Package options:
+#'
+#' \pkg{reutils} uses three \code{\link{options}} to configure behaviour:
+#'
+#' \itemize{
+#'   \item \code{reutils.email}: NCBI requires that a user of their API provides an
+#'      email address with a call to Entrez. If you are going to perform a lot
+#'      of queries consider setting \code{reutils.email} to your email address in
+#'      your .Rprofile file.
+#'      
+#'   \item \code{reutils.show.headlines}: By default \code{\linkS4class{efetch}}
+#'      objects containing text data show only the first 12 lines. This is quite handy
+#'      if you have downloaded a fairly large genome in Genbank file format. This
+#'      can be changed by setting the global option \code{reutils.show.headlines} to
+#'      another numeric value or \code{NULL}.
+#'
+#'   \item \code{reutils.verbose.queries}: If you perform many queries interactively
+#'      you might want to get messages announcing the queries you run. You can do so by setting
+#'      the option \code{reutils.verbose.queries} to \code{TRUE}.
+#'      
+#'   \item \code{reutils.test.remote}: Unit tests that require online access to NCBI
+#'      services are disabled by default, as they cannot be garanteed to be
+#'      available/working under all circumstances. Set the option
+#'      code{reutils.test.remote} to \code{TRUE} to run the full suite of tests.
+#' }
+#'    
 #' @importFrom methods callNextMethod is new
 #' @importFrom stats setNames
 #' @example inst/examples/reutils.R
-#' @author Gerhard Schöfl \email{gerhard.schofl@@gmail.com}
-#' @docType package
-#' @name reutils
-#' @aliases reutils reutils-package
-#' @importFrom methods callNextMethod is new
-#' @keywords package
-NULL
+#' @author Gerhard Schöfl \email{gerhard.schofl@gmail.com}
+"_PACKAGE"

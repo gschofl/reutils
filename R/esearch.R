@@ -97,19 +97,20 @@ esearch_parse_json <- function(object) {
 #' ###
 setOldClass("entrez_uid")
 
-#' @describeIn database
+#' @describeIn database Retrieve the target database name from an \code{entrez_uid}
+#' object.
 setMethod("database", "entrez_uid", function(x, ...) attr(x, "database"))
 
-#' @describeIn uid
+#' @describeIn uid Retrieve the list of UIDs from an \code{entrez_uid} object.
 setMethod("uid", "entrez_uid", function(x, ...) {
   attributes(x) <- NULL
   x
 })
 
-#' @describeIn webenv
+#' @describeIn webenv Retrieve the webenv string from an \code{entrez_uid} object.
 setMethod("webenv", "entrez_uid", function(x, ...) attr(x, "webenv"))
 
-#' @describeIn querykey
+#' @describeIn querykey Retrieve the querykey from an \code{entrez_uid} object.
 setMethod("querykey", "entrez_uid", function(x, ...) attr(x, "querykey"))
 
 #' @export
@@ -140,7 +141,7 @@ print.entrez_uid <- function(x, ...) {
 #' 
 #' @details
 #' See the official online documentation for NCBI's
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499//#chapter4.ESearch}{EUtilities}
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.ESearch}{EUtilities}
 #' for additional information on this EUtility.
 #' 
 #' @title esearch - searching an Entrez database
@@ -244,7 +245,7 @@ esearch <- function(term, db = "nuccore", rettype = "uilist", retmode = "xml",
            reldate = reldate, mindate = mindate, maxdate = maxdate)
 }
 
-#' @describeIn content
+#' @describeIn content Access the data content from an \code{esearch} request.
 setMethod("content", "esearch", function(x, as = NULL) {
   callNextMethod(x = x, as = as)
 })
@@ -272,11 +273,11 @@ setMethod("[", c(x = "esearch", i = "numeric", j = "missing"), function(x, i, j)
   out    
 })
 
-#' @describeIn uid
+#' @describeIn uid Retrieve the list of UIDs from an \code{esearch} object.
 setMethod("uid", "esearch", function(x, ...) uid(x$get_content("parsed")))
 
-#' @describeIn webenv
+#' @describeIn webenv Retrieve the webenv string from an \code{esearch} object.
 setMethod("webenv", "esearch", function(x, ...) webenv(x$get_content("parsed")))
 
-#' @describeIn querykey
+#' @describeIn querykey Retrieve the querykey from an \code{esearch} object.
 setMethod("querykey", "esearch", function(x, ...) querykey(x$get_content("parsed")))

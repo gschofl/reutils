@@ -1,7 +1,7 @@
 Package: reutils
 Type: Package
 Title: Talk to the NCBI EUtils
-Version: 0.2.2
+Version: 0.2.2.9000
 Date: 2015-08-27
 Author: Gerhard Schöfl <gerhard.schofl@gmail.com>
 Maintainer: Gerhard Schöfl <gerhard.schofl@gmail.com>
@@ -42,3 +42,4 @@ Collate:
     'parse-docsum.R'
     'reutils-package.R'
     'zzz.R'
+RoxygenNote: 4.1.1.9001

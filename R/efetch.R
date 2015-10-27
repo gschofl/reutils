@@ -43,7 +43,7 @@ NULL
   )
 )
 
-#' @describeIn content
+#' @describeIn content Access the data content from an \code{efetch} request.
 setMethod("content", "efetch", function(x, as = NULL) {
   as <- as %||% retmode(x)
   if (as == "asn.1") {
@@ -68,7 +68,7 @@ setMethod("content", "efetch", function(x, as = NULL) {
 #' 
 #' @details
 #' See the official online documentation for NCBI's
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499//#chapter4.EFetch}{EUtilities}
+#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.EFetch}{EUtilities}
 #' for additional information.
 #' 
 #' See
