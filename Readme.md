@@ -1,7 +1,7 @@
 # reutils
 
 [![Build Status](https://travis-ci.org/gschofl/reutils.png?branch=master)](https://travis-ci.org/gschofl/reutils)
-
+[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/reutils)](http://cran.r-project.org/web/packages/reutils/index.html)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/reutils)](http://cran.r-project.org/package=reutils)
 
 `reutils` is an R package for interfacing with NCBI databases such as PubMed,
