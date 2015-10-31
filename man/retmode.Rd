@@ -16,7 +16,7 @@ retmode(x, ...)
 \item{...}{Further arguments passed on to methods.}
 }
 \value{
-A character string or \code{NULL}. 
+A character string or \code{NULL}.
 }
 \description{
 Get the \dQuote{retrieval mode} of an \code{\linkS4class{eutil}} object.
@@ -36,8 +36,7 @@ retmode(e)
 }
 }
 \seealso{
-
-   \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
+\code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 }

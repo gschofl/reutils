@@ -72,11 +72,9 @@ primary UIDs matching a text query. These UIDs can be used in subsequent calls
 to \code{\link{esummary}}, \code{\link{efetch}}, or \code{\link{elink}}.
 }
 \details{
-
 See the official online documentation for NCBI's
 \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.ESearch}{EUtilities}
 for additional information on this EUtility.
-
 }
 \examples{
 ## Search PubMed for articles with the term "Chlamydia psittaci" in the
@@ -107,10 +105,8 @@ pmid3
 }
 }
 \seealso{
-
 Combine calls to ESearch with other EUtils:
 \code{\link{esummary}}, \code{\link{efetch}}, \code{\link{elink}}.
-
 
 Accessor methods:
 \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}},

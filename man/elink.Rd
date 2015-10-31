@@ -57,7 +57,6 @@ database. For instance, the ELink utility can find Entrez gene records
 linked to records in Entrez Protein.
 }
 \details{
-
 See the official online documentation for NCBI's
 \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.ELink}{EUtilities}
 for additional information.
@@ -76,7 +75,6 @@ Available commands are:
   Entrez History server and returns a query_key and WebEnv parameter.
   Alternatively this is achieved by setting \code{usehistory=TRUE}}
 }
-
 }
 \examples{
 ## Find one set of Gene IDs linked to nuccore GIs 34577062 and 24475906
@@ -99,13 +97,11 @@ abstracts <- efetch(p["pubmed_pubmed_reviews"][1:5], rettype = "abstract")
 }
 }
 \seealso{
-
 Combine calls to ELink with other EUtils:
 \code{\link{esummary}}, \code{\link{efetch}}.
 
-
 Accessor methods:
 \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}},
-\code{\link{database}}, \code{\link{uid}}, \code{\link{linkset}}, 
+\code{\link{database}}, \code{\link{uid}}, \code{\link{linkset}},
 }
 

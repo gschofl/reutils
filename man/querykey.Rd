@@ -43,8 +43,7 @@ querykey(e)
 }
 }
 \seealso{
-
-   \code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
+\code{\link{einfo}}, \code{\link{esearch}}, \code{\link{esummary}},
    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 }

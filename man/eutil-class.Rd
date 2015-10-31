@@ -68,7 +68,6 @@ and an attribute name}
     \code{"esearch"}, \code{"esummary"}, \code{"efetch"}, \code{"elink"},
     \code{"epost"}, \code{"egquery"}, \code{"espell"}, and \code{"ecitmatch"}
     all extend the \code{"eutil"} class.
-
 }
 \examples{
 showClass("eutil")
@@ -78,7 +77,6 @@ showClass("eutil")
 \code{\link{esearch}}, \code{\link{esummary}}, \code{\link{efetch}},
 \code{\link{elink}}, \code{\link{epost}}, \code{\link{egquery}},
 \code{\link{espell}}, and \code{\link{ecitmatch}}.
-
 }
 \keyword{classes}
 \keyword{internal}

@@ -47,7 +47,6 @@ uid(e)
 }
 }
 \seealso{
-
-   \code{\link{esearch}}, \code{\link{elink}}.
+\code{\link{esearch}}, \code{\link{elink}}.
 }
 

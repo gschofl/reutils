@@ -70,7 +70,6 @@ in the requested format for an NCBI Accession Number, one or more primary UIDs,
 or for a set of UIDs stored in the user's web environment.
 }
 \details{
-
 See the official online documentation for NCBI's
 \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.EFetch}{EUtilities}
 for additional information.
@@ -79,16 +78,13 @@ See
 \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly}{here}
 for the default values for \code{rettype} and \code{retmode}, as well as a list of the available
 databases for the  EFetch utility.
-
 }
 \note{
-
 If you are going to retrieve more than 500 UIDs at once, you will have to provide
 the UIDs by reference to a Web Environment and a query key obtained from previous
 calls to \code{\link{esearch}} (if \code{usehistory = TRUE}), \code{\link{epost}}
 or \code{\link{elink}} \strong{and} you will have to specify an \code{outfile} to
 write the data to, rather than collecting the data into an R object.
-
 }
 \examples{
 \dontrun{
@@ -138,7 +134,6 @@ efetch(uid, rettype = "fasta", retmode = "text", outfile = "~/tmp/hexokinases.fn
 }
 }
 \seealso{
-
 \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}},
 \code{\link{database}}, \code{\link{retmode}}, \code{\link{rettype}}.
 }

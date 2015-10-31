@@ -11,6 +11,43 @@ powered by the Entrez Programming Utilities (EUtils). The nine EUtils
 provide programmatic access to the NCBI Entrez query and database
 system for searching and retrieving biological data.
 }
+\details{
+With nine \href{http://www.ncbi.nlm.nih.gov/books/NBK25501/}{Entrez Progamming Utilities},
+NCBI provides a programmatical interface to the Entrez query and database
+system for searching and retrieving requested data
+
+Each of these tools corresponds to an \code{R} function in the \code{reutils}
+package described below.
+
+The output returned by the EUtils is typically in XML format. To gain access to
+this output you have several options:
+
+\enumerate{
+ \item Use the \code{content(as = "xml")} method to extract the output as an
+   \code{XMLInternalDocument} object and process it further using the
+   facilities provided by the \code{XML} package.
+
+\item Use the \code{content(as = "parsed")} method to extract the output
+   into \code{data.frame}s. Note that this is currently only implemented for
+   \emph{docsum}s returned by \code{\link{esummary}}, \emph{uilist}s returned
+   by \code{\link{esearch}}, and the output returned by \code{\link{einfo}}.
+
+\item Access specific nodes in the XML tree using XPath expressions with the
+   reference class methods \code{#xmlValue}, \code{#xmlAttr}, or \code{#xmlName}
+   built into \code{\linkS4class{eutil}} objects.
+}
+
+The Entrez Programming Utilities can also generate output in other formats,
+such as plain-text Fasta or GenBank files for sequence databases,
+or the MedLine format for the literature database. The type of output is
+generally controlled by setting the \code{retmode} and \code{rettype} arguments
+when calling a EUtil.
+
+Please check the relevant
+\href{http://www.ncbi.nlm.nih.gov/books/NBK25497/\#chapter2.Usage_Guidelines_and_Requiremen}{usage guidelines}
+when using these services. Note that Entrez server requests are subject to
+frequency limits.
+}
 \section{Main functions}{
 
 \itemize{
@@ -49,7 +86,6 @@ system for searching and retrieving biological data.
    \item \code{\link{content}}: Extract the content of a request from the
    \code{\linkS4class{eutil}} object returned by any of the above functions.
 }
-
 }
 
 \section{Package options}{
@@ -78,7 +114,6 @@ system for searching and retrieving biological data.
      available/working under all circumstances. Set the option
      code{reutils.test.remote} to \code{TRUE} to run the full suite of tests.
 }
-   
 }
 \examples{
 #

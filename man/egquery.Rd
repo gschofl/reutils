@@ -17,11 +17,9 @@ An \code{\linkS4class{egquery}} object.
 a single text query.
 }
 \details{
-
 See the official online documentation for NCBIs
 \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.EGQuery}{EUtilities}
 for additional information.
-
 }
 \examples{
 ## Determine the number of records for mouse in Entrez.

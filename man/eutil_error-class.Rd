@@ -36,7 +36,6 @@ showClass("eutil_error")
 }
 \seealso{
 \code{\link{getError}}, \code{\linkS4class{eutil}}.
-
 }
 \keyword{classes}
 \keyword{internal}

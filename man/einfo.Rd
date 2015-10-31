@@ -25,11 +25,9 @@ for a single database, including lists of indexing fields and available link
 names. Version 2.0 data is requested by default.
 }
 \details{
-
 See the official online documentation for NCBI's
 \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.EInfo}{EUtilities}
 for additional information.
-
 }
 \examples{
 \dontrun{
@@ -54,7 +52,6 @@ if (x$no_errors()) {
 }
 }
 \seealso{
-
 \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}}.
 }
 

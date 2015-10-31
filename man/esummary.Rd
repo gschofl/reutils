@@ -51,11 +51,9 @@ summaries (DocSums) for a list of primary UIDs or for a set of UIDs stored in th
 user's web environment (using the Entrez History server).
 }
 \details{
-
 See the official online documentation for NCBI's
 \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.ESummary}{EUtilities}
 for additional information.
-
 }
 \examples{
 ## Retrieve the Document Summary information for a set of
@@ -73,7 +71,6 @@ ds['//TaxID']
 }
 }
 \seealso{
-
 \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}},
 \code{\link{database}}.
 }
