@@ -42,4 +42,4 @@ Collate:
     'parse-docsum.R'
     'reutils-package.R'
     'zzz.R'
-RoxygenNote: 5.0.0
+RoxygenNote: 5.0.1

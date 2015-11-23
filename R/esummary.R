@@ -96,6 +96,9 @@ esummary <- function(uid, db = NULL, retstart = 1, retmax = 10000,
   ## extract query parameters
   params <- parse_params(uid, db, querykey, webenv)
   retmode <- match.arg(retmode, c('xml', 'json'))
+  if (!is.null(params$querykey) && !is.null(params$webenv)) {
+    retstart <- retstart - 1L
+  }
   if (retmax > 10000) {
     stop("Number of DocSums to be downloaded should not exceed 10,000.", call.=FALSE)
   }

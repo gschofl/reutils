@@ -1,3 +1,7 @@
+reutils 0.2.2.9000
+
+* Correctly return the first esummary record from an epost (#6)
+
 reutils 0.2.2
 =============
 
