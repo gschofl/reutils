@@ -52,13 +52,13 @@ user's web environment (using the Entrez History server).
 }
 \details{
 See the official online documentation for NCBI's
-\href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.ESummary}{EUtilities}
+\href{https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESummary}{EUtilities}
 for additional information.
 }
 \examples{
 ## Retrieve the Document Summary information for a set of
-## UIDs frome the Gene datanase.
-ds <- esummary(c("828392", "790", "470338"), "gene")
+## UIDs frome the Nuccore datanase.
+ds <- esummary(c("1060721643", "1060721620", "1060721618"), "nuccore")
 ds
 
 \dontrun{
@@ -67,7 +67,7 @@ df <- content(ds, "parsed")
 df
 
 ## use XPath expressions to extract nodes of interest
-ds['//TaxID']
+ds['//TaxId/text()']
 }
 }
 \seealso{

@@ -31,6 +31,11 @@ if (getOption('reutils.test.remote')) {
     expect_that(content(b, 'parsed'), is_a("list"))
   })
   
+  test_that("'content(x, \"parsed\")' returns a 'tbl_df'", {
+    expect_that(content(c, "parsed")[["Fields"]], is_a("tbl_df"))
+    expect_that(content(c, "parsed")[["Links"]], is_a("tbl_df"))
+  })
+  
   test_that("'database()' returns NULL or 'gene'", {
     expect_that(database(a), equals(NULL))
     expect_that(database(c), equals("gene"))
@@ -38,11 +43,11 @@ if (getOption('reutils.test.remote')) {
   
   test_that("'getUrl()' returns the query url", {
     expect_that(getUrl(a), 
-                matches("^http://eutils\\.ncbi\\.nlm\\.nih\\.gov/entrez/eutils/einfo.+"))
+                matches("^https://eutils\\.ncbi\\.nlm\\.nih\\.gov/entrez/eutils/einfo.+"))
     expect_that(getUrl(b), 
-                matches("^http://eutils\\.ncbi\\.nlm\\.nih\\.gov/entrez/eutils/einfo\\.fcgi\\?retmode=json.+"))
+                matches("^https://eutils\\.ncbi\\.nlm\\.nih\\.gov/entrez/eutils/einfo\\.fcgi\\?retmode=json.+"))
     expect_that(getUrl(c), 
-                matches("^http://eutils\\.ncbi\\.nlm\\.nih\\.gov/entrez/eutils/einfo\\.fcgi\\?db=gene.+"))
+                matches("^https://eutils\\.ncbi\\.nlm\\.nih\\.gov/entrez/eutils/einfo\\.fcgi\\?db=gene.+"))
   })
   
   test_that("The accessor 'getError()' returns an 'eutil_error' object", {

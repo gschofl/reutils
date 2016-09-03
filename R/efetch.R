@@ -68,11 +68,11 @@ setMethod("content", "efetch", function(x, as = NULL) {
 #' 
 #' @details
 #' See the official online documentation for NCBI's
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.EFetch}{EUtilities}
+#' \href{https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EFetch}{EUtilities}
 #' for additional information.
 #' 
 #' See
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly}{here}
+#' \href{https://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly}{here}
 #' for the default values for \code{rettype} and \code{retmode}, as well as a list of the available
 #' databases for the  EFetch utility.
 #' 
@@ -86,15 +86,15 @@ setMethod("content", "efetch", function(x, as = NULL) {
 #' specified by \code{db}.
 #' @param db (Required if \code{uid} is a character vector of UIDs)
 #' Database from which to retrieve records. See
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25497/table/chapter2.T._entrez_unique_identifiers_ui/?report=objectonly}{here}
+#' \href{https://www.ncbi.nlm.nih.gov/books/NBK25497/table/chapter2.T._entrez_unique_identifiers_ui/?report=objectonly}{here}
 #' for the supported databases.
 #' @param rettype A character string specifying the retrieval type, such as 'abstract' or
 #' 'medline' for PubMed, 'gp' or 'fasta' for Protein, or 'gb', or 'fasta' for Nuccore. See 
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly}{here}
+#' \href{https://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly}{here}
 #' for the available values for each database.
 #' @param retmode A character string specifying the data mode of the records returned,
 #' such as 'text' or 'xml'. See 
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly}{here}
+#' \href{https://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly}{here}
 #' for the available values for each database.
 #' @param outfile A character string naming a file for writing the data to.
 #' Required if more than 500 UIDs are retrieved at once. In this case UIDs

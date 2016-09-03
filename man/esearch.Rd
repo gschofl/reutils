@@ -73,7 +73,7 @@ to \code{\link{esummary}}, \code{\link{efetch}}, or \code{\link{elink}}.
 }
 \details{
 See the official online documentation for NCBI's
-\href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.ESearch}{EUtilities}
+\href{https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESearch}{EUtilities}
 for additional information on this EUtility.
 }
 \examples{

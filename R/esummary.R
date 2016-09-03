@@ -41,7 +41,7 @@ NULL
 #' 
 #' @details
 #' See the official online documentation for NCBI's
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.ESummary}{EUtilities}
+#' \href{https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESummary}{EUtilities}
 #' for additional information.
 #'
 #' @title esummary - downloading Document Summaries
@@ -78,8 +78,8 @@ NULL
 #' @export
 #' @examples
 #' ## Retrieve the Document Summary information for a set of
-#' ## UIDs frome the Gene datanase.
-#' ds <- esummary(c("828392", "790", "470338"), "gene")
+#' ## UIDs frome the Nuccore datanase.
+#' ds <- esummary(c("1060721643", "1060721620", "1060721618"), "nuccore")
 #' ds
 #' 
 #' \dontrun{
@@ -88,7 +88,7 @@ NULL
 #' df
 #' 
 #' ## use XPath expressions to extract nodes of interest
-#' ds['//TaxID']
+#' ds['//TaxId/text()']
 #' }
 esummary <- function(uid, db = NULL, retstart = 1, retmax = 10000,
                       querykey = NULL, webenv = NULL, retmode = 'xml',
@@ -128,8 +128,7 @@ setMethod("content", "esummary", function(x, as = NULL) {
 #' ds <- esummary("470338", "protein")
 #' ds["//Slen/node()"]
 #' 
-#' library("XML")
-#' as.numeric(xmlValue(ds[["//Slen"]]))
+#' as.numeric(XML::xmlValue(ds[["//Slen"]]))
 #' }
 setMethod("[", c("esummary", "character"), function(x, i) {
   x$xmlSet(i)  

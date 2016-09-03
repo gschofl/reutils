@@ -24,7 +24,11 @@ parse_esummary <- function(object) {
       warning("DocSum records have a different numbers of tags.", call. = FALSE)
       setNames(flattened_docsum, uids)
     } else {
-      data.frame(Id = uids, do.call("rbind", flattened_docsum), stringsAsFactors = FALSE)
+      colnm <- names(flattened_docsum[[1]])
+      tmp <- do.call("rbind", lapply(flattened_docsum, as.character))
+      colnames(tmp) <- colnm
+      df <- tibble::as_tibble(tmp)
+      tibble::add_column(df, Id = uids, .before = 1)
     }
   }
   docsum

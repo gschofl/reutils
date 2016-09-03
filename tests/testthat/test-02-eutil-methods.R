@@ -34,7 +34,7 @@ if (getOption('reutils.test.remote')) {
   })
   
   test_that("#get_url returns the query URL", {
-    expect_match(a$get_url(), "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi\\?db=pubmed&term=Chlamydia%20psittaci&retstart=6&retmax=2.+")
+    expect_match(a$get_url(), "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi\\?db=pubmed&term=Chlamydia%20psittaci&retstart=6&retmax=2.+")
   })
   
   test_that("#no_errors works as expected", {

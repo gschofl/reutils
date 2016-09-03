@@ -91,16 +91,3 @@ if (getOption('reutils.test.remote')) {
     expect_that(content(b, "json"), is_a("json"))
   })
 }
-
-
-
-
-  
-
-  
-
-
-  
-
-  
-

@@ -18,7 +18,7 @@ a single text query.
 }
 \details{
 See the official online documentation for NCBIs
-\href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.EGQuery}{EUtilities}
+\href{https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EGQuery}{EUtilities}
 for additional information.
 }
 \examples{

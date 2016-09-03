@@ -36,7 +36,7 @@ list in subsequent calls to \code{\link{esummary}}, \code{\link{efetch}}, or
 
 
 See the official online documentation for NCBI's
-\href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.EPost}{EUtilities}
+\href{https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.EPost}{EUtilities}
 for additional information.
 }
 \examples{

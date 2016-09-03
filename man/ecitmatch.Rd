@@ -20,7 +20,7 @@ An \code{\linkS4class{ecitmatch}} object.
 }
 \description{
 \code{ecitmatch} serves as an API to the PubMed
-\href{http://www.ncbi.nlm.nih.gov/pubmed/batchcitmatch}{batch citation matcher}.
+\href{https://www.ncbi.nlm.nih.gov/pubmed/batchcitmatch}{batch citation matcher}.
 It retrieves PubMed IDs (PMIDs) that correspond to a set of input citation strings.
 }
 \examples{

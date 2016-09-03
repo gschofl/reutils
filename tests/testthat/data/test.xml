@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!DOCTYPE eSearchResult PUBLIC "-//NLM//DTD eSearchResult, 11 May 2002//EN" "http://www.ncbi.nlm.nih.gov/entrez/query/DTD/eSearch_020511.dtd">
+<!DOCTYPE eSearchResult PUBLIC "-//NLM//DTD eSearchResult, 11 May 2002//EN" "https://www.ncbi.nlm.nih.gov/entrez/query/DTD/eSearch_020511.dtd">
 <eSearchResult>
   <Count>2328</Count>
   <RetMax>2</RetMax>

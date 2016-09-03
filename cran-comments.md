@@ -1,13 +1,14 @@
-This is a bugfix submission of reutils 0.2.2. New changes:
-
-- Fix broken print method for empty linksets.
-
 ## Test environments
-* local ubuntu 14.04 install (R-devel, R 3.2.2)
+
+* local ubuntu 16.04 install, R 3.3.1
 * win-builder (devel and release)
 
 ## R CMD check results
-There were no ERRORs or WARNINGs or NOTEs. 
 
-## Downstream dependencies
-There are currently no downstream dependencies for this package.
+0 errors | 0 warnings | 0 notes
+
+## Reverse dependencies
+
+There are no reverse dependencies.
+
+

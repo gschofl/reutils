@@ -6,12 +6,12 @@
 
 `reutils` is an R package for interfacing with NCBI databases such as PubMed,
 Genbank, or GEO via the Entrez Programming Utilities
-([EUtils](http://www.ncbi.nlm.nih.gov/books/NBK25501/)). It provides access to the
+([EUtils](https://www.ncbi.nlm.nih.gov/books/NBK25501/)). It provides access to the
 nine basic *eutils*: `einfo`, `esearch`, `esummary`, `epost`, `efetch`, `elink`,
 `egquery`, `espell`, and `ecitmatch`.
 
 Please check the relevant
-[usage guidelines](http://www.ncbi.nlm.nih.gov/books/NBK25497/#chapter2.Usage_Guidelines_and_Requiremen)
+[usage guidelines](https://www.ncbi.nlm.nih.gov/books/NBK25497/#chapter2.Usage_Guidelines_and_Requiremen)
 when using these services. Note that Entrez server requests are subject to frequency limits.
 
 Install the latest stable release of the reutils package from CRAN:
@@ -47,7 +47,7 @@ can be passed on directly to `epost`, `esummary`, `elink`, or `efetch`.
 
 `efetch`: retrieve data records from NCBI in a specified retrieval type
 and retrieval mode as given in this
-[table](http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly). Data are returned as XML or text documents.
+[table](https://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly). Data are returned as XML or text documents.
 
 #### `esummary` ####
 
@@ -130,7 +130,7 @@ Some accessors for `esearch` objects
 ```r
 getUrl(cpaf)
 
- ##  [1] "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?term=Chlamydiaceae%5Borgn%5D%20AND%20PMP%5Bgene%5D&db=nucleotide&retstart=0&retmax=100&rettype=uilist&email=gschofl%40yahoo.de&tool=reutils"
+ ##  [1] "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?term=Chlamydiaceae%5Borgn%5D%20AND%20PMP%5Bgene%5D&db=nucleotide&retstart=0&retmax=100&rettype=uilist&email=gschofl%40yahoo.de&tool=reutils"
 ```
 
 
@@ -201,7 +201,7 @@ Extract the content of an EUtil request as XML.
 content(cpaf, "xml")
 
  ##  <?xml version="1.0"?>
- ##  <!DOCTYPE eSearchResult PUBLIC "-//NLM//DTD eSearchResult, 11 May 2002//EN" "http://www.ncbi.nlm.nih.gov/entrez/query/DTD/eSearch_020511.dtd">
+ ##  <!DOCTYPE eSearchResult PUBLIC "-//NLM//DTD eSearchResult, 11 May 2002//EN" "https://www.ncbi.nlm.nih.gov/entrez/query/DTD/eSearch_020511.dtd">
  ##  <eSearchResult>
  ##    <Count>8</Count>
  ##    <RetMax>8</RetMax>
@@ -244,7 +244,7 @@ esum
 
  ##  Object of class 'esummary' 
  ##  <?xml version="1.0" encoding="UTF-8"?>
- ##  <!DOCTYPE eSummaryResult PUBLIC "-//NLM//DTD eSummaryResult//EN" "http://www.ncbi.nlm.nih.gov/entrez/query/DTD/eSummaryDTD/eSummary_nucleotide.dtd">
+ ##  <!DOCTYPE eSummaryResult PUBLIC "-//NLM//DTD eSummaryResult//EN" "https://www.ncbi.nlm.nih.gov/entrez/query/DTD/eSummaryDTD/eSummary_nucleotide.dtd">
  ##  <eSummaryResult>
  ##    <DocumentSummarySet status="OK">
  ##      <DocumentSummary uid="544687983">
@@ -356,7 +356,7 @@ cpafx
 
  ##  Object of class 'efetch' 
  ##  <?xml version="1.0"?>
- ##  <!DOCTYPE TSeqSet PUBLIC "-//NCBI//NCBI TSeq/EN" "http://www.ncbi.nlm.nih.gov/dtd/NCBI_TSeq.dtd">
+ ##  <!DOCTYPE TSeqSet PUBLIC "-//NCBI//NCBI TSeq/EN" "https://www.ncbi.nlm.nih.gov/dtd/NCBI_TSeq.dtd">
  ##  <TSeqSet>
  ##    <TSeq>
  ##      <TSeq_seqtype value="protein"/>

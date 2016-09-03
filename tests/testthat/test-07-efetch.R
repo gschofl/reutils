@@ -50,7 +50,7 @@ if (getOption('reutils.test.remote')) {
   
   test_that("efetch works with an esearch object as input", {
     x <- esearch("erythroid associated factor AND Homo sapiens", 'protein', retmax = 2)
-    a <- efetch(x, rettype="fasta")
+    a <- efetch(x, rettype = "fasta")
     if (!all(is.na(a$xmlValue("//TSeq_taxid")))) {
       expect_equal(a$xmlValue("//TSeq_taxid"), c("9606", "9606"))
     }

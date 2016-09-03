@@ -155,9 +155,9 @@ eutil <- setRefClass(
       ##
       query_url = function(method) {
         host <- switch(eutil(),
-                       egquery = "http://eutils.ncbi.nlm.nih.gov/gquery",
-                       ecitmatch = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/ecitmatch.cgi",
-                       paste0('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/', eutil(),'.fcgi')
+                       egquery = "https://eutils.ncbi.nlm.nih.gov/gquery",
+                       ecitmatch = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/ecitmatch.cgi",
+                       paste0("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/", eutil(), ".fcgi")
         )
         if (method == "GET") {
           fields <- paste(RCurl::curlEscape(names(.self$params)), RCurl::curlEscape(.self$params),
@@ -396,7 +396,7 @@ setMethod("retmode", "eutil", function(x, ...) x$retmode())
 #' rettype
 #' 
 #' Get the \dQuote{retrieval type} of an \code{\linkS4class{eutil}} object. See 
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly}{here}
+#' \href{https://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly}{here}
 #' for the available retrieval types for different NCBI databases.
 #' 
 #' @param x An \code{\linkS4class{eutil}} object.

@@ -1,7 +1,9 @@
-reutils 0.2.2.9000
+reutils 0.2.3
 ==================
 
-* Correctly return the first esummary record from an epost (#6)
+* `content(x, 'parsed')` returns `tibble`s instead of `data.frame`s where approbriate.
+* Change base URLs for NCBI services to use https instead of http (#7).
+* Correctly return the first esummary record from an epost (#6).
 
 reutils 0.2.2
 =============

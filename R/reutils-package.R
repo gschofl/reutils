@@ -1,6 +1,6 @@
 #' @details 
 #' 
-#' With nine \href{http://www.ncbi.nlm.nih.gov/books/NBK25501/}{Entrez Progamming Utilities},
+#' With nine \href{https://www.ncbi.nlm.nih.gov/books/NBK25501/}{Entrez Progamming Utilities},
 #' NCBI provides a programmatical interface to the Entrez query and database
 #' system for searching and retrieving requested data
 #' 
@@ -30,9 +30,8 @@
 #' or the MedLine format for the literature database. The type of output is
 #' generally controlled by setting the \code{retmode} and \code{rettype} arguments
 #' when calling a EUtil.
-#' 
 #' Please check the relevant
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25497/\#chapter2.Usage_Guidelines_and_Requiremen}{usage guidelines}
+#' \href{https://www.ncbi.nlm.nih.gov/books/NBK25497/#chapter2.Usage_Guidelines_and_Requiremen}{usage guidelines}
 #' when using these services. Note that Entrez server requests are subject to
 #' frequency limits.
 #' 

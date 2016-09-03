@@ -4,7 +4,7 @@
 context("Testing 'elink()'")
 
 if (getOption('reutils.test.remote')) {
-  x <- elink(c("24475906", "34577062"), dbFrom="nuccore")
+  x <- elink(c("24475906", "34577062"), dbFrom = "nuccore")
   
   test_that("elink() returns an 'elink' object", {
     expect_is(x, "elink")

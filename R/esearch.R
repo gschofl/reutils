@@ -141,7 +141,7 @@ print.entrez_uid <- function(x, ...) {
 #' 
 #' @details
 #' See the official online documentation for NCBI's
-#' \href{http://www.ncbi.nlm.nih.gov/books/NBK25499/\#chapter4.ESearch}{EUtilities}
+#' \href{https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESearch}{EUtilities}
 #' for additional information on this EUtility.
 #' 
 #' @title esearch - searching an Entrez database
