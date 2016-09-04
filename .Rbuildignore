@@ -5,3 +5,4 @@ cache/
 Readme.*
 ^\.travis\.yml$
 ^cran-comments\.md$
+^appveyor\.yml$

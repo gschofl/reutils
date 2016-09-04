@@ -1,6 +1,7 @@
 # reutils
 
-[![Build Status](https://travis-ci.org/gschofl/reutils.png?branch=master)](https://travis-ci.org/gschofl/reutils)
+[![Travis-CI Build Status](https://travis-ci.org/gschofl/reutils.svg?branch=master)](https://travis-ci.org/gschofl/reutils)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/gschofl/reutils?branch=master&svg=true)](https://ci.appveyor.com/project/gschofl/reutils)
 [![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/reutils)](http://cran.r-project.org/web/packages/reutils/index.html)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/reutils)](http://cran.r-project.org/package=reutils)
 
