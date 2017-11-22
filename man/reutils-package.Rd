@@ -4,7 +4,7 @@
 \name{reutils-package}
 \alias{reutils}
 \alias{reutils-package}
-\title{Talk to the NCBI EUtils}
+\title{reutils: Talk to the NCBI EUtils}
 \description{
 An interface to NCBI databases such as PubMed, GenBank, or GEO
 powered by the Entrez Programming Utilities (EUtils). The nine EUtils
@@ -114,6 +114,7 @@ frequency limits.
      code{reutils.test.remote} to \code{TRUE} to run the full suite of tests.
 }
 }
+
 \examples{
 #
 # combine esearch and efetch
@@ -156,7 +157,14 @@ prot
 fasta <- content(prot)
 }
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/gschofl/reutils}
+  \item Report bugs at \url{https://github.com/gschofl/reutils/issues}
+}
+
+}
 \author{
 Gerhard Schöfl \email{gerhard.schofl@gmail.com}
 }
-

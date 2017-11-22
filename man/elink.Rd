@@ -104,4 +104,3 @@ Accessor methods:
 \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}},
 \code{\link{database}}, \code{\link{uid}}, \code{\link{linkset}},
 }
-

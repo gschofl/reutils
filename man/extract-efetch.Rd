@@ -29,4 +29,3 @@ p <- efetch("195055", "protein", "gp", "xml")
 p['//GBFeature[GBFeature_key="mat_peptide"]//GBQualifier_value']
 }
 }
-

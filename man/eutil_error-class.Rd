@@ -2,8 +2,8 @@
 % Please edit documentation in R/eutil-error.R
 \docType{class}
 \name{eutil_error-class}
-\alias{eutil_error}
 \alias{eutil_error-class}
+\alias{eutil_error}
 \title{Class \code{"eutil_error"}:}
 \description{
 A container for handling errors when trying to parse XML files returned
@@ -20,6 +20,7 @@ performed like, e.g., "Invalid db name specified".}
 
 \item{\code{wrnmsg}}{Warnings like, e.g., "No items found."}
 }}
+
 \section{Methods}{
 
 \describe{
@@ -27,10 +28,12 @@ performed like, e.g., "Invalid db name specified".}
 
 \item{\code{check_errors(object, verbose = TRUE)}}{check if a \code{linkS4class{eutil}} object contains errors}
 }}
+
 \section{Extends}{
  All reference classes extend and inherit methods from
     \code{"\linkS4class{envRefClass}"}.
 }
+
 \examples{
 showClass("eutil_error")
 }
@@ -39,4 +42,3 @@ showClass("eutil_error")
 }
 \keyword{classes}
 \keyword{internal}
-

@@ -25,5 +25,5 @@ performQuery
 \item \code{eutil}: Perform an Entrez query using either http GET or
 POST requests.
 }}
-\keyword{internal}
 
+\keyword{internal}

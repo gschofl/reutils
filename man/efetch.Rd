@@ -137,4 +137,3 @@ efetch(uid, rettype = "fasta", retmode = "text", outfile = "~/tmp/hexokinases.fn
 \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}},
 \code{\link{database}}, \code{\link{retmode}}, \code{\link{rettype}}.
 }
-

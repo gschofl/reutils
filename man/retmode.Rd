@@ -29,6 +29,7 @@ E-Utility.
 \item \code{eutil}: Access the \dQuote{retrieval mode} of an \code{eutil}
 object.
 }}
+
 \examples{
 \dontrun{
 e <- efetch("10090", "taxonomy")
@@ -40,4 +41,3 @@ retmode(e)
    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 }
-

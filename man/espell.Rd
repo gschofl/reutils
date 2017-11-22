@@ -22,4 +22,3 @@ and spelling suggestions.
 e <- espell("Chlamidia")
 e
 }
-

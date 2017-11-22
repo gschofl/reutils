@@ -24,4 +24,3 @@ of attributes:
 }
 \keyword{classes}
 \keyword{internal}
-

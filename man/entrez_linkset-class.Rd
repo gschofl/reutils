@@ -26,4 +26,3 @@ An \code{"entrez_linkset"} has two global attributes:
 }
 \keyword{classes}
 \keyword{internal}
-

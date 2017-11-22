@@ -3,8 +3,8 @@
 \docType{methods}
 \name{webenv}
 \alias{webenv}
-\alias{webenv,entrez_uid-method}
 \alias{webenv,epost-method}
+\alias{webenv,entrez_uid-method}
 \alias{webenv,esearch-method}
 \title{webenv}
 \usage{
@@ -36,6 +36,7 @@ Retrieve the Web environment string returned from an ESearch, EPost or ELink cal
 
 \item \code{esearch}: Retrieve the webenv string from an \code{esearch} object.
 }}
+
 \examples{
 \dontrun{
 e <- esearch("Mus musculus", "taxonomy", usehistory = TRUE)
@@ -47,4 +48,3 @@ webenv(e)
    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 }
-

@@ -73,7 +73,7 @@ if (getOption('reutils.test.remote')) {
   })
   
   test_that("#rettype and #retmode work", {
-    b <- efetch(uid = "8655742", db = "protein", rettype = "fasta", retmode = "xml")
+    b <- efetch(uid = "NP_001189489.1", db = "protein", rettype = "fasta", retmode = "xml")
     expect_equal(b$rettype(), "fasta")
     expect_equal(b$retmode(), "xml")
   })

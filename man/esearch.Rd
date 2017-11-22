@@ -113,4 +113,3 @@ Accessor methods:
 \code{\link{database}}, \code{\link{uid}},
 \code{\link{webenv}}, \code{\link{querykey}}.
 }
-

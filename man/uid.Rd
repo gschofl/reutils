@@ -3,8 +3,8 @@
 \docType{methods}
 \name{uid}
 \alias{uid}
-\alias{uid,elink-method}
 \alias{uid,entrez_linkset-method}
+\alias{uid,elink-method}
 \alias{uid,entrez_uid-method}
 \alias{uid,esearch-method}
 \title{uid}
@@ -40,6 +40,7 @@ Retrieve the list of UIDs returned by a call to ESearch or ELink.
 
 \item \code{esearch}: Retrieve the list of UIDs from an \code{esearch} object.
 }}
+
 \examples{
 \dontrun{
 e <- esearch("Mus musculus", "taxonomy")
@@ -49,4 +50,3 @@ uid(e)
 \seealso{
 \code{\link{esearch}}, \code{\link{elink}}.
 }
-

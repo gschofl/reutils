@@ -17,4 +17,3 @@ ncbi_retrieval_type(db, rettype = NULL, retmode = NULL)
 Set the NCBI rettype
 }
 \keyword{internal}
-

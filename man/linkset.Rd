@@ -3,8 +3,8 @@
 \docType{methods}
 \name{linkset}
 \alias{linkset}
-\alias{linkset,elink-method}
 \alias{linkset,entrez_linkset-method}
+\alias{linkset,elink-method}
 \title{linkset}
 \usage{
 linkset(x, linkname = NULL, ...)
@@ -34,6 +34,7 @@ Retrieve a linkset from an \code{\linkS4class{elink}} object.
 
 \item \code{elink}: Retrieve a \code{linkset} from an \code{elink} object.
 }}
+
 \examples{
 \dontrun{
 ## Find related articles to PMID 20210808 and xtract linked UIDs from the
@@ -42,4 +43,3 @@ x <- elink("20210808", dbFrom = "pubmed", dbTo = "pubmed", cmd = "neighbor_score
 linkset(x, "pubmed_pubmed_reviews")
 }
 }
-

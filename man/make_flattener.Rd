@@ -19,4 +19,3 @@ Use \code{flatten.at} to set the level of nestedness at which the flatterner
 will start to flatten.
 }
 \keyword{internal}
-

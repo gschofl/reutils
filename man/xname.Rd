@@ -21,4 +21,3 @@ xname(doc, path, as = "character", default = NA_character_, ...)
 Extract the tag name of XML nodes
 }
 \keyword{internal}
-

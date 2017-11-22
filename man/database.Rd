@@ -3,9 +3,9 @@
 \docType{methods}
 \name{database}
 \alias{database}
+\alias{database,eutil-method}
 \alias{database,entrez_linkset-method}
 \alias{database,entrez_uid-method}
-\alias{database,eutil-method}
 \title{database}
 \usage{
 database(x, ...)
@@ -38,6 +38,7 @@ object.
 \item \code{entrez_uid}: Retrieve the target database name from an \code{entrez_uid}
 object.
 }}
+
 \examples{
 \dontrun{
 e <- esearch("Mus musculus", "taxonomy")
@@ -49,4 +50,3 @@ database(e)
    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 }
-

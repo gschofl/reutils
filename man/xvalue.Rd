@@ -21,4 +21,3 @@ xvalue(doc, path, as = "character", default = NA_character_, ...)
 Extract the content of XML leaf nodes
 }
 \keyword{internal}
-

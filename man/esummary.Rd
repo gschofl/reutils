@@ -74,4 +74,3 @@ ds['//TaxId/text()']
 \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}},
 \code{\link{database}}.
 }
-

@@ -17,4 +17,3 @@ xset(doc, path, ...)
 Extract a node set from an XML document
 }
 \keyword{internal}
-

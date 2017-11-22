@@ -25,6 +25,7 @@ Retrieve a http or XML parsing error from an \code{\linkS4class{eutil}} object.
 \itemize{
 \item \code{eutil}: a http or XML parsing error from an \code{eutil} object.
 }}
+
 \examples{
 \dontrun{
 e <- efetch("Nonsensical_accession_nr", "protein", rettype = "fasta")
@@ -36,4 +37,3 @@ getError(e)
    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 }
-

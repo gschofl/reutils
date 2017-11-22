@@ -2,17 +2,17 @@
 % Please edit documentation in R/eutil.R
 \docType{class}
 \name{eutil-class}
-\alias{ecitmatch-class}
-\alias{efetch-class}
-\alias{egquery-class}
+\alias{eutil-class}
+\alias{eutil}
 \alias{einfo-class}
+\alias{esearch-class}
+\alias{esummary-class}
+\alias{efetch-class}
 \alias{elink-class}
 \alias{epost-class}
-\alias{esearch-class}
+\alias{egquery-class}
 \alias{espell-class}
-\alias{esummary-class}
-\alias{eutil}
-\alias{eutil-class}
+\alias{ecitmatch-class}
 \title{Class \code{"eutil"}: Reference classes that hold the response from EUtils
 requests.}
 \description{
@@ -37,6 +37,7 @@ constructor functions \code{\link{einfo}}, \code{\link{esearch}},
 
 \item{\code{content}}{Result of an Entrez request stored as a character vector.}
 }}
+
 \section{Methods}{
 
 \describe{
@@ -62,6 +63,7 @@ and an attribute name}
 
 \item{\code{xmlValue(xpath, as = "character", default = NA_character_)}}{Extract the text value of XML leaf nodes given a valid XPath expression.}
 }}
+
 \section{Extends}{
  All reference classes extend and inherit methods from
     \code{"\linkS4class{envRefClass}"}. Furthermore, \code{"einfo"},
@@ -69,6 +71,7 @@ and an attribute name}
     \code{"epost"}, \code{"egquery"}, \code{"espell"}, and \code{"ecitmatch"}
     all extend the \code{"eutil"} class.
 }
+
 \examples{
 showClass("eutil")
 }
@@ -80,4 +83,3 @@ showClass("eutil")
 }
 \keyword{classes}
 \keyword{internal}
-

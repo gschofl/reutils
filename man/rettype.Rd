@@ -28,6 +28,7 @@ for the available retrieval types for different NCBI databases.
 \item \code{eutil}: Access the \dQuote{retrieval type} of an \code{eutil}
 object.
 }}
+
 \examples{
 \dontrun{
 e <- esearch("Mus musculus", "taxonomy")
@@ -39,4 +40,3 @@ rettype(e)
    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 }
-

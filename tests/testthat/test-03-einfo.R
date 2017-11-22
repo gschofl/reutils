@@ -42,12 +42,9 @@ if (getOption('reutils.test.remote')) {
   })
   
   test_that("'getUrl()' returns the query url", {
-    expect_that(getUrl(a), 
-                matches("^https://eutils\\.ncbi\\.nlm\\.nih\\.gov/entrez/eutils/einfo.+"))
-    expect_that(getUrl(b), 
-                matches("^https://eutils\\.ncbi\\.nlm\\.nih\\.gov/entrez/eutils/einfo\\.fcgi\\?retmode=json.+"))
-    expect_that(getUrl(c), 
-                matches("^https://eutils\\.ncbi\\.nlm\\.nih\\.gov/entrez/eutils/einfo\\.fcgi\\?db=gene.+"))
+    expect_match(getUrl(a), "^https://eutils\\.ncbi\\.nlm\\.nih\\.gov/entrez/eutils/einfo.+")
+    expect_match(getUrl(b), "^https://eutils\\.ncbi\\.nlm\\.nih\\.gov/entrez/eutils/einfo\\.fcgi\\?retmode=json.+")
+    expect_match(getUrl(c),  "^https://eutils\\.ncbi\\.nlm\\.nih\\.gov/entrez/eutils/einfo\\.fcgi\\?db=gene.+")
   })
   
   test_that("The accessor 'getError()' returns an 'eutil_error' object", {

@@ -26,6 +26,7 @@ Retrieve the URL used to perform an Entrez E-Utilities query.
 \item \code{eutil}: etrieve the URL used to perform an Entrez E-Utilities
 query from an \code{eutil} object.
 }}
+
 \examples{
 \dontrun{
 e <- efetch("AV333213.1", "protein", rettype = "fasta")
@@ -37,4 +38,3 @@ getUrl(e)
    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 }
-

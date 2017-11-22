@@ -38,4 +38,3 @@ e2[["einforesult"]][["dbinfo"]][["description"]]
 \seealso{
 \code{\link[base]{Extract}}
 }
-

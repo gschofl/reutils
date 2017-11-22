@@ -54,4 +54,3 @@ if (x$no_errors()) {
 \seealso{
 \code{\link{content}}, \code{\link{getUrl}}, \code{\link{getError}}.
 }
-

@@ -23,4 +23,3 @@ xattr(doc, path, name, as = "character", default = NA_character_, ...)
 Extract the attributes of XML nodes
 }
 \keyword{internal}
-

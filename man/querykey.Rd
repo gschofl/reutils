@@ -3,8 +3,8 @@
 \docType{methods}
 \name{querykey}
 \alias{querykey}
-\alias{querykey,entrez_uid-method}
 \alias{querykey,epost-method}
+\alias{querykey,entrez_uid-method}
 \alias{querykey,esearch-method}
 \title{querykey}
 \usage{
@@ -36,6 +36,7 @@ the History server was used. Otherwise \code{NA}.
 
 \item \code{esearch}: Retrieve the querykey from an \code{esearch} object.
 }}
+
 \examples{
 \dontrun{
 e <- esearch("Mus musculus", "taxonomy", usehistory = TRUE)
@@ -47,4 +48,3 @@ querykey(e)
    \code{\link{efetch}}, \code{\link{elink}}, \code{\link{epost}},
    \code{\link{egquery}}, \code{\link{espell}}, \code{\link{ecitmatch}}.
 }
-

@@ -26,4 +26,3 @@ for additional information.
 e <- egquery("mouse[orgn]")
 e
 }
-
