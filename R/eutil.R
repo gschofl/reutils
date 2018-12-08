@@ -105,6 +105,7 @@ eutil <- setRefClass(
         }
         method <- match.arg(method, c("GET", "POST"))
         ## update an object with new query parameters
+        .api.key <- getOption("reutils.api.key")
         .email <- getOption("reutils.email")
         if (is.null(.email) || grepl("^Your\\.name\\.here.+", .email, ignore.case = TRUE)) {
           warning("NCBI requests that you provide an email address with each query to their API.\n",
@@ -112,10 +113,10 @@ eutil <- setRefClass(
                   " this message go away.", call. = FALSE, immediate. = FALSE)
         }
         .params <- list(...)
-        .params <- compact(Reduce(merge_list, list(.params, params, list(email = .email, tool = "reutils"))))
+        .params <- compact(Reduce(merge_list, list(.params, params, list(
+          api_key = .api.key, email = .email, tool = "reutils"))))
         .self$params <- .params
-        
-        opts <- list(connecttimeout = 10)
+        opts <- list(connecttimeout = getOption("reutils.rcurl.connecttimeout"))
         hg <- RCurl::basicHeaderGatherer()
         opts$headerfunction <- hg$update
         tg <- RCurl::basicTextGatherer()

@@ -1,5 +1,11 @@
+reutils 0.2.4
+=============
+
+* Add support for eutils API keys (#9).
+* Add vignette.
+
 reutils 0.2.3
-==================
+=============
 
 * `content(x, 'parsed')` returns `tibble`s instead of `data.frame`s where approbriate.
 * Change base URLs for NCBI services to use https instead of http (#7).

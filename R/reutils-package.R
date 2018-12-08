@@ -74,13 +74,13 @@
 #' }
 #'
 #' @section Package options:
-#'
-#' \pkg{reutils} uses three \code{\link{options}} to configure behaviour:
-#'
+#' \pkg{reutils} uses five \code{\link{options}} to configure behaviour:
 #' \itemize{
-#'   \item \code{reutils.email}: NCBI requires that a user of their API provides an
-#'      email address with a call to Entrez. If you are going to perform a lot
-#'      of queries consider setting \code{reutils.email} to your email address in
+#'   \item \code{reutils.api.key}: Starting May 2018, NCBI limits eutils queries
+#'      to 3 per second. This limit is increased to 10 per second with an API key.
+#'      If you are going to perform a lot of queries consider registering an NCBI
+#'      \href{https://www.ncbi.nlm.nih.gov/account/}{account} to obtain a key.
+#'      You can then set the \code{reutils.api.key} option to your API key in
 #'      your .Rprofile file.
 #'      
 #'   \item \code{reutils.show.headlines}: By default \code{\linkS4class{efetch}}
@@ -97,6 +97,8 @@
 #'      services are disabled by default, as they cannot be garanteed to be
 #'      available/working under all circumstances. Set the option
 #'      code{reutils.test.remote} to \code{TRUE} to run the full suite of tests.
+#'      
+#'   \item \code{reutils.rcurl.connecttimeout}: Set the connection timeout (Default: 10).
 #' }
 #'    
 #' @importFrom methods callNextMethod is new

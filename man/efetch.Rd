@@ -4,9 +4,10 @@
 \alias{efetch}
 \title{efetch - downloading full records}
 \usage{
-efetch(uid, db = NULL, rettype = NULL, retmode = NULL, outfile = NULL,
-  retstart = NULL, retmax = NULL, querykey = NULL, webenv = NULL,
-  strand = NULL, seqstart = NULL, seqstop = NULL, complexity = NULL)
+efetch(uid, db = NULL, rettype = NULL, retmode = NULL,
+  outfile = NULL, retstart = NULL, retmax = NULL, querykey = NULL,
+  webenv = NULL, strand = NULL, seqstart = NULL, seqstop = NULL,
+  complexity = NULL)
 }
 \arguments{
 \item{uid}{(Required) A list of UIDs provided either as a character vector, as an

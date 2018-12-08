@@ -1,0 +1,234 @@
+---
+title: "Introduction to reutils"
+author: "Gerhard Schöfl"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+hook_output <- knitr::knit_hooks$get("output")
+knitr::knit_hooks$set(output = function(x, options) {
+  lines <- options$output.lines
+  if (is.null(lines)) {
+    return(hook_output(x, options))
+  }
+  x <- unlist(strsplit(x, "\n"))
+  more <- "..."
+  if (length(lines) == 1) {
+    if (length(x) > lines) {
+      x <- c(head(x, lines), more)
+    }
+  } else {
+    x <- c(if (abs(lines[1]) > 1 | lines[1] < 0) more else NULL,
+           x[lines],
+           if (length(x) > lines[abs(length(lines))]) more else NULL
+    )
+  }
+  x <- paste(c(x, ""), collapse = "\n")
+  hook_output(x, options)
+}) 
+options(reutils.api.key = NULL)
+options(reutils.rcurl.connecttimeout = 50)
+library(reutils)
+```
+
+`reutils` is an R package for interfacing with NCBI databases such as PubMed,
+Genbank, or GEO via the Entrez Programming Utilities
+([EUtils](https://www.ncbi.nlm.nih.gov/books/NBK25501/)). It provides access to the
+nine basic *eutils*: `einfo`, `esearch`, `esummary`, `epost`, `efetch`, `elink`,
+`egquery`, `espell`, and `ecitmatch`.
+
+Please check the relevant
+[usage guidelines](https://www.ncbi.nlm.nih.gov/books/NBK25497/#chapter2.Usage_Guidelines_and_Requiremen)
+when using these services. Note that Entrez server requests are subject to frequency limits.
+Consider obtaining an NCBI API key if are a heavy user of E-utilities.
+
+## Important functions ##
+
+With nine E-Utilities, NCBI provides a programmatical interface to the Entrez query and database system for searching and retrieving requested data
+
+Each of these tools corresponds to an `R` function in the reutils package described below.
+
+#### `esearch` ####
+
+`esearch`: search and retrieve a list of primary UIDs or the NCBI History
+Server information (queryKey and webEnv). The objects returned by `esearch`
+can be passed on directly to `epost`, `esummary`, `elink`, or `efetch`.
+
+
+#### `efetch` ####
+
+`efetch`: retrieve data records from NCBI in a specified retrieval type
+and retrieval mode as given in this
+[table](https://www.ncbi.nlm.nih.gov/books/NBK25499/table/chapter4.T._valid_values_of__retmode_and/?report=objectonly). Data are returned as XML or text documents.
+
+#### `esummary` ####
+
+`esummary`: retrieve Entrez database summaries (DocSums) from a list of primary UIDs (Provided as a character vector or as an `esearch` object)
+
+#### `elink` ####
+
+`elink`: retrieve a list of UIDs (and relevancy scores) from a target database
+that are related to a set of UIDs provided by the user. The objects returned by
+`elink` can be passed on directly to `epost`, `esummary`, or `efetch`.
+
+#### `einfo` ####
+
+`einfo`: provide field names, term counts, last update, and available updates
+for each database.
+
+#### `epost` ####
+
+`epost`: upload primary UIDs to the users's Web Environment on the Entrez
+history server for subsequent use with `esummary`, `elink`, or `efetch`.
+
+
+## Examples
+
+### `esearch`: Searching the Entrez databases ###
+
+Let's search PubMed for articles with Chlamydia psittaci in the title that have
+been published in 2013 and retrieve a list of PubMed IDs (PMIDs).
+
+```{r, eval=TRUE, echo=TRUE}
+pmid <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed")
+pmid
+```
+
+Alternatively we can collect the PMIDs on the history server.
+
+```{r, eval=TRUE, echo=TRUE}
+pmid2 <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed", usehistory = TRUE)
+pmid2
+```
+
+We can also use `esearch` to search GenBank. Here we do a search for polymorphic
+membrane proteins (PMPs) in Chlamydiaceae.
+
+```{r, eval=TRUE, echo=TRUE, output.lines=20}
+cpaf <- esearch("Chlamydiaceae[orgn] and PMP[gene]", "nucleotide")
+cpaf
+```
+
+Some accessors for `esearch` objects
+
+```{r, eval=TRUE, echo=TRUE}
+getUrl(cpaf)
+```
+
+
+```{r, eval=TRUE, echo=TRUE}
+getError(cpaf)
+```
+
+```{r, eval=TRUE, echo=TRUE}
+database(cpaf)
+```
+
+Extract a vector of GIs:
+
+```{r, eval=TRUE, echo=TRUE}
+uid(cpaf)
+```
+
+Get query key and web environment:
+
+```{r, eval=TRUE, echo=TRUE}
+querykey(pmid2)
+
+```
+
+```{r, eval=TRUE, echo=TRUE}
+webenv(pmid2)
+```
+
+Extract the content of an EUtil request as XML.
+
+```{r, eval=TRUE, echo=TRUE, output.lines=20}
+content(cpaf, "xml")
+```
+
+Or extract parts of the XML data using the reference class method `#xmlValue()`
+and an XPath expression:
+
+```{r, eval=TRUE, echo=TRUE}
+cpaf$xmlValue("//Id")
+```
+
+### `esummary`: Retrieving summaries from primary IDs ###
+
+`esummary` retrieves document summaries (*docsum*s) from a list of primary IDs.
+Let's find out what the first entry for PMP is about:
+
+```{r, eval=TRUE, echo=TRUE, output.lines=20}
+esum <- esummary(cpaf[1])
+esum
+```
+
+We can also parse *docsum*s into a `tibble`
+
+```{r, eval=TRUE, echo=TRUE}
+esum <- esummary(cpaf[1:4])
+content(esum, "parsed")
+```
+
+### `efetch`: Downloading full records from Entrez ###
+
+First we search the protein database for sequences of the 
+**c**hlamydial **p**rotease **a**ctivity **f**actor, 
+[CPAF](http://dx.doi.org/10.1016/j.tim.2009.07.007)
+
+```{r, eval=TRUE, echo=TRUE}
+cpaf <- esearch("Chlamydia[orgn] and CPAF", "protein")
+cpaf
+```
+
+Let's fetch the FASTA record for the first protein. To do that, we have to
+set `rettype = "fasta"` and `retmode = "text"`:
+
+```{r, eval=TRUE, echo=TRUE}
+cpaff <- efetch(cpaf[1], rettype = "fasta", retmode = "text")
+cpaff
+```
+
+Now we can write the sequence to a fasta file by first extracting the data from
+the `efetch` object using `content()`:
+
+```{r, eval=TRUE, echo=TRUE}
+write(content(cpaff), file = "~/cpaf.fna")
+```
+
+```{r, eval=TRUE, echo=TRUE, output.lines=20}
+cpafx <- efetch(cpaf, rettype = "fasta", retmode = "xml")
+cpafx
+```
+
+```{r, eval=TRUE, echo=TRUE, output.lines=20}
+aa <- cpafx$xmlValue("//TSeq_sequence")
+aa
+defline <- cpafx$xmlValue("//TSeq_defline")
+defline
+```
+
+### `einfo`: Information about the Entrez databases ###
+
+You can use `einfo` to obtain a list of all database names accessible through
+the Entrez utilities:
+
+```{r, eval=TRUE, echo=TRUE}
+einfo()
+```
+
+For each of these databases, we can use `einfo` again to obtain more information:
+
+```{r, eval=TRUE, echo=TRUE}
+einfo("taxonomy")
+```

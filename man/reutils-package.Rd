@@ -7,9 +7,9 @@
 \title{reutils: Talk to the NCBI EUtils}
 \description{
 An interface to NCBI databases such as PubMed, GenBank, or GEO
-powered by the Entrez Programming Utilities (EUtils). The nine EUtils
-provide programmatic access to the NCBI Entrez query and database
-system for searching and retrieving biological data.
+    powered by the Entrez Programming Utilities (EUtils). The nine EUtils
+    provide programmatic access to the NCBI Entrez query and database
+    system for searching and retrieving biological data.
 }
 \details{
 With nine \href{https://www.ncbi.nlm.nih.gov/books/NBK25501/}{Entrez Progamming Utilities},
@@ -89,13 +89,13 @@ frequency limits.
 
 \section{Package options}{
 
-
-\pkg{reutils} uses three \code{\link{options}} to configure behaviour:
-
+\pkg{reutils} uses five \code{\link{options}} to configure behaviour:
 \itemize{
-  \item \code{reutils.email}: NCBI requires that a user of their API provides an
-     email address with a call to Entrez. If you are going to perform a lot
-     of queries consider setting \code{reutils.email} to your email address in
+  \item \code{reutils.api.key}: Starting May 2018, NCBI limits eutils queries
+     to 3 per second. This limit is increased to 10 per second with an API key.
+     If you are going to perform a lot of queries consider registering an NCBI
+     \href{https://www.ncbi.nlm.nih.gov/account/}{account} to obtain a key.
+     You can then set the \code{reutils.api.key} option to your API key in
      your .Rprofile file.
      
   \item \code{reutils.show.headlines}: By default \code{\linkS4class{efetch}}
@@ -112,6 +112,8 @@ frequency limits.
      services are disabled by default, as they cannot be garanteed to be
      available/working under all circumstances. Set the option
      code{reutils.test.remote} to \code{TRUE} to run the full suite of tests.
+     
+  \item \code{reutils.rcurl.connecttimeout}: Set the connection timeout (Default: 10).
 }
 }
 

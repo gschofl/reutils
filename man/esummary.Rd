@@ -4,8 +4,8 @@
 \alias{esummary}
 \title{esummary - downloading Document Summaries}
 \usage{
-esummary(uid, db = NULL, retstart = 1, retmax = 10000, querykey = NULL,
-  webenv = NULL, retmode = "xml", version = "2.0")
+esummary(uid, db = NULL, retstart = 1, retmax = 10000,
+  querykey = NULL, webenv = NULL, retmode = "xml", version = "2.0")
 }
 \arguments{
 \item{uid}{(Required)
