@@ -1,6 +1,6 @@
 ## Test environments
 
-* local ubuntu 18.04 install, R 3.5.1
+* local ubuntu 20.04 install, R 4.0.2
 * win-builder (devel and release)
 
 ## R CMD check results
