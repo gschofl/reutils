@@ -4,10 +4,23 @@
 \alias{esearch}
 \title{esearch - searching an Entrez database}
 \usage{
-esearch(term, db = "nuccore", rettype = "uilist", retmode = "xml",
-  retstart = 0, retmax = 100, usehistory = FALSE, webenv = NULL,
-  querykey = NULL, sort = NULL, field = NULL, datetype = NULL,
-  reldate = NULL, mindate = NULL, maxdate = NULL)
+esearch(
+  term,
+  db = "nuccore",
+  rettype = "uilist",
+  retmode = "xml",
+  retstart = 0,
+  retmax = 100,
+  usehistory = FALSE,
+  webenv = NULL,
+  querykey = NULL,
+  sort = NULL,
+  field = NULL,
+  datetype = NULL,
+  reldate = NULL,
+  mindate = NULL,
+  maxdate = NULL
+)
 }
 \arguments{
 \item{term}{A valid Entrez text query.}

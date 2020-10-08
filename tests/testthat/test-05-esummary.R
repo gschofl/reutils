@@ -4,6 +4,7 @@
 context("Testing 'esummary()'")
 
 if (getOption('reutils.test.remote')) {
+
   x <- esearch(term = "Chlamydia psittaci", db = "nuccore", retmax = 2)
   a <- esummary(x)
   

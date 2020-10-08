@@ -68,7 +68,7 @@ if (getOption('reutils.test.remote')) {
   
   test_that("#perform_query updates an existing query", {
     a$perform_query(retmax = 10, usehistory = "y")
-    expect_match(webenv(a), "^NCID_\\d_\\d+_.+")
+    expect_match(webenv(a), "^MCID_.+")
     expect_equal(querykey(a), 1)
   })
   

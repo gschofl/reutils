@@ -1,6 +1,4 @@
 #' @include eutil-error.R
-#' @importFrom RCurl basicHeaderGatherer basicTextGatherer curlEscape postForm
-#'   getURLContent
 NULL
 
 #' Class \code{"eutil"}: Reference classes that hold the response from EUtils
@@ -117,51 +115,47 @@ eutil <- setRefClass(
           api_key = .api.key, email = .email, tool = "reutils"))))
         .self$params <- .params
         opts <- list(connecttimeout = getOption("reutils.rcurl.connecttimeout"))
-        hg <- RCurl::basicHeaderGatherer()
-        opts$headerfunction <- hg$update
-        tg <- RCurl::basicTextGatherer()
-        opts$writefunction <- tg$update
         
+        h <- curl::new_handle()
+        curl::handle_setopt(h, .list = opts)
         if (method == "POST") {
-          e <- tryCatch({
-            RCurl::postForm(query_url("POST"), .params = .self$params,
-                            .opts = opts, style = "POST")
-          }, error = function(e) e$message)
-        } else if (method == "GET") {
-          if (verbose) {
-            cat(ellipsize(query_url("GET")), "\n")
-          }
-          e <- tryCatch({
-            RCurl::getURLContent(query_url("GET"), .opts = opts)
-          }, error = function(e) e$message)
+          curl::handle_setform(h, .list = .params)
         }
-        .self$content <- as.character(tg$value())
-        if (is.null(e) || !nzchar(e)) {
-          header <- as.list(tryCatch(hg$value()), error = function(e) {
-            c(status = 500, statusMessage = e$message)
-          })
-          status <- as.numeric(header$status)
-          statusmsg <- header$statusMessage
+        if (verbose) {
+          cat(ellipsize(query_url("GET")), "\n")
+        }
+        req <- tryCatch({
+          curl::curl_fetch_memory(url = query_url("GET"), handle = h)
+        }, error = function(e) e$message)
+        if (is(req, "list")) {
+          .self$content <- rawToChar(req$content)
+          status <- req$status_code
+          statusmsg <- ""
           if (status != 200) {
-            .self$errors$error <- paste0("HTTP error: Status ", status, "; ", statusmsg)
-            warning(errors$error, call. = FALSE, immediate. = TRUE)
+            .self$errors$error <- paste0("HTTPS error: Status ", status, "; ", statusmsg)
+            warning(.self$errors$error, call. = FALSE, immediate. = TRUE)
           }
-        } else {
-          .self$errors$error <- paste0("CurlError: ", e)
-          warning(errors$error, call. = FALSE, immediate. = TRUE)
+        } 
+        else if (is.character(req)) {
+          .self$errors$error <- paste0("CurlError: ", req)
+          warning(.self$errors$error, call. = FALSE, immediate. = TRUE)
+        }
+        else {
+          warning("Undefined error occured", call. = FALSE, immediate. = TRUE)
         }
       },
       ##
       ## helper methods (undocumented)
       ##
       query_url = function(method) {
+        #host <- "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
         host <- switch(eutil(),
                        egquery = "https://eutils.ncbi.nlm.nih.gov/gquery",
                        ecitmatch = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/ecitmatch.cgi",
                        paste0("https://eutils.ncbi.nlm.nih.gov/entrez/eutils/", eutil(), ".fcgi")
         )
         if (method == "GET") {
-          fields <- paste(RCurl::curlEscape(names(.self$params)), RCurl::curlEscape(.self$params),
+          fields <- paste(curl::curl_escape(names(.self$params)), curl::curl_escape(.self$params),
                           sep = "=", collapse = "&")
           paste0(host, "?", fields)
         } else {

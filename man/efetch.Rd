@@ -4,10 +4,21 @@
 \alias{efetch}
 \title{efetch - downloading full records}
 \usage{
-efetch(uid, db = NULL, rettype = NULL, retmode = NULL,
-  outfile = NULL, retstart = NULL, retmax = NULL, querykey = NULL,
-  webenv = NULL, strand = NULL, seqstart = NULL, seqstop = NULL,
-  complexity = NULL)
+efetch(
+  uid,
+  db = NULL,
+  rettype = NULL,
+  retmode = NULL,
+  outfile = NULL,
+  retstart = NULL,
+  retmax = NULL,
+  querykey = NULL,
+  webenv = NULL,
+  strand = NULL,
+  seqstart = NULL,
+  seqstop = NULL,
+  complexity = NULL
+)
 }
 \arguments{
 \item{uid}{(Required) A list of UIDs provided either as a character vector, as an
@@ -99,7 +110,7 @@ write(content(p, "text"), file = "~/AAD15290.gp")
 acc <- efetch(c("1621261", "89318838", "68536103", "20807972", "730439"),
               "protein", rettype = "acc")
 acc
-acc <- strsplit(content(acc), "\\n")[[1]]
+acc <- strsplit(content(acc), "\n")[[1]]
 acc
 
 ## Get GIs from a list of accession numbers

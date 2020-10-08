@@ -34,7 +34,7 @@ if (getOption('reutils.test.remote')) {
   
   test_that("'querykey', 'webenv', and 'database' return the appropriate results", {
     expect_equal(querykey(a), 1)
-    expect_match(webenv(a), "NCID_+")
+    expect_match(webenv(a), "^MCID_.+")
     expect_equal(database(a), "pubmed")
     
     expect_equal(querykey(b), NA_integer_)

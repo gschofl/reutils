@@ -1,8 +1,9 @@
-reutils 0.2.4
+reutils 0.2.5
 =============
 
 * Add support for eutils API keys (#9).
 * Add vignette.
+* Depend on `curl` instead of `RCurl`
 
 reutils 0.2.3
 =============

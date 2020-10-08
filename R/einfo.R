@@ -71,7 +71,7 @@ extract_df <- function(x, path) {
   if (!all(is.na(nm))) {
     nodes <- xset(x, paste0(path, "*"))
     list <- split(vapply(nodes, XML::xmlValue, ""), nm)
-    tibble::as_tibble(list, validate = TRUE)[, nm]
+    tibble::as_tibble(list)[, nm]
   } else {
     tibble::tibble()
   }

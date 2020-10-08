@@ -2,7 +2,6 @@
 % Please edit documentation in R/eutil.R, R/ecitmatch.R, R/efetch.R,
 %   R/egquery.R, R/einfo.R, R/elink.R, R/epost.R, R/esearch.R, R/espell.R,
 %   R/esummary.R
-\docType{methods}
 \name{content}
 \alias{content}
 \alias{content,eutil-method}

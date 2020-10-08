@@ -4,10 +4,23 @@
 \alias{elink}
 \title{elink - finding related data through Entrez links}
 \usage{
-elink(uid, dbFrom = NULL, dbTo = NULL, linkname = NULL,
-  usehistory = FALSE, cmd = "neighbor", correspondence = FALSE,
-  querykey = NULL, webenv = NULL, term = NULL, holding = NULL,
-  datetype = NULL, reldate = NULL, mindate = NULL, maxdate = NULL)
+elink(
+  uid,
+  dbFrom = NULL,
+  dbTo = NULL,
+  linkname = NULL,
+  usehistory = FALSE,
+  cmd = "neighbor",
+  correspondence = FALSE,
+  querykey = NULL,
+  webenv = NULL,
+  term = NULL,
+  holding = NULL,
+  datetype = NULL,
+  reldate = NULL,
+  mindate = NULL,
+  maxdate = NULL
+)
 }
 \arguments{
 \item{uid}{(Required) A character vector of UIDs.}

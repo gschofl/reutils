@@ -105,8 +105,8 @@ esummary <- function(uid, db = NULL, retstart = 1, retmax = 10000,
   .esummary(method = if (length(params$uid) < 100) "GET" else "POST",
             db = params$db, id = .collapse(params$uid),
             query_key = params$querykey, WebEnv = params$webenv, 
-            retstart = retstart, retmax = retmax, retmode = retmode,
-            version = if (version == "2.0") "2.0" else NULL)
+            retstart = as.character(retstart), retmax = as.character(retmax),
+            retmode = retmode, version = if (version == "2.0") "2.0" else NULL)
 }
 
 #' @describeIn content Access the data content from an \code{esummary} request.

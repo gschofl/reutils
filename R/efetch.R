@@ -177,6 +177,9 @@ efetch <- function(uid, db = NULL, rettype = NULL, retmode = NULL,
   # set default rettype and retmode for a given db
   r <- ncbi_retrieval_type(params$db, rettype %||% "", retmode)
   
+  if (is.null(retstart)) {
+    retstart <- 0
+  }
   if (is.null(retmax)) {
     retmax <- Inf
   }
@@ -214,17 +217,19 @@ efetch <- function(uid, db = NULL, rettype = NULL, retmode = NULL,
       ans <- .efetch(method = if (length(params$uid) < 100) "GET" else "POST",
                      db = params$db, id = .collapse(params$uid),
                      query_key = params$querykey, WebEnv = params$webenv, 
-                     retmode = r$retmode, rettype = r$rettype, retstart = retstart,
-                     retmax = retmax, strand = strand, seq_start = seqstart,
-                     seq_stop = seqstop, complexity = complexity)
+                     retmode = r$retmode, rettype = r$rettype, 
+                     retstart = as.character(retstart), retmax = as.character(retmax),
+                     strand = strand, seq_start = seqstart, seq_stop = seqstop,
+                     complexity = complexity)
       writeLines(ans$get_content("text"), con = out)
       invisible(outfile)
     } else {
       .efetch(method = if (length(params$uid) < 100) "GET" else "POST",
               db = params$db, id = .collapse(params$uid),
               query_key = params$querykey, WebEnv = params$webenv, 
-              retmode = r$retmode, rettype = r$rettype, retstart = retstart,
-              retmax = retmax, strand = strand, seq_start = seqstart,
+              retmode = r$retmode, rettype = r$rettype, 
+              retstart = as.character(retstart), retmax = as.character(retmax),
+              strand = strand, seq_start = seqstart,
               seq_stop = seqstop, complexity = complexity)
     }
   }

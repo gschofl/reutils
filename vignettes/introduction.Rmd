@@ -96,17 +96,17 @@ history server for subsequent use with `esummary`, `elink`, or `efetch`.
 ### `esearch`: Searching the Entrez databases ###
 
 Let's search PubMed for articles with Chlamydia psittaci in the title that have
-been published in 2013 and retrieve a list of PubMed IDs (PMIDs).
+been published in 2020 and retrieve a list of PubMed IDs (PMIDs).
 
 ```{r, eval=TRUE, echo=TRUE}
-pmid <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed")
+pmid <- esearch("Chlamydia psittaci[titl] and 2020[pdat]", "pubmed")
 pmid
 ```
 
 Alternatively we can collect the PMIDs on the history server.
 
 ```{r, eval=TRUE, echo=TRUE}
-pmid2 <- esearch("Chlamydia psittaci[titl] and 2013[pdat]", "pubmed", usehistory = TRUE)
+pmid2 <- esearch("Chlamydia psittaci[titl] and 2020[pdat]", "pubmed", usehistory = TRUE)
 pmid2
 ```
 

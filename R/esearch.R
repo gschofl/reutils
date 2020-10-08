@@ -239,10 +239,11 @@ esearch <- function(term, db = "nuccore", rettype = "uilist", retmode = "xml",
   .esearch(method = if (nchar(term) < 100) "GET" else "POST",
            term = .escape(term), db = db, 
            usehistory = if (usehistory) "y" else NULL,
-           WebEnv = webenv, query_key = querykey, retstart = retstart,
-           retmax = if (usehistory) 0 else retmax, rettype = rettype,
+           WebEnv = webenv, query_key = querykey, retstart = as.character(retstart),
+           retmax = as.character(if (usehistory) 0 else retmax), rettype = rettype,
            retmode = retmode, sort = sort, field = field, datetype = datetype,
-           reldate = reldate, mindate = mindate, maxdate = maxdate)
+           reldate = as.character(reldate) %|char|% NULL, mindate = mindate, 
+           maxdate = maxdate)
 }
 
 #' @describeIn content Access the data content from an \code{esearch} request.
