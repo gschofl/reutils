@@ -373,7 +373,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt; Web Environment for the &#39;pubmed&#39; database.</span></span>
 <span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; Number of UIDs stored on the History server: 17</span></span>
 <span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; Query Key: 1</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; WebEnv: MCID_5f7f3b152bcea234814c2236</span></span></code></pre></div>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; WebEnv: MCID_5f7f425c6377c3335612d79c</span></span></code></pre></div>
 <p>We can also use <code>esearch</code> to search GenBank. Here we do a search for polymorphic membrane proteins (PMPs) in Chlamydiaceae.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>cpaf &lt;-<span class="st"> </span><span class="kw">esearch</span>(<span class="st">&quot;Chlamydiaceae[orgn] and PMP[gene]&quot;</span>, <span class="st">&quot;nucleotide&quot;</span>)</span>
 <span id="cb3-2"><a href="#cb3-2"></a>cpaf</span>
@@ -396,7 +396,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">querykey</span>(pmid2)</span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="co">#&gt; [1] 1</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">webenv</span>(pmid2)</span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="co">#&gt; [1] &quot;MCID_5f7f3b152bcea234814c2236&quot;</span></span></code></pre></div>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="co">#&gt; [1] &quot;MCID_5f7f425c6377c3335612d79c&quot;</span></span></code></pre></div>
 <p>Extract the content of an EUtil request as XML.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">content</span>(cpaf, <span class="st">&quot;xml&quot;</span>)</span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&gt; &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span>
@@ -462,55 +462,26 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h3><code>efetch</code>: Downloading full records from Entrez</h3>
 <p>First we search the protein database for sequences of the <strong>c</strong>hlamydial <strong>p</strong>rotease <strong>a</strong>ctivity <strong>f</strong>actor, <a href="http://dx.doi.org/10.1016/j.tim.2009.07.007">CPAF</a></p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>cpaf &lt;-<span class="st"> </span><span class="kw">esearch</span>(<span class="st">&quot;Chlamydia[orgn] and CPAF&quot;</span>, <span class="st">&quot;protein&quot;</span>)</span>
-<span id="cb14-2"><a href="#cb14-2"></a>cpaf</span>
-<span id="cb14-3"><a href="#cb14-3"></a><span class="co">#&gt; Object of class &#39;esearch&#39; </span></span>
-<span id="cb14-4"><a href="#cb14-4"></a><span class="co">#&gt; List of UIDs from the &#39;protein&#39; database.</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a><span class="co">#&gt;   [1] &quot;1740844119&quot; &quot;1690612929&quot; &quot;1690612140&quot; &quot;1590752519&quot; &quot;1468362670&quot;</span></span>
-<span id="cb14-6"><a href="#cb14-6"></a><span class="co">#&gt;   [6] &quot;1390541316&quot; &quot;1388009003&quot; &quot;1304476351&quot; &quot;1205197358&quot; &quot;1205197013&quot;</span></span>
-<span id="cb14-7"><a href="#cb14-7"></a><span class="co">#&gt;  [11] &quot;1196960997&quot; &quot;1167830407&quot; &quot;1167829710&quot; &quot;1167819646&quot; &quot;1167812968&quot;</span></span>
-<span id="cb14-8"><a href="#cb14-8"></a><span class="co">#&gt;  [16] &quot;1167811336&quot; &quot;1167810779&quot; &quot;1167809436&quot; &quot;1167808506&quot; &quot;1150780591&quot;</span></span>
-<span id="cb14-9"><a href="#cb14-9"></a><span class="co">#&gt;  [21] &quot;1096224813&quot; &quot;1054715832&quot; &quot;970511880 &quot; &quot;763061928 &quot; &quot;737425953 &quot;</span></span>
-<span id="cb14-10"><a href="#cb14-10"></a><span class="co">#&gt;  [26] &quot;695827004 &quot; &quot;657885234 &quot; &quot;566141963 &quot; &quot;546198781 &quot; &quot;545649479 &quot;</span></span>
-<span id="cb14-11"><a href="#cb14-11"></a><span class="co">#&gt;  [31] &quot;545648761 &quot; &quot;520984156 &quot; &quot;520949412 &quot; &quot;504759924 &quot; &quot;504757682 &quot;</span></span>
-<span id="cb14-12"><a href="#cb14-12"></a><span class="co">#&gt;  [36] &quot;504756587 &quot; &quot;504330504 &quot; &quot;503477904 &quot; &quot;503227943 &quot; &quot;499777634 &quot;</span></span>
-<span id="cb14-13"><a href="#cb14-13"></a><span class="co">#&gt;  [41] &quot;499438719 &quot; &quot;499409418 &quot; &quot;499315665 &quot; &quot;499185655 &quot; &quot;497917205 &quot;</span></span>
-<span id="cb14-14"><a href="#cb14-14"></a><span class="co">#&gt;  [46] &quot;1853088090&quot; &quot;1853087101&quot; &quot;1853085802&quot; &quot;1853084898&quot; &quot;497558476 &quot;</span></span>
-<span id="cb14-15"><a href="#cb14-15"></a><span class="co">#&gt;  [51] &quot;497557614 &quot; &quot;505318867 &quot; &quot;497558952 &quot; &quot;503750877 &quot; &quot;1796080860&quot;</span></span>
-<span id="cb14-16"><a href="#cb14-16"></a><span class="co">#&gt;  [56] &quot;1779221650&quot; &quot;1740844407&quot; &quot;1735479057&quot; &quot;1590752124&quot; &quot;527331510 &quot;</span></span>
-<span id="cb14-17"><a href="#cb14-17"></a><span class="co">#&gt;  [61] &quot;504354663 &quot; &quot;502187753 &quot; &quot;497559629 &quot; &quot;497558818 &quot; &quot;1691271235&quot;</span></span>
-<span id="cb14-18"><a href="#cb14-18"></a><span class="co">#&gt;  [66] &quot;1690613258&quot; &quot;1690611733&quot; &quot;1176345240&quot; &quot;1167810032&quot; &quot;566141881 &quot;</span></span>
-<span id="cb14-19"><a href="#cb14-19"></a><span class="co">#&gt;  [71] &quot;1167820103&quot; &quot;1167812907&quot; &quot;1167811317&quot; &quot;1150780450&quot; &quot;504760124 &quot;</span></span>
-<span id="cb14-20"><a href="#cb14-20"></a><span class="co">#&gt;  [76] &quot;504757474 &quot; &quot;504330993 &quot; &quot;503477468 &quot; &quot;1167819613&quot; &quot;1167813646&quot;</span></span>
-<span id="cb14-21"><a href="#cb14-21"></a><span class="co">#&gt;  [81] &quot;1167812055&quot; &quot;545649834 &quot; &quot;520983701 &quot; &quot;504756851 &quot; &quot;499316208 &quot;</span></span>
-<span id="cb14-22"><a href="#cb14-22"></a><span class="co">#&gt;  [86] &quot;497558063 &quot; &quot;1176351765&quot; &quot;1167830589&quot; &quot;566141274 &quot; &quot;546198309 &quot;</span></span>
-<span id="cb14-23"><a href="#cb14-23"></a><span class="co">#&gt;  [91] &quot;504759730 &quot; &quot;499194655 &quot; &quot;1468363373&quot; &quot;1388009422&quot; &quot;1304475903&quot;</span></span>
-<span id="cb14-24"><a href="#cb14-24"></a><span class="co">#&gt;  [96] &quot;1167814130&quot; &quot;1167809415&quot; &quot;1054716803&quot; &quot;737427177 &quot; &quot;545649179 &quot;</span></span></code></pre></div>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="co">#&gt; Warning: HTTPS error: Status 429;</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>cpaf</span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="co">#&gt; Object of class &#39;esearch&#39; </span></span>
+<span id="cb14-5"><a href="#cb14-5"></a><span class="co">#&gt; [1] &quot;HTTPS error: Status 429; &quot;</span></span></code></pre></div>
 <p>Let’s fetch the FASTA record for the first protein. To do that, we have to set <code>rettype = &quot;fasta&quot;</code> and <code>retmode = &quot;text&quot;</code>:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>cpaff &lt;-<span class="st"> </span><span class="kw">efetch</span>(cpaf[<span class="dv">1</span>], <span class="dt">rettype =</span> <span class="st">&quot;fasta&quot;</span>, <span class="dt">retmode =</span> <span class="st">&quot;text&quot;</span>)</span>
-<span id="cb15-2"><a href="#cb15-2"></a>cpaff</span>
-<span id="cb15-3"><a href="#cb15-3"></a><span class="co">#&gt; Object of class &#39;efetch&#39; </span></span>
-<span id="cb15-4"><a href="#cb15-4"></a><span class="co">#&gt; &gt;WP_149305081.1 outer membrane complex protein OmcB [Chlamydia abortus]</span></span>
-<span id="cb15-5"><a href="#cb15-5"></a><span class="co">#&gt; MSKLIRRVVTVLALTSMASSFASGKIEAAAAESLATRFIASTENSNDNVLQATAKKVRFGRNKNQRQEQK</span></span>
-<span id="cb15-6"><a href="#cb15-6"></a><span class="co">#&gt; HTGAFCDKEFYPCEGGQCQSVDTTQESCYGKMYCVRVNDDCNVEISQAVPEYATVGSPYPIEILAVGKKD</span></span>
-<span id="cb15-7"><a href="#cb15-7"></a><span class="co">#&gt; CVNVVITQQLPCEVEFVSSDPATTPTSDSKLIWTIDRLGQGEKCKITVWVKPLKEGCCFTAATVCACPEL</span></span>
-<span id="cb15-8"><a href="#cb15-8"></a><span class="co">#&gt; RSYTKCGQPAICIKQEGPECACLRCPVCYKIEVCNTGSAIARNVVVDNPVPDGYTHASGQRVLSFNLGDM</span></span>
-<span id="cb15-9"><a href="#cb15-9"></a><span class="co">#&gt; RPGDSKCFSVEFCPQKRGKITNVATVSYCGGHKCSANVTTVVNEPCVQVNISGADWSYVCKPVEYTIVVS</span></span>
-<span id="cb15-10"><a href="#cb15-10"></a><span class="co">#&gt; NPGDLKLYDVVVEDTAPSGATILEAEGAEICCNKAVWCIKEMCPGETLQFKVVAKAQSPGKFTNQVVVKT</span></span>
-<span id="cb15-11"><a href="#cb15-11"></a><span class="co">#&gt; NSDCGTCTSCAEATTHWKGLAATHMCVIDTNDPICVGENTVYRICVTNRGSAEDTNVSLILKFSKELQPV</span></span>
-<span id="cb15-12"><a href="#cb15-12"></a><span class="co">#&gt; SSSGPTKGTITGNTVVFDALPKLGSKESVEFSVTLKGIAPGDARGEAILSSDTLTVPVADTENTHVY</span></span>
-<span id="cb15-13"><a href="#cb15-13"></a><span class="co">#&gt; </span></span>
-<span id="cb15-14"><a href="#cb15-14"></a><span class="co">#&gt; </span></span>
-<span id="cb15-15"><a href="#cb15-15"></a><span class="co">#&gt; ...</span></span>
-<span id="cb15-16"><a href="#cb15-16"></a><span class="co">#&gt; EFetch query using the &#39;protein&#39; database.</span></span>
-<span id="cb15-17"><a href="#cb15-17"></a><span class="co">#&gt; Query url: &#39;https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?=efe...&#39;</span></span>
-<span id="cb15-18"><a href="#cb15-18"></a><span class="co">#&gt; Retrieval type: &#39;fasta&#39;, retrieval mode: &#39;text&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>cpaff &lt;-<span class="st"> </span><span class="kw">efetch</span>(cpaf[<span class="dv">1</span>], <span class="dt">db =</span> <span class="st">&quot;protein&quot;</span>, <span class="dt">rettype =</span> <span class="st">&quot;fasta&quot;</span>, <span class="dt">retmode =</span> <span class="st">&quot;text&quot;</span>)</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="co">#&gt; Warning: HTTPS error: Status 400;</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>cpaff</span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="co">#&gt; Object of class &#39;efetch&#39; </span></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="co">#&gt; [1] &quot;HTTPS error: Status 400; &quot;</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="co">#&gt; EFetch query using the &#39;protein&#39; database.</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a><span class="co">#&gt; Query url: &#39;https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?=efe...&#39;</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a><span class="co">#&gt; Retrieval type: &#39;fasta&#39;, retrieval mode: &#39;text&#39;</span></span></code></pre></div>
 <p>Now we can write the sequence to a fasta file by first extracting the data from the <code>efetch</code> object using <code>content()</code>:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">write</span>(<span class="kw">content</span>(cpaff), <span class="dt">file =</span> <span class="st">&quot;~/cpaf.fna&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>cpafx &lt;-<span class="st"> </span><span class="kw">efetch</span>(cpaf, <span class="dt">rettype =</span> <span class="st">&quot;fasta&quot;</span>, <span class="dt">retmode =</span> <span class="st">&quot;xml&quot;</span>)</span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="co">#&gt; Warning: HTTPS error: Status 429;</span></span>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>cpafx &lt;-<span class="st"> </span><span class="kw">efetch</span>(cpaf, <span class="dt">db =</span> <span class="st">&quot;protein&quot;</span>, <span class="dt">rettype =</span> <span class="st">&quot;fasta&quot;</span>, <span class="dt">retmode =</span> <span class="st">&quot;xml&quot;</span>)</span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="co">#&gt; Warning: HTTPS error: Status 400;</span></span>
 <span id="cb17-3"><a href="#cb17-3"></a>cpafx</span>
 <span id="cb17-4"><a href="#cb17-4"></a><span class="co">#&gt; Object of class &#39;efetch&#39; </span></span>
-<span id="cb17-5"><a href="#cb17-5"></a><span class="co">#&gt; [1] &quot;HTTPS error: Status 429; &quot;</span></span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="co">#&gt; [1] &quot;HTTPS error: Status 400; &quot;</span></span>
 <span id="cb17-6"><a href="#cb17-6"></a><span class="co">#&gt; EFetch query using the &#39;protein&#39; database.</span></span>
 <span id="cb17-7"><a href="#cb17-7"></a><span class="co">#&gt; Query url: &#39;https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?=efe...&#39;</span></span>
 <span id="cb17-8"><a href="#cb17-8"></a><span class="co">#&gt; Retrieval type: &#39;fasta&#39;, retrieval mode: &#39;xml&#39;</span></span></code></pre></div>

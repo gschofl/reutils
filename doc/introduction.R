@@ -78,14 +78,14 @@ cpaf <- esearch("Chlamydia[orgn] and CPAF", "protein")
 cpaf
 
 ## ---- eval=TRUE, echo=TRUE----------------------------------------------------
-cpaff <- efetch(cpaf[1], rettype = "fasta", retmode = "text")
+cpaff <- efetch(cpaf[1], db = "protein", rettype = "fasta", retmode = "text")
 cpaff
 
 ## ---- eval=TRUE, echo=TRUE----------------------------------------------------
 write(content(cpaff), file = "~/cpaf.fna")
 
 ## ---- eval=TRUE, echo=TRUE, output.lines=20-----------------------------------
-cpafx <- efetch(cpaf, rettype = "fasta", retmode = "xml")
+cpafx <- efetch(cpaf, db = "protein", rettype = "fasta", retmode = "xml")
 cpafx
 
 ## ---- eval=TRUE, echo=TRUE, output.lines=20-----------------------------------

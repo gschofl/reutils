@@ -4,7 +4,7 @@ author: "Gerhard Schöfl"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Introduction to reutils}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -195,7 +195,7 @@ Let's fetch the FASTA record for the first protein. To do that, we have to
 set `rettype = "fasta"` and `retmode = "text"`:
 
 ```{r, eval=TRUE, echo=TRUE}
-cpaff <- efetch(cpaf[1], rettype = "fasta", retmode = "text")
+cpaff <- efetch(cpaf[1], db = "protein", rettype = "fasta", retmode = "text")
 cpaff
 ```
 
@@ -207,7 +207,7 @@ write(content(cpaff), file = "~/cpaf.fna")
 ```
 
 ```{r, eval=TRUE, echo=TRUE, output.lines=20}
-cpafx <- efetch(cpaf, rettype = "fasta", retmode = "xml")
+cpafx <- efetch(cpaf, db = "protein", rettype = "fasta", retmode = "xml")
 cpafx
 ```
 

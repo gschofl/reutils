@@ -2,7 +2,6 @@ Package: reutils
 Type: Package
 Title: Talk to the NCBI EUtils
 Version: 0.2.5
-Date: 2018-12-08
 Author: Gerhard Schöfl <gerhard.schofl@gmail.com>
 Maintainer: Gerhard Schöfl <gerhard.schofl@gmail.com>
 Description: An interface to NCBI databases such as PubMed, GenBank, or GEO
